@@ -1,0 +1,99 @@
+package network;
+
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+
+/**
+ * The Servant takes updates to the game state from it's 
+ * Master, updates the local game copy. The Servant notifies
+ * it's master of player events.
+ * 
+ * @author Marielle
+ *
+ */
+public class Servant extends Thread implements KeyListener, MouseListener{
+	//field for a game board
+	/** The socket user to communicate with it's assigned Master*/
+	private final Socket socket;
+	private DataOutputStream output;
+	private DataInputStream input;
+	private int uid;
+	
+	public Servant(Socket socket){
+		this.socket = socket;
+	}
+	
+	public void run(){
+		
+	}
+	
+	/**
+	 * Passes information to the Master, which handles the game interactions which 
+	 * then occur as a result of this key press
+	 */
+	@Override
+	public void keyPressed(KeyEvent ke) {
+		try {
+			int code = ke.getKeyCode();
+			if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {													
+				//write the event to output
+			} else if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {				
+				//write the event to output
+			} else if(code == KeyEvent.VK_UP) {				
+				//write the event to output
+			} else if(code == KeyEvent.VK_DOWN) {						
+				//write the event to output
+			}
+			output.flush();
+		} catch(IOException ioe) {
+			// something went wrong trying to communicate the key press to the
+			// server. Print an error message to the client.
+			System.out.println(ioe.getMessage());
+		}
+	}
+	
+	/**
+	 * This sends the co-ordinates to the server when the mouse is clicked.
+	 * 
+	 * ***Maybe do a check for whether it's in bounds first to prevent sending more than necessary***
+	 * 
+	 * @param me
+	 */
+	@Override
+	public void mouseClicked(MouseEvent me) {
+		try{
+			output.writeInt(me.getX());
+			output.writeInt(me.getY());
+			output.flush();
+		}
+		catch(IOException ioe){
+			//error trying to communicate the mouse click to the server so we print
+			//an error
+			System.out.println(ioe.getMessage());
+		}
+	}
+
+	
+	/******************************************************
+	 * 				Unused Required Methods 
+	 *****************************************************/
+	@Override
+	public void keyReleased(KeyEvent arg0){}
+
+	@Override
+	public void keyTyped(KeyEvent arg0){}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0){}
+
+	@Override
+	public void mouseExited(MouseEvent arg0){}
+
+	@Override
+	public void mousePressed(MouseEvent arg0){}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0){}
+
+}
