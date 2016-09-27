@@ -37,7 +37,7 @@ public class SpriteSet {
 	 * accessed from the map when needed.
 	 */
 	private void loadSprites(){
-		
+		//FIXME after spritesheet is generated
 	}
 	
 	/**
