@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  * to render into the room.
  * 
  * 
- * @author Brooke
+ * @author Brooke 300321819
  *
  */
 public class SpriteSet {
