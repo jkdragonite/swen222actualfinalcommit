@@ -14,7 +14,7 @@ import java.net.*;
  * @author Marielle
  *
  */
-public class Master extends Thread{
+public final class Master extends Thread{
 	//field for game world/level
 	private int broadcastClock;
 	/** The socket user to communicate with it's assigned Servant*/
@@ -34,7 +34,8 @@ public class Master extends Thread{
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 			
-			//initialize a game window for the client connected 
+			//initialize a game window for the client connected
+			output.writeInt(uid);
 			
 			//start the listening and processing, 
 			//as well as the updates every so often
@@ -43,7 +44,38 @@ public class Master extends Thread{
 				try{
 					//check for inputs and react to them
 					if(input.available() != 0) {
-						int dir = input.readInt();
+						//read the character identifier denoting the event
+						char id = input.readChar();
+						switch(id){
+						case 'k': 
+							//read the directional identifier
+							int dir = input.readInt();
+							switch(dir){
+							case 1:
+								//queue the player for a left move
+								System.out.println("Player " + uid + "wants to move left");
+								break;
+							case 2:
+								//queue the player for a right move
+								System.out.println("Player " + uid + "wants to move right");
+								break;
+							case 3:
+								//queue the player for an up move
+								System.out.println("Player " + uid + "wants to move up");
+								break;
+							case 4: 
+								//queue the player for a down move
+								System.out.println("Player " + uid + "wants to move down");
+								break;
+							}
+						case 'm':
+							int x = input.readInt();
+							int y = input.readInt();
+							System.out.println("Player " + uid + "has clicked on position (" + x + ", " + y + ").");
+							//check whether x/y are in in rendering window
+							//ask the game whether there is a pickupable or movable object in that position
+							//tell game to pick it up/ push it if not
+						}
 					}
 					//broadcast the updated game state to the client
 					Thread.sleep(broadcastClock);
