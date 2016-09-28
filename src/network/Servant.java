@@ -26,26 +26,23 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	
 	public void run(){
 		try {			
+			System.out.println("SERVANT creating input and output streams");
 			output = new DataOutputStream(socket.getOutputStream());
 			input = new DataInputStream(socket.getInputStream());
 					
 			uid = input.readInt();					
 			System.out.println("PACMAN CLIENT UID: " + uid);		
 			
-			//initialize game display window
-			//game = new Board(width,height);
-			//game.wallsFromByteArray(wallBytes);	
-			//BoardFrame display = new BoardFrame("Pacman (client@" + socket.getInetAddress() + ")",game,uid,this);			
-			
 			boolean exit=false;
-
+			System.out.println("SERVANT ready to send/recieve");
 			while(!exit) {
 				//Read updated board/game
-				int amount = input.readInt(); //amount of bytes used to show the board
-				byte[] data = new byte[amount];
-				input.readFully(data);					
+				//int amount = input.readInt(); //amount of bytes used to show the board
+				//byte[] data = new byte[amount];
+				//input.readFully(data);					
 				//game.fromByteArray(data);				
-				//display.repaint(); //the 
+				//display.repaint(); //the
+				
 			}
 			//release socket!
 			socket.close(); 
@@ -64,13 +61,17 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 		try {
 			int code = ke.getKeyCode();
 			output.writeChar('k');
-			if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {													
+			if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
+				System.out.println("SERVANT SEND EVENT: left key press");
 				output.writeInt(1);
-			} else if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {				
+			} else if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {
+				System.out.println("SERVANT SEND EVENT: right key press");
 				output.writeInt(2);
 			} else if(code == KeyEvent.VK_UP) {				
+				System.out.println("SERVANT SEND EVENT: up key press");
 				output.writeInt(3);
 			} else if(code == KeyEvent.VK_DOWN) {						
+				System.out.println("SERVANT SEND EVENT: down key press");
 				output.writeInt(4);
 			}
 			output.flush();
@@ -91,6 +92,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent me) {
 		try{
+			System.out.println("SERVANT SEND EVENT: mouse click");
 			output.writeChar('m');
 			output.writeInt(me.getX());
 			output.writeInt(me.getY());

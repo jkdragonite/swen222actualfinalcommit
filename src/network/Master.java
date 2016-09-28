@@ -31,10 +31,12 @@ public final class Master extends Thread{
 	public void run(){
 		try{
 			//initialize the input and output streams for this master-client
+			System.out.println("MASTER creating input and output streams");
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 			
 			//initialize a game window for the client connected
+			System.out.println("MASTER writing uid to servant");
 			output.writeInt(uid);
 			
 			//start the listening and processing, 
@@ -53,25 +55,25 @@ public final class Master extends Thread{
 							switch(dir){
 							case 1:
 								//queue the player for a left move
-								System.out.println("Player " + uid + "wants to move left");
+								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move left");
 								break;
 							case 2:
 								//queue the player for a right move
-								System.out.println("Player " + uid + "wants to move right");
+								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move right");
 								break;
 							case 3:
 								//queue the player for an up move
-								System.out.println("Player " + uid + "wants to move up");
+								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move up");
 								break;
 							case 4: 
 								//queue the player for a down move
-								System.out.println("Player " + uid + "wants to move down");
+								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move down");
 								break;
 							}
 						case 'm':
 							int x = input.readInt();
 							int y = input.readInt();
-							System.out.println("Player " + uid + "has clicked on position (" + x + ", " + y + ").");
+							System.out.println("MASTER RCVD EVENT: Player " + uid + "has clicked on position (" + x + ", " + y + ").");
 							//check whether x/y are in in rendering window
 							//ask the game whether there is a pickupable or movable object in that position
 							//tell game to pick it up/ push it if not
