@@ -35,7 +35,7 @@ public class GameRenderer extends JComponent{
 
 	public GameRenderer(Game parent){
 
-		Dimension renderDim = new Dimension(1600, 400);
+		Dimension renderDim = new Dimension(800, 400);
 		setPreferredSize(renderDim);
 		
 		game = parent;
