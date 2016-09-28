@@ -43,7 +43,7 @@ public class GameRenderer extends JComponent{
 		Board board = room.board;
 		stage = board.grid;
 
-		//render(gra);
+		
 	}
 
 	public void rotateCW() {
@@ -80,6 +80,7 @@ public class GameRenderer extends JComponent{
 	}
 	
 	public void paint(Graphics g){
+		System.out.println("painting...");
 		render(g);
 	}
 	
@@ -104,14 +105,16 @@ public class GameRenderer extends JComponent{
 		//render the floor
 		g.fillRect(LEFT, BASE, SIZE*10, 3);
 
+		renderObject(LEFT, BASE, g);
 		//render the wall
 
 		//render the tiles
 		for (int y = 0; y < stage.length; x++){
 			for (int x = 0; x < stage.length; x++){
-				if (stage[x][y].getItem() != null){
-					renderObject(LEFT + (SIZE*y), BASE, g);
-				}
+				//if (stage[x][y].getItem() != null){
+					//renderObject(LEFT + (SIZE*y), BASE, g);
+				//}
+				//System.out.println("tile");
 			}
 		}
 
