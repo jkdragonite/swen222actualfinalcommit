@@ -25,7 +25,7 @@ public class PuzzleRoom extends Room {
 	 * 
 	 * 
 	 * @param item
-	 * @param location
+	 * @param location 
 	 */
 	public void addItem(Item item, Location location){
 		item.setLocation(location);
