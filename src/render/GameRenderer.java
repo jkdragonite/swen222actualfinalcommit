@@ -17,7 +17,6 @@ import game.*;
 public class GameRenderer {
 	
 	public enum Direction {NORTH, SOUTH, EAST, WEST, TOP}
-	Room loc = new PuzzleRoom();
 	JFrame frame;
 	Graphics gra;
 	Square[][] stage;
