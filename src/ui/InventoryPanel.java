@@ -19,14 +19,17 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton item2;
 	private JButton item3;
 	private JButton item4;
+	private JButton use;
+	private JButton drop;
+	private JButton thing1;
+	private JButton thing2;
 
 	/**
-	 * Constructor  for InventoryPanel
+	 * Constructor for InventoryPanel
 	 */
 	public InventoryPanel() {
 		setLayout(null);
 
-		
 		Dimension size = new Dimension(1600, 320);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
@@ -34,31 +37,47 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		// setting the dimension used for the buttons
 		Dimension button = new Dimension(250, 30);
 
-	    item1 = new JButton("Item 1");
+		item1 = new JButton("Item 1");
 		item1.addActionListener(this);
-		item1.setBounds(35, 280,250,30);
+		item1.setBounds(35, 280, 250, 30);
 		add(item1);
 
 		item2 = new JButton("Item 2");
 		item2.addActionListener(this);
-		item2.setBounds(355, 280,250,30);
+		item2.setBounds(355, 280, 250, 30);
 		this.add(item2);
-		
 
 		item3 = new JButton("Item 3");
 		item3.addActionListener(this);
-		item3.setBounds(675, 280,250,30);
+		item3.setBounds(675, 280, 250, 30);
 		add(item3);
 
 		item4 = new JButton("Item 4");
 		item4.addActionListener(this);
-		item4.setBounds(995, 280,250,30);
+		item4.setBounds(995, 280, 250, 30);
 		add(item4);
-		
+
+		use = new JButton("Use");
+		use.addActionListener(this);
+		use.setBounds(1300, 150, 250, 30);
+		add(use);
+
+		thing1 = new JButton("thing1");
+		thing1.addActionListener(this);
+		thing1.setBounds(1300, 200, 250, 30);
+		add(thing1);
+
+		thing2 = new JButton("thing2");
+		thing2.addActionListener(this);
+		thing2.setBounds(1300, 240, 250, 30);
+		add(thing2);
+
+		drop = new JButton("drop");
+		drop.addActionListener(this);
+		drop.setBounds(1300, 280, 250, 30);
+		add(drop);
 	}
-	
-	
-	
+
 	/**
 	 * Constructor for InventoryPanel
 	 */
