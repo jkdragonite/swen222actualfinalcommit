@@ -19,7 +19,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	// buttons
 	private JButton rotateL; // rotate left
 	private JButton rotateR; // rotate right
-	private JButton rotateU; // rotate top
+	private JButton rotateU; //  rotate top
 	private JButton rotateD; // rotate down
 
 	/**
