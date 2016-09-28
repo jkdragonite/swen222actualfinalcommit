@@ -1,7 +1,15 @@
 package network;
 
+import java.awt.BorderLayout;
 import java.io.*;
 import java.net.*;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import game.Game;
 
 /**
  * The server allows 3 clients to connect and exchange information.
@@ -16,6 +24,7 @@ import java.net.*;
  */
 public final class Master extends Thread{
 	//field for game world/level
+	private Game game;
 	private int broadcastClock;
 	/** The socket user to communicate with it's assigned Servant*/
 	private final Socket socket;
@@ -35,29 +44,27 @@ public final class Master extends Thread{
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 			
+			System.out.println(socket.isConnected());
 			
-			try{
-				System.out.println("MASTER thread sleeping");
-				Thread.sleep(broadcastClock);
-			}catch(InterruptedException ie){System.out.println(ie.getMessage());}
-			
-			System.out.println("MASTER not sleeping anymore");
-			
+			System.out.println(output);
 			//initialize a game window for the client connected
-			System.out.println("MASTER writing uid to servant");
-			output.writeInt(uid);
+			//System.out.println("MASTER writing uid to servant");
+			//output.writeInt(uid);
+			//output.flush();
 			//start the listening and processing, 
 			//as well as the updates every so often
 			boolean exit = false;
 			while(!exit){
 				try{
-					System.out.println("MASTER thread sleeping");
-					Thread.sleep(broadcastClock);
-					System.out.println("MASTER thread not sleeping");
+					System.out.println("MASTER writing uid to servant");
+					output.writeInt(uid);
+					output.flush();
+					
 					//check for inputs and react to them
 					if(input.available() != 0) {
 						//read the character identifier denoting the event
 						char id = input.readChar();
+						System.out.println("MASTER recieved " + id);
 						switch(id){
 						case 'k': 
 							//read the directional identifier
@@ -66,6 +73,7 @@ public final class Master extends Thread{
 							case 1:
 								//queue the player for a left move
 								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move left");
+								//call the game.
 								break;
 							case 2:
 								//queue the player for a right move
@@ -87,13 +95,16 @@ public final class Master extends Thread{
 							//check whether x/y are in in rendering window
 							//ask the game whether there is a pickupable or movable object in that position
 							//tell game to pick it up/ push it if not
+						case 't':
+							System.out.println("MASTER RCVD EVENT: Servant didn't recieve data");
 						}
 					}
 					//broadcast the updated game state to the client
-					Thread.sleep(broadcastClock);
+					Thread.sleep(5000);
 				}
 				catch(InterruptedException ie){}
 			}
+			socket.close(); // release socket!
 		}
 		catch(IOException ioe){
 			//the client has been disconnected
@@ -102,5 +113,22 @@ public final class Master extends Thread{
 			//display message that they need to wait until the level is 
 			//cleared before they can rejoin
 		}
+	}
+	
+	public static void main(String args[]){
+		JFrame frame = new JFrame("Master/Server");
+		JPanel printScreen = new JPanel();
+		printScreen.setLayout(new BorderLayout());
+
+		printScreen.add(new JLabel( "Notes:" ), BorderLayout.NORTH);
+	    JTextArea textArea = new JTextArea();
+	    textArea.setLineWrap(true);
+	    printScreen.add(textArea, BorderLayout.CENTER);
+	    
+	    frame.add(printScreen);
+	    frame.pack();
+	    frame.setVisible(true);
+	    
+	    //Master m = new Master();
 	}
 }

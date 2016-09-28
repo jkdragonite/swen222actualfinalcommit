@@ -22,28 +22,39 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	
 	public Servant(Socket socket){
 		this.socket = socket;
+		System.out.println("SERVANT creating input and output streams");
+		try {
+			input = new DataInputStream(this.socket.getInputStream());
+			output = new DataOutputStream(this.socket.getOutputStream());
+		} catch (IOException ioe) {
+			System.out.println(ioe.getMessage());
+		}
 	}
 	
+	@Override
 	public void run(){
-		try {			
-			System.out.println("SERVANT creating input and output streams");
-			output = new DataOutputStream(socket.getOutputStream());
-			input = new DataInputStream(socket.getInputStream());
-					
-			//uid = input.readInt();					
+		try {				
+			uid = input.readInt();					
 			System.out.println("CLIENT UID: " + uid);		
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");
+			int i = 0;
 			while(!exit) {
-				//Read updated board/game
-				//int amount = input.readInt(); //amount of bytes used to show the board
-				//byte[] data = new byte[amount];
-				//input.readFully(data);					
-				//game.fromByteArray(data);				
-				//display.repaint(); //the
-				uid = input.readInt();					
-				System.out.println("CLIENT UID: " + uid);
+				if(input.available() != 0){
+					uid = input.readInt();
+					System.out.println("CLIENT UID: " + uid);
+					exit = true;
+				}					
+				else{
+					output.writeChar('t');
+					output.flush();
+					i++;
+				}
+				//if(i >= 5){
+					//System.out.println("Failed 5 times");
+					//exit = true;
+				//}
 			}
 			//release socket!
 			socket.close(); 
@@ -104,6 +115,22 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			//an error
 			System.out.println(ioe.getMessage());
 		}
+	}
+	
+	public static void main(String[] args){
+		int port = 32768;
+		InetAddress addr;
+		try {
+			addr = InetAddress.getByName("localhost");
+			Socket s = new Socket(addr,port);
+			System.out.println("Creating new SERVANT " + addr + ":" + port);			
+			new Servant(s).run();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	

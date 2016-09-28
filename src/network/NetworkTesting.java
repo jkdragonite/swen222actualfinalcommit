@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class NetworkTesting {
 	
@@ -24,12 +25,11 @@ public class NetworkTesting {
 			ServerSocket ss = new ServerSocket(DEFAULT_PORT);
 			InetAddress address = InetAddress.getByName(DEFAULT_HOST);
 			Socket socket = new Socket(address, DEFAULT_PORT);
+			
 			Master m = new Master(DEFAULT_BROADCAST_CLK_PERIOD, socket, PLAYER_UID);
 			m.start();
 			
 			Servant s = new Servant(socket);
-			System.out.println("SERVANT created");
-			
 			s.run();
 		}
 		catch(IOException ioe){
@@ -51,7 +51,7 @@ public class NetworkTesting {
 	 * @param broadcastClock
 	 * @param uid
 	 */
-	private void runServer(int port, int nclients, int broadcastClock, int uid){
+	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid){
 		//ClockThread clk = new ClockThread(gameClock,null);	
 		
 		// Listen for connections
@@ -62,14 +62,13 @@ public class NetworkTesting {
 			//Add a new connection for the number of clients requested
 			ServerSocket ss = new ServerSocket(port);			
 			for(int i=0; i < nclients; i++){
-				Socket s = new Socket(DEFAULT_HOST, port);
+				Socket s = ss.accept();
 				connections[i] = new Master(broadcastClock, s, uid++);
 				connections[i].start();
+				nclients--;
 			}			
 				if(nclients == 0) {
 					System.out.println("ALL CLIENTS ACCEPTED --- GAME BEGINS");
-					//multiUserGame(clk,game,connections);
-					System.out.println("ALL CLIENTS DISCONNECTED --- GAME OVER");
 					return; // done
 				}
 		} 
@@ -78,7 +77,20 @@ public class NetworkTesting {
 		} 
 	}
 	
+	private static void runClient(InetAddress addr, int port) throws IOException {		
+		Socket s = new Socket(addr,port);
+		System.out.println("Creating new SERVANT " + addr + ":" + port);			
+		new Servant(s).run();		
+	}
+	
 	public static void main(String[] args){
-		testBasicNetwork();
+		InetAddress address;
+		try {
+			address = InetAddress.getByName(DEFAULT_HOST);
+			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
+			//runClient(address, DEFAULT_PORT);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 }
