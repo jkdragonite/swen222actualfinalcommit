@@ -27,6 +27,14 @@ public class Player {
 		playerInventory.remove(item);
 	}
 	
+	public Location getLocation(){
+		return this.location;
+	}
+	
+	public void updateLocation(Location location){
+		this.location = location;
+	}
+	
 	
 	// inventory
 	

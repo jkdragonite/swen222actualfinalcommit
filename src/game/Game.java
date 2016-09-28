@@ -30,7 +30,7 @@ public class Game {
 		this.players.add(new Player(nameString));
 	}
 	
-	
+	// checked for unlocked door?
 	
 	public void pickupItem(Player player, InventoryItem item){
 		player.addItem(item);
@@ -38,13 +38,6 @@ public class Game {
 		// update location in room
 		// check for proximity to item?
 	}
-	// create gui instance
-	
-	// create server?
-	
-	// create client?
-
-
 
 	
 	
