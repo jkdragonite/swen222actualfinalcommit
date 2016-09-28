@@ -62,5 +62,4 @@ public class GameRenderer {
 		new GameRenderer();
 		System.out.println("bleh.");
 	}
-	
 }
