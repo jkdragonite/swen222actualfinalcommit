@@ -26,6 +26,9 @@ public class Door extends Square{
 				unlocked = true;
 			}
 		}
+		
+		// render item didn't fit, or item fit sprite
+		
 	}
 
 	

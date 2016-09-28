@@ -30,6 +30,8 @@ public class InventoryItem extends Item{
 	public void pickupItem(Player player){
 		setOwner(player);
 		player.addItem(this);
+		
+		// display picked up item sprite?
 	}
 	
 }

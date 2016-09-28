@@ -35,6 +35,13 @@ public class Player {
 		this.location = location;
 	}
 	
+	public void pushItem(){
+		// get neighbouts
+		// if neighbour has movable item
+		// if square in push direction empty / not door / exists
+		// can push
+		// else cannot push
+	}
 	
 
 	
