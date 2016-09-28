@@ -21,7 +21,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton item4;
 
 	/**
-	 * Constructor for InventoryPanel
+	 * Constructor  for InventoryPanel
 	 */
 	public InventoryPanel() {
 		// frame = p;
