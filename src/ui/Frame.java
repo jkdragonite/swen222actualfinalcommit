@@ -23,7 +23,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 	// panel fields
 	public ButtonPanel bp;
 	public InventoryPanel ip;
-	public JComponent rp;
+	public RenderPanel rp;
 
 	// menu bar stuff
 	JMenuBar menuBar;
@@ -78,7 +78,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 		ip = new InventoryPanel();
 		add(ip, BorderLayout.SOUTH);
 		
-		rp = new GameRenderer(new Game());
+		rp = new RenderPanel();
 		add(rp, BorderLayout.NORTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

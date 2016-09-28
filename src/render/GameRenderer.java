@@ -19,7 +19,7 @@ import game.*;
  * @author Brooke 300321819
  *
  */
-public class GameRenderer extends JComponent{
+public class GameRenderer{
 
 	//public enum Direction {NORTH, SOUTH, EAST, WEST, TOP}
 	Game.viewDirection viewDir = Game.viewDirection.SOUTH;
@@ -34,9 +34,6 @@ public class GameRenderer extends JComponent{
 	public static final int floor = 450;
 
 	public GameRenderer(Game parent){
-
-		Dimension renderDim = new Dimension(800, 400);
-		setPreferredSize(renderDim);
 		
 		game = parent;
 		Room room = new PuzzleRoom(6);
@@ -109,14 +106,14 @@ public class GameRenderer extends JComponent{
 		//render the wall
 
 		//render the tiles
-		for (int y = 0; y < stage.length; x++){
-			for (int x = 0; x < stage.length; x++){
+		//for (int y = 0; y < stage.length; x++){
+			//for (int x = 0; x < stage.length; x++){
 				//if (stage[x][y].getItem() != null){
 					//renderObject(LEFT + (SIZE*y), BASE, g);
 				//}
 				//System.out.println("tile");
-			}
-		}
+			//}
+		//}
 
 	}
 	

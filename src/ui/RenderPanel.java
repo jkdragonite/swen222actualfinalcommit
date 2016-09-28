@@ -9,13 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import game.Game;
+import render.GameRenderer;
+
 public class RenderPanel extends JPanel implements ActionListener{
 
+	private GameRenderer gam;
 	
 	public RenderPanel(){
 	Dimension size = new Dimension(1600, 400);
 	setPreferredSize(size);
 	setBorder(BorderFactory.createLineBorder(Color.red));
+	gam = new GameRenderer (new Game());
 	}
 	
 	@Override
@@ -26,9 +31,10 @@ public class RenderPanel extends JPanel implements ActionListener{
 
 	@Override
 	public void paintComponent(Graphics gr){
-		gr.setColor(Color.CYAN);
-		gr.fillRect(50, 50, 1500, 300);
-		gr.setColor(Color.black);
+		gam.render(gr);
+		//gr.setColor(Color.CYAN);
+		//gr.fillRect(50, 50, 1500, 300);
+		//gr.setColor(Color.black);
 	}
 	
 }
