@@ -36,6 +36,10 @@ public class Player {
 	}
 	
 	
+
+	
+	
+	
 	// inventory
 	
 	// current view direction

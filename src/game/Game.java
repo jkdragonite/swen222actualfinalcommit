@@ -25,9 +25,7 @@ public class Game {
 	}
 	
 	public void addPlayer(String nameString){
-		
-		// take user input from gui?
-		this.players.add(new Player(nameString));
+		this.players.add(new Player(nameString));	
 	}
 	
 	// checked for unlocked door?
