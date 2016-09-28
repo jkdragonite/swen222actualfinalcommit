@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 
+import ui.Frame;
+
 /**
  * The Servant takes updates to the game state from it's 
  * Master, updates the local game copy. The Servant notifies
@@ -19,6 +21,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	private DataOutputStream output;
 	private DataInputStream input;
 	private int uid;
+	private Frame gui;
 	
 	public Servant(Socket socket){
 		this.socket = socket;
@@ -35,7 +38,9 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	public void run(){
 		try {				
 			uid = input.readInt();					
-			System.out.println("CLIENT UID: " + uid);		
+			System.out.println("CLIENT UID: " + uid);
+			
+			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ")", this);
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");
@@ -51,10 +56,6 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 					output.flush();
 					i++;
 				}
-				//if(i >= 5){
-					//System.out.println("Failed 5 times");
-					//exit = true;
-				//}
 			}
 			//release socket!
 			socket.close(); 

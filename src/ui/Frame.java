@@ -3,6 +3,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -28,8 +29,8 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
    
 	
 	
-    public Frame() {
-
+    public Frame(String title, KeyListener kl) {
+    	super(title);
 		// Menu bar things
 		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -84,7 +85,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 	}
 
 	public static void main(String[] args) {
-		new Frame();
+		//new Frame("testFrame", new KeyListener(););
 	}
 
 	/*

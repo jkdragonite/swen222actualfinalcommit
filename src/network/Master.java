@@ -44,22 +44,16 @@ public final class Master extends Thread{
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 			
-			System.out.println(socket.isConnected());
-			
-			System.out.println(output);
 			//initialize a game window for the client connected
-			//System.out.println("MASTER writing uid to servant");
-			//output.writeInt(uid);
-			//output.flush();
+			System.out.println("MASTER writing uid to servant");
+			output.writeInt(uid);
+			output.flush();
+			
 			//start the listening and processing, 
 			//as well as the updates every so often
 			boolean exit = false;
 			while(!exit){
 				try{
-					System.out.println("MASTER writing uid to servant");
-					output.writeInt(uid);
-					output.flush();
-					
 					//check for inputs and react to them
 					if(input.available() != 0) {
 						//read the character identifier denoting the event
