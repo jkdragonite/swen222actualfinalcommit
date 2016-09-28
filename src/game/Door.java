@@ -9,7 +9,6 @@ public class Door extends Square{
 	public Door(Location location, Room destination) {
 		super(location);
 		this.destinationRoom = destination;
-		// TODO Auto-generated constructor stub
 	}
 
 	private ArrayList<Item> solution;
