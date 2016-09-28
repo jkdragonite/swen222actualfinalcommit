@@ -19,19 +19,20 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	// buttons
 	private JButton rotateL; // rotate left
 	private JButton rotateR; // rotate right
-	private JButton rotateT; // rotate top
+	private JButton rotateU; // rotate top
+	private JButton rotateD; // rotate down
 
 	/**
 	 * Constructor for ButtonPanel
 	 */
 	public ButtonPanel() {
 
-		Dimension size = new Dimension(1600, 100);
+		Dimension size = new Dimension(1600, 30);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.blue));
 
 		// setting the dimension used for the buttons
-		Dimension button = new Dimension(140, 50);
+		Dimension button = new Dimension(395, 30);
 
 		rotateL = new JButton("Rotate Left");
 		rotateL.setPreferredSize(button);
@@ -43,11 +44,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		rotateR.addActionListener(this);
 		add(rotateR, BorderLayout.NORTH);
 
-		rotateT = new JButton("Rotate Top");
-		rotateT.setPreferredSize(button);
-		rotateT.addActionListener(this);
-		add(rotateT, BorderLayout.NORTH);
+		rotateU = new JButton("Rotate Top");
+		rotateU.setPreferredSize(button);
+		rotateU.addActionListener(this);
+		add(rotateU, BorderLayout.NORTH);
 
+		rotateD = new JButton("Rotate Top");
+		rotateD.setPreferredSize(button);
+		rotateD.addActionListener(this);
+		add(rotateD, BorderLayout.NORTH);
 	}
 
 	/**
@@ -64,9 +69,14 @@ public class ButtonPanel extends JPanel implements ActionListener {
 			System.out.println("right");
 			// do the rotate right method
 		}
-		if (src == rotateT) {
+
+		if (src == rotateU) {
 			System.out.println("top");
 			// do the rotate top method
+		}
+		if (src == rotateD) {
+			System.out.println("down");
+			// do the rotate down method
 
 		}
 	}

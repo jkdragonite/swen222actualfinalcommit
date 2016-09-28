@@ -24,35 +24,37 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 * Constructor  for InventoryPanel
 	 */
 	public InventoryPanel() {
-		// frame = p;
+		setLayout(null);
 
-		Dimension size = new Dimension(1600, 400);
+		
+		Dimension size = new Dimension(1600, 320);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
 
 		// setting the dimension used for the buttons
-		Dimension button = new Dimension(395, 50);
+		Dimension button = new Dimension(250, 30);
 
-		item1 = new JButton("Item slot 1 options");
-		item1.setPreferredSize(button);
+	    item1 = new JButton("Item 1");
 		item1.addActionListener(this);
-		add(item1, BorderLayout.NORTH);
+		item1.setBounds(35, 280,250,30);
+		add(item1);
 
-		item2 = new JButton("Item 2 options");
-		item2.setPreferredSize(button);
+		item2 = new JButton("Item 2");
 		item2.addActionListener(this);
-		add(item2, BorderLayout.NORTH);
+		item2.setBounds(355, 280,250,30);
+		this.add(item2);
+		
 
-		item3 = new JButton("Item 3 options");
-		item3.setPreferredSize(button);
+		item3 = new JButton("Item 3");
 		item3.addActionListener(this);
-		add(item3, BorderLayout.NORTH);
+		item3.setBounds(675, 280,250,30);
+		add(item3);
 
-		item4 = new JButton("Item 4 options");
-		item4.setPreferredSize(button);
+		item4 = new JButton("Item 4");
 		item4.addActionListener(this);
-		add(item4, BorderLayout.NORTH);
-
+		item4.setBounds(995, 280,250,30);
+		add(item4);
+		
 	}
 	
 	
@@ -90,23 +92,23 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	@Override
 	public void paintComponent(Graphics gr) {
-		int imageSize = 300;
-		int imageY = 60;
+		int imageSize = 250;
+		int imageY = 10;
 		super.paintComponent(gr);
 		if (1 == 1) { // if there is an item in slot 1
-			gr.fillRect(50, imageY, imageSize, imageSize);
+			gr.fillRect(35, imageY, imageSize, imageSize);
 			// draw item image
 		}
 		if (2 == 2) { // if there is an item in slot 1
-			gr.fillRect(450, imageY, imageSize, imageSize);
+			gr.fillRect(355, imageY, imageSize, imageSize);
 			// draw item image
 		}
 		if (3 == 3) { // if there is an item in slot 1
-			gr.fillRect(850, imageY, imageSize, imageSize);
+			gr.fillRect(675, imageY, imageSize, imageSize);
 			// draw item image
 		}
 		if (4 == 4) { // if there is an item in slot 1
-			gr.fillRect(1250, imageY, imageSize, imageSize);
+			gr.fillRect(995, imageY, imageSize, imageSize);
 			// draw item image
 		}
 	}
