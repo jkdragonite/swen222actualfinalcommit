@@ -14,15 +14,15 @@ public class HelpFrame extends JFrame {
 	static String content = // The string they will pop up for the help window
 			"This is the help manu\n" + "\n"
 					+ "There will be many helpful things in here that will help you escape the dread\n"
-					+ "..........Maybe\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n"
-					+ "\n" + "\n";
+					+ "..........Maybe\n" + "\n" + "\n" + "but i doubt it\n" + "\n" + "\n" + "\n" + "good luck\n" + "\n"
+					+ "\n" + "you will need it\n" + "\n" + "scrub\n" + "\n";
 
 	/**
 	 * Constructor for HelpFrame
 	 */
 	public HelpFrame() {
 
-		Dimension size = new Dimension(450, 300);
+		Dimension size = new Dimension(600, 350);
 		setPreferredSize(size);
 
 		JPanel hp = new JPanel();
