@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Game {
 	private viewDirection view;
+	public ArrayList<Room> rooms;
 	
 	public ArrayList<Player> players;
 	
@@ -13,7 +14,10 @@ public class Game {
 	}
 	
 	public Game() {
-		this.view = viewDirection.NORTH;		
+		this.view = viewDirection.NORTH;	
+		// puzzle rooms added before final room
+		this.rooms.add(new PuzzleRoom(10));
+		this.rooms.add(new FinalRoom(10));
 	}
 	
 	public void shiftView(viewDirection direction){
@@ -21,6 +25,8 @@ public class Game {
 	}
 	
 	public void addPlayer(String nameString){
+		
+		// take user input from gui?
 		this.players.add(new Player(nameString));
 	}
 	
@@ -38,4 +44,8 @@ public class Game {
 	
 	// create client?
 
+
+
+	
+	
 }

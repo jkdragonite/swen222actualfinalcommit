@@ -3,6 +3,12 @@ package game;
 public abstract class Square {
 	private Player playerOnSquare;
 	private Item itemOnSquare;
+	private Location location;
+	
+	public Square(Location location) {
+		this.location = location;
+	}
+	
 	
 	public void addPlayer(Player player){
 		this.playerOnSquare = player;
@@ -18,6 +24,10 @@ public abstract class Square {
 	
 	public void removeItem(){
 		this.itemOnSquare = null;
+	}
+	
+	public Location getLocation(){
+		return this.location;
 	}
 	
 	

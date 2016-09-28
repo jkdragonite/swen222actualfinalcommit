@@ -3,6 +3,15 @@ package game;
 import java.util.ArrayList;
 
 public class Door extends Square{
+	private Room destinationRoom;
+	private Location location;
+	
+	public Door(Location location, Room destination) {
+		super(location);
+		this.destinationRoom = destination;
+		// TODO Auto-generated constructor stub
+	}
+
 	private ArrayList<Item> solution;
 	
 	private ArrayList<Item> keyHole;
@@ -14,4 +23,6 @@ public class Door extends Square{
 		}
 	}
 
+	
+	
 }
