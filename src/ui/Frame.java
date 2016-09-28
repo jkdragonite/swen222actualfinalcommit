@@ -18,6 +18,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 	// panel fields
 	public ButtonPanel bp;
 	public InventoryPanel ip;
+	public RenderPanel rp;
 
 	// menu bar stuff
 	JMenuBar menuBar;
@@ -67,10 +68,13 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 
 		
 		bp = new ButtonPanel();
-		add(bp, BorderLayout.NORTH);
+		add(bp, BorderLayout.CENTER);
 
 		ip = new InventoryPanel();
 		add(ip, BorderLayout.SOUTH);
+		
+		rp = new RenderPanel();
+		add(rp, BorderLayout.NORTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
