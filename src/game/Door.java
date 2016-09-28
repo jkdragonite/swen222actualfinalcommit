@@ -9,6 +9,7 @@ public class Door extends Square{
 	public Door(Location location, Room destination) {
 		super(location);
 		this.destinationRoom = destination;
+		
 	}
 
 	private ArrayList<Item> solution;
