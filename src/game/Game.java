@@ -37,6 +37,8 @@ public class Game {
 		// check for proximity to item?
 	}
 
-	
+	public viewDirection getDirection(){
+		return view;
+	}
 	
 }

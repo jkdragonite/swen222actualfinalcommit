@@ -20,20 +20,19 @@ public class GameRenderer {
 	JFrame frame;
 	Graphics gra;
 	Square[][] stage;
+	Game game;
 	int x, y;
 	
 	public static final int floor = 450;
 	
-	public GameRenderer(){
-		frame = new JFrame();
-		frame.setSize(600, 600);
-		JPanel pan = new JPanel();
-		gra = pan.getGraphics();
+	public GameRenderer(Game parent){
 		
-		frame.add(pan);
-		frame.setVisible(true);
+		game = parent;
+		Room room = new PuzzleRoom(6);
+		Board board = room.board;
+		stage = board.grid;
 		
-		//stage = loc.getSquares();
+		
 		
 		render(gra);
 	}
@@ -58,7 +57,7 @@ public class GameRenderer {
 	}
 	
 	public static void main(String[] args){
-		new GameRenderer();
+		//new GameRenderer();
 		System.out.println("bleh.");
 	}
 }
