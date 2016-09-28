@@ -12,10 +12,9 @@ public class Player {
 	
 	
 	public Player(String nameString){
-		// add location?
-		
 		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
+		this.location = new Location(0, 0);
 
 	}
 	
@@ -27,6 +26,18 @@ public class Player {
 	public void removeItem(InventoryItem item){
 		playerInventory.remove(item);
 	}
+	
+	public Location getLocation(){
+		return this.location;
+	}
+	
+	public void updateLocation(Location location){
+		this.location = location;
+	}
+	
+	
+
+	
 	
 	
 	// inventory

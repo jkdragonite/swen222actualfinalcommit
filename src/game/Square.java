@@ -1,8 +1,14 @@
 package game;
 
 public abstract class Square {
-	private Player playerOnSquare;
-	private Item itemOnSquare;
+	private Player playerOnSquare = null;
+	private Item itemOnSquare = null;
+	private Location location;
+	
+	public Square(Location location) {
+		this.location = location;
+	}
+	
 	
 	public void addPlayer(Player player){
 		this.playerOnSquare = player;
@@ -20,5 +26,25 @@ public abstract class Square {
 		this.itemOnSquare = null;
 	}
 	
+	public Location getLocation(){
+		return this.location;
+	}
+	
+	public Item getItem(){
+		return this.itemOnSquare;
+	}
+	
+	public Player getPlayer(){
+		return this.playerOnSquare;
+	}
+	
+	public Boolean isEmpty(){
+		if (this.playerOnSquare == null && this.itemOnSquare == null){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 }
