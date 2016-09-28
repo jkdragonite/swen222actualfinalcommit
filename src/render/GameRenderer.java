@@ -17,7 +17,7 @@ import game.*;
 public class GameRenderer {
 
 	//public enum Direction {NORTH, SOUTH, EAST, WEST, TOP}
-	Game.viewDirection viewDir;
+	Game.viewDirection viewDir = Game.viewDirection.SOUTH;
 	JFrame frame;
 	Graphics gra;
 	Square[][] stage;
@@ -33,7 +33,7 @@ public class GameRenderer {
 		Board board = room.board;
 		stage = board.grid;
 
-		render(gra);
+		//render(gra);
 	}
 
 	public void rotateCW() {
@@ -108,7 +108,7 @@ public class GameRenderer {
 	}
 
 	public static void main(String[] args){
-		//new GameRenderer();
+		new GameRenderer(new Game());
 		System.out.println("bleh.");
 	}
 }

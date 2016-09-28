@@ -29,6 +29,7 @@ public class SpriteSet {
 		}catch(IOException e){
 			System.out.println(e);
 		}
+		loadSprites();
 	}
 	
 	/**
@@ -37,7 +38,8 @@ public class SpriteSet {
 	 * accessed from the map when needed.
 	 */
 	private void loadSprites(){
-		//FIXME after spritesheet is generated
+		BufferedImage smol = spritesheet.getSubimage(100, 100, 100, 100);
+		spriteList.put("box", smol);
 	}
 	
 	/**

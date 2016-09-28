@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Game {
 	private viewDirection view;
-	public ArrayList<Room> rooms;
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 	
 	public ArrayList<Player> players;
 	
