@@ -30,8 +30,8 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			output = new DataOutputStream(socket.getOutputStream());
 			input = new DataInputStream(socket.getInputStream());
 					
-			uid = input.readInt();					
-			System.out.println("PACMAN CLIENT UID: " + uid);		
+			//uid = input.readInt();					
+			System.out.println("CLIENT UID: " + uid);		
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");
@@ -42,7 +42,8 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 				//input.readFully(data);					
 				//game.fromByteArray(data);				
 				//display.repaint(); //the
-				
+				uid = input.readInt();					
+				System.out.println("CLIENT UID: " + uid);
 			}
 			//release socket!
 			socket.close(); 

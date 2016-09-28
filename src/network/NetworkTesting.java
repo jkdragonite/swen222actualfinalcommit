@@ -7,13 +7,13 @@ import java.net.Socket;
 
 public class NetworkTesting {
 	
-	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5;
+	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;
 	private static final int SERVER_UID = 100;
 	
 	private static int PLAYER_UID = 200;
 	
 	private static final String DEFAULT_HOST = "localhost";
-	private static final int DEFAULT_PORT = 32054;
+	private static final int DEFAULT_PORT = 32768;
 	
 	/**
 	 * Creates a 'server' (a master and a servant) to test whether they're working together and sending
@@ -21,11 +21,15 @@ public class NetworkTesting {
 	 */
 	public static void testBasicNetwork(){
 		try{
+			ServerSocket ss = new ServerSocket(DEFAULT_PORT);
 			InetAddress address = InetAddress.getByName(DEFAULT_HOST);
 			Socket socket = new Socket(address, DEFAULT_PORT);
 			Master m = new Master(DEFAULT_BROADCAST_CLK_PERIOD, socket, PLAYER_UID);
-			Servant s = new Servant(socket);
 			m.start();
+			
+			Servant s = new Servant(socket);
+			System.out.println("SERVANT created");
+			
 			s.run();
 		}
 		catch(IOException ioe){

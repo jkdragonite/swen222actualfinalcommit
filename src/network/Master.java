@@ -35,15 +35,25 @@ public final class Master extends Thread{
 			DataInputStream input = new DataInputStream(socket.getInputStream());
 			DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 			
+			
+			try{
+				System.out.println("MASTER thread sleeping");
+				Thread.sleep(broadcastClock);
+			}catch(InterruptedException ie){System.out.println(ie.getMessage());}
+			
+			System.out.println("MASTER not sleeping anymore");
+			
 			//initialize a game window for the client connected
 			System.out.println("MASTER writing uid to servant");
 			output.writeInt(uid);
-			
 			//start the listening and processing, 
 			//as well as the updates every so often
 			boolean exit = false;
 			while(!exit){
 				try{
+					System.out.println("MASTER thread sleeping");
+					Thread.sleep(broadcastClock);
+					System.out.println("MASTER thread not sleeping");
 					//check for inputs and react to them
 					if(input.available() != 0) {
 						//read the character identifier denoting the event
