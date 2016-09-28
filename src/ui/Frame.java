@@ -8,18 +8,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import game.Game;
+import render.GameRenderer;
+
 public class Frame extends JFrame implements MouseListener, ActionListener {
 
 	// panel fields
 	public ButtonPanel bp;
 	public InventoryPanel ip;
-	public RenderPanel rp;
+	public JComponent rp;
 
 	// menu bar stuff
 	JMenuBar menuBar;
@@ -74,7 +78,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 		ip = new InventoryPanel();
 		add(ip, BorderLayout.SOUTH);
 		
-		rp = new RenderPanel();
+		rp = new GameRenderer(new Game());
 		add(rp, BorderLayout.NORTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
