@@ -6,6 +6,14 @@ public class InventoryItem extends Item{
 	private Location location;
 	
 	
+	public InventoryItem(String nameString){
+		super(nameString);
+	}
+	
+	public void setLocation(Location location){
+		this.location = location;
+	}
+	
 	
 	/**
 	 * An item which can be added to a player's inventory, an owner can be set so that
