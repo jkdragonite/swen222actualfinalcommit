@@ -8,11 +8,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+
+import game.Game;
+import render.GameRenderer;
 
 public class Frame extends JFrame implements MouseListener, ActionListener {
 

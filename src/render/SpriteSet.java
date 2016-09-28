@@ -11,11 +11,10 @@ public class SpriteSet {
 	
 	private BufferedImage spritesheet;
 	private File spriteFile;
-	private Map<String, Image> spriteList;
+	private Map<String, Image> spriteList = new HashMap<String, Image>();
 	
 	public SpriteSet(){
 		loadImage();
-		spriteList = new HashMap<String, Image>();
 	}
 
 	/**
@@ -24,7 +23,8 @@ public class SpriteSet {
 	 */
 	private void loadImage() {
 		try{
-			spriteFile = new File("../images/spritesheet.bmp");
+			spriteFile = new File("images/spritesheet.bmp");
+			System.out.println("File created.");
 			spritesheet = ImageIO.read(spriteFile);
 		}catch(IOException e){
 			System.out.println(e);
@@ -38,7 +38,8 @@ public class SpriteSet {
 	 * accessed from the map when needed.
 	 */
 	private void loadSprites(){
-		BufferedImage smol = spritesheet.getSubimage(100, 100, 100, 100);
+		BufferedImage smol = spritesheet.getSubimage(0, 0, 100, 100);
+		if (spriteList == null){System.out.println("aaa");}
 		spriteList.put("box", smol);
 	}
 	
@@ -56,6 +57,12 @@ public class SpriteSet {
 	 * @return list of game sprites
 	 */
 	public Collection<Image> getSprites(){
-		return spriteList.values();
+		Collection<Image> vals = spriteList.values();
+		List<Image> temp = new ArrayList<Image>();
+		for (Image v : vals){
+			temp.add(v);
+		}
+		
+		return temp;
 	}
 }

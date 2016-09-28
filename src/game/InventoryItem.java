@@ -24,4 +24,14 @@ public class InventoryItem extends Item{
 		this.owner = player;
 		this.location = null;
 	}
+	
+	
+	@Override
+	public void pickupItem(Player player){
+		setOwner(player);
+		player.addItem(this);
+		
+		// display picked up item sprite?
+	}
+	
 }

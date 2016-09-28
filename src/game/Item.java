@@ -13,4 +13,9 @@ public abstract class Item {
 		this.location = location;
 	}
 
+	
+	public void pickupItem(Player player){
+		
+	}
+	
 }
