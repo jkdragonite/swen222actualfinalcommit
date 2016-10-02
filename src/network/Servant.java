@@ -46,16 +46,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			System.out.println("SERVANT ready to send/recieve");
 			int i = 0;
 			while(!exit) {
-				if(input.available() != 0){
-					uid = input.readInt();
-					System.out.println("CLIENT UID: " + uid);
-					exit = true;
-				}					
-				else{
-					output.writeChar('t');
-					output.flush();
-					i++;
-				}
+				//read the board array		
 			}
 			//release socket!
 			socket.close(); 
@@ -72,6 +63,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		try {
+			System.out.println("Key press recognised");
 			int code = ke.getKeyCode();
 			output.writeChar('k');
 			if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
