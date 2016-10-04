@@ -6,6 +6,7 @@ public class Door extends Square{
 	private Room destinationRoom;
 	private Location location;
 	private Boolean unlocked;
+	// reward item?
 	
 	public Door(Location location, Room destination) {
 		super(location);

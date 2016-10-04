@@ -3,6 +3,7 @@ package game;
 public abstract class Item {
 	private String nameString;
 	private Location location;
+	// sprite?
 	
 	
 	public Item(String nameString){
