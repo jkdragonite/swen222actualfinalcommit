@@ -17,6 +17,45 @@ public class NetworkTesting {
 	private static final int DEFAULT_PORT = 32768;
 	
 	/**
+	 * Runs the server and allows the argument specified number of clients to connect
+	 * (between 1 and 4)
+	 * @param args
+	 */
+	public static void main(String[] args){
+		/**************************************************
+		 * 			Process command line arguments
+		 * ************************************************/
+		/*boolean server = false;
+		int nclients = 1;
+		String url = null; 
+		int broadcastClock = DEFAULT_BROADCAST_CLK_PERIOD;
+		int port = DEFAULT_PORT;
+		
+		for (int i = 0; i != args.length; ++i) {
+			if (args[i].startsWith("-")) {
+				String arg = args[i];
+				if(arg.equals("-server")) {
+					server = true;
+					nclients = Integer.parseInt(args[++i]);
+				} else if(arg.equals("-connect")) {
+					url = args[++i];
+				}else if(arg.equals("-port")) {
+					port = Integer.parseInt(args[++i]);
+				}
+			}
+		}*/
+		
+		InetAddress address;
+		try {
+			address = InetAddress.getByName(DEFAULT_HOST);
+			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
+			//runClient(address, DEFAULT_PORT);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
 	 * Creates a 'server' (a master and a servant) to test whether they're working together and sending
 	 * /receiving on a basic level
 	 */
@@ -51,9 +90,7 @@ public class NetworkTesting {
 	 * @param broadcastClock
 	 * @param uid
 	 */
-	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid){
-		//ClockThread clk = new ClockThread(gameClock,null);	
-		
+	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid){		
 		// Listen for connections
 		System.out.println("SERVER LISTENING ON PORT " + port);
 		System.out.println("SERVER AWAITING " + nclients + " CLIENTS");
@@ -63,7 +100,8 @@ public class NetworkTesting {
 			ServerSocket ss = new ServerSocket(port);			
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
-				connections[i] = new Master(broadcastClock, s, uid++);
+				//game.addPlayer(uid++);
+				connections[i] = new Master(broadcastClock, s, uid);
 				connections[i].start();
 				nclients--;
 			}			
@@ -83,14 +121,5 @@ public class NetworkTesting {
 		new Servant(s).run();		
 	}
 	
-	public static void main(String[] args){
-		InetAddress address;
-		try {
-			address = InetAddress.getByName(DEFAULT_HOST);
-			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
-			//runClient(address, DEFAULT_PORT);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-	}
+	
 }

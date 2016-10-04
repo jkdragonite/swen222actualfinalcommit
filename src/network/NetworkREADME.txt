@@ -1,4 +1,9 @@
 SENDING DATA: Master Side (Server)
+The master's main function is to ensure that the client's changes are pushed to the
+main game and that the changes from all clients are reflected in each individual
+client game. Thus the Master needs to be able to send updated BitSets as byte 
+arrays (a la DJP's Pacman) which mean the game (or board) needs to be able to 
+convert to and from/update given an array.
 
 
 SENDING DATA: Servant Side (Client)
