@@ -84,6 +84,7 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		addMouseListener(this);
+		addKeyListener(kl);
 		setResizable(false);
 		setVisible(true);
 	}
