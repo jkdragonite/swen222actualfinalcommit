@@ -44,16 +44,6 @@ public class SpriteSet {
 	}
 	
 	/**
-	 * This method will scale the image so that things further away
-	 * from the 'camera' are rendered as smaller and distant.
-	 * 
-	 * @return the scaled image
-	 */
-	private Image scaleImage(){
-		return null;
-	}
-	
-	/**
 	 * @return list of game sprites
 	 */
 	public Collection<Image> getSprites(){
