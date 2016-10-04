@@ -10,6 +10,7 @@ public class PuzzleRoom extends Room {
 	
 	public PuzzleRoom(int size){
 		super(size);
+		// add field to constuctor which takes a list of items, to add to room
 	}
 	
 	/**
@@ -26,7 +27,7 @@ public class PuzzleRoom extends Room {
 	
 	/**
 	 * 
-	 * 
+	 * Adds an item at a given location to a puzzle room
 	 * 
 	 * @param item
 	 * @param location 

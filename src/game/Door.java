@@ -19,6 +19,10 @@ public class Door extends Square{
 	private ArrayList<Item> keyHole;
 	
 	
+	// method for add to solution
+	
+	
+	
 	public void testItem(Player player, InventoryItem item){
 		if (solution.contains(item)){
 			keyHole.add(item);

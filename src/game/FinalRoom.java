@@ -10,6 +10,8 @@ public class FinalRoom extends Room {
 		super(size);
 	}
 	
-	/// set solution
+	// end text, sprite perhaps?
+	
+	// four boxed to push into place in order to complete / win game
 
 }

@@ -14,11 +14,11 @@ public class Board {
 	
 	public Board(int size){
 		this.gridSize = size;
+		System.out.println(size);
 		this.grid = new Square[size][size];
 		for (int y = 0; y > size; y++){
 			for (int x = 0; x > size; x++){
-				this.grid[y][x] = new Square(new Location(x, y)) {
-				};
+				this.grid[y][x] = new PlayableSquare(new Location(x, y));
 			}
 		}
 	}
