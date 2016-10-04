@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import jdk.internal.org.objectweb.asm.util.CheckAnnotationAdapter;
+
 public class Board {
 	
 	public int gridSize;
@@ -87,7 +89,12 @@ public class Board {
 		ArrayList<Item> items = new ArrayList<>();
 		for (Square neighbour : getNeighbours(player.getLocation())){
 			if (neighbour.getItem() != null){
-				items.add(neighbour.getItem());
+				if (neighbour.getItem() instanceof InventoryItem){
+					items.add(neighbour.getItem());
+				}
+				else if (neighbour.getItem() instanceof MovableItem){
+					// check if can be pushed // add to moves if can?
+				}
 			}
 		}
 		return items;

@@ -1,3 +1,4 @@
+
 package game;
 
 import java.util.ArrayList;
@@ -5,6 +6,7 @@ import java.util.ArrayList;
 public class Game {
 	private viewDirection view;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
+
 	
 	public ArrayList<Player> players;
 	
@@ -15,8 +17,13 @@ public class Game {
 	
 	public Game() {
 		this.view = viewDirection.NORTH;	
+		PuzzleRoom gamePackage = new PuzzleRoom(10);
 		// puzzle rooms added before final room
-		this.rooms.add(new PuzzleRoom(10));
+		this.rooms.add(gamePackage);
+//		PuzzleRoom uiPackage = new PuzzleRoom(10);
+//		PuzzleRoom networkPackage = new PuzzleRoom(10);
+//		PuzzleRoom renderPackage = new PuzzleRoom(10);
+		// add rooms with names? like game package etc
 		this.rooms.add(new FinalRoom(10));
 	}
 	
@@ -36,41 +43,51 @@ public class Game {
 		// update location in room
 		// check for proximity to item?
 	}
+	
+	public void createInventoryItems(){
+		
+		InventoryItem classDiagram = new InventoryItem("Class Diagram");
+		InventoryItem sequenceDiagram = new InventoryItem("Sequence Diagram");
+		InventoryItem useCaseDiagram = new InventoryItem("Use Case Diagram");
+//		etc InventoryItem useCaseDiagram = new InventoryItem("Use Case Diagram");
+		
+		this.rooms.get(0).PlaceItem(classDiagram, new Location(4, 4));
+		this.rooms.get(0).PlaceItem(sequenceDiagram, new Location(6, 6));
+		
+		// javadoc
+		
+		
+		
+		
+	}
+
+	public void createMovableItems(){
+		
+		MovableItem box1 = new MovableItem("box1");
+		MovableItem box2 = new MovableItem("box2");
+		
+		this.rooms.get(0).PlaceItem(box1, new Location(2, 2));
+		this.rooms.get(0).PlaceItem(box2, new Location(3, 3));
+		
+//		MovableItem box3 = new MovableItem("box3");
+//		MovableItem box4 = new MovableItem("box4");
+//		
+//		this.rooms.get(0).PlaceItem(box2, new Location(3, 3));
+//		this.rooms.get(0).PlaceItem(box2, new Location(3, 3));
+		
+		
+		
+	}
+	
+	public void createImmovableItems(){
+		ImmovableItem stone = new ImmovableItem("stone");
+		
+	}
+	
+	
 
 	public viewDirection getDirection(){
 		return view;
 	}
-	
-	//movePlayer(int dir)
-	//gets the next direction in the player queue and follows it (pickup, move up, drop)
-	
-	
-	//gameToBytes
-	//converts the game state to a byte array consisting of chars and ints in a specific 
-	//sequence so that it can be sent to a client
-	//returns a byte array?
-	//there are many stages to the update as there are many objects.
-	//each stage is preceded by a specific character and followed directly by the number of 
-	//spaces in the byte array that belong to it (allowing it to be split)
-	//
-	//firstly we update doors 'd', followed by their room square co-ordinate and either a 0 or 1
-	//		the 0-1 denotes lock state
-	//e.g. locked door at 0,1 and an unlocked door at 3,0 = 'd010301'
-	
-	//we secondly update containers with storage, sending an 's'., followed by their x,y location
-	//and either a 0 or 1, to denote whether the container is empty or not.
-	//If 1, char 'i' is sent followed by a number denoting which object it is (as defined in a 
-	//level file)
-	
-	//we then update movable container locations by sending 'm' followed by a container's old x/y
-	//and then their new x/y
-	
-	//we then update pickupables/dropped items preceeded by 'p'. Each subsequent item is preceeded
-	//by either a 0 or 1, which is whether it was picked up or dropped. This is followed by either
-	//the x/y co-ordinates of the player, (or the player involved's uid?) and the x/y of where
-	//te=he object either was or is now. 
-	
-	//update player
-	//room, inventory, etc.
 	
 }
