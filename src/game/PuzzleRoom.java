@@ -37,4 +37,9 @@ public class PuzzleRoom extends Room {
 		this.board.grid[location.getY()][location.getX()].setItem(item);
 	}
 	
+	
+	public Door getDoor(){
+		return this.door;
+	}
+	
 }

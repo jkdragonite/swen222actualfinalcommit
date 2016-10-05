@@ -8,18 +8,28 @@ public class Player {
 //	private String nameString;
 	private Location location;
 	private int playerNumber;
+	private Room currentRoom;
 	
 	
 	
 	
-	public Player(int number){
+	public Player(int number, Room room){
 //		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
 		this.playerNumber = number;
+		this.currentRoom = room;
 
 		// check this
 
+	}
+	
+	public Room getRoom(){
+		return this.currentRoom;
+	}
+	
+	public void updateRoom(Room room){
+		this.currentRoom = room;
 	}
 	
 	public void addItem(InventoryItem item){
@@ -56,7 +66,15 @@ public class Player {
 	}
 	
 
+	// possible player movement
 	
+	// possible player push
+	
+	// possible player pull
+	
+	// possible pickup
+	
+	// possible drop
 	
 	
 	// inventory
