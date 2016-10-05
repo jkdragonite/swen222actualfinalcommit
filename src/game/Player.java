@@ -7,17 +7,17 @@ public class Player {
 	private ArrayList<InventoryItem> playerInventory;
 //	private String nameString;
 	private Location location;
-	private char character;
+	private int playerNumber;
 	
 	
 	
 	
-	public Player(int nameString){
+	public Player(int number){
 //		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
-		this.character = (char) nameString;
-//		System.out.println(nameString);
+		this.playerNumber = number;
+
 		// check this
 
 	}
@@ -47,12 +47,12 @@ public class Player {
 		// else cannot push
 	}
 	
-	public void setCharacter(char newCharacter){
-		this.character = newCharacter;
+	public void setPlayerNumber(int newCharacter){
+		this.playerNumber = newCharacter;
 	}
 	
-	public char getCharacter(){
-		return this.character;
+	public int getCharacter(){
+		return this.playerNumber;
 	}
 	
 
