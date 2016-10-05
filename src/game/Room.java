@@ -59,35 +59,35 @@ public abstract class Room {
 	// check moves - empty square
 	// check for item
 	
-//	/**
-//	 * iterates through neighbouring squares, adding empty ones to possible move locations
-//	 * @param player
-//	 * @return
-//	 */
-//	public ArrayList<Location> possibleMoves(Player player){
-//		ArrayList<Location> moves = new ArrayList<>();
-//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-//			if (neighbour.isEmpty() == true){
-//				moves.add(neighbour.getLocation());
-//			}
-//		}
-//		return moves;
-//	}
-//	
-//	/**
-//	 * checks neighbouring squares for items, and adds them to list of possible pickups where applicable
-//	 * @param player
-//	 * @return
-//	 */
-//	public ArrayList<Item> possiblePickups(Player player){
-//		ArrayList<Item> items = new ArrayList<>();
-//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-//			if (neighbour.getItem() != null){
-//				items.add(neighbour.getItem());
-//			}
-//		}
-//		return items;
-//	}
+	/**
+	 * iterates through neighbouring squares, adding empty ones to possible move locations
+	 * @param player
+	 * @return
+	 */
+	public ArrayList<Location> possibleMoves(Player player){
+		ArrayList<Location> moves = new ArrayList<>();
+		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
+			if (neighbour.isEmpty() == true){
+				moves.add(neighbour.getLocation());
+			}
+		}
+		return moves;
+	}
+	
+	/**
+	 * checks neighbouring squares for items, and adds them to list of possible pickups where applicable
+	 * @param player
+	 * @return
+	 */
+	public ArrayList<Item> possiblePickups(Player player){
+		ArrayList<Item> items = new ArrayList<>();
+		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
+			if (neighbour.getItem() != null){
+				items.add(neighbour.getItem());
+			}
+		}
+		return items;
+	}
 	
 
 }

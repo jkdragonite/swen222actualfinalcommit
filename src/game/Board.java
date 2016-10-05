@@ -13,7 +13,7 @@ public class Board {
 	
 	
 	/**
-	 * Fills an 2d array of squares for the board class with the desidered number of squares
+	 * Fills a 2d array of squares for the board class with the desidered number of squares
 	 * 
 	 * @param size
 	 */
@@ -71,41 +71,7 @@ public class Board {
 	
 	// check moves - empty square
 	// check for item
-	
-	/**
-	 * iterates through neighbouring squares, adding empty ones to possible move locations
-	 * @param player
-	 * @return
-	 */
-	public ArrayList<Location> possibleMoves(Player player){
-		ArrayList<Location> moves = new ArrayList<>();
-		for (Square neighbour : getNeighbours(player.getLocation())){
-			if (neighbour.isEmpty() == true){
-				moves.add(neighbour.getLocation());
-			}
-		}
-		return moves;
-	}
-	
-	/**
-	 * checks neighbouring squares for items, and adds them to list of possible pickups where applicable
-	 * @param player
-	 * @return
-	 */
-	public ArrayList<Item> possiblePickups(Player player){
-		ArrayList<Item> items = new ArrayList<>();
-		for (Square neighbour : getNeighbours(player.getLocation())){
-			if (neighbour.getItem() != null){
-				if (neighbour.getItem() instanceof InventoryItem){
-					items.add(neighbour.getItem());
-				}
-				else if (neighbour.getItem() instanceof MovableItem){
-					// check if can be pushed // add to moves if can?
-				}
-			}
-		}
-		return items;
-	}
+
 	
 	
 }
