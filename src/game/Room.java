@@ -1,6 +1,8 @@
 package game;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class Room {
 	// arraylist of players
@@ -108,6 +110,31 @@ public abstract class Room {
 	// method to test moves
 	
 	public void updatePlayerMoves(Player player){
+		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours2(player.getLocation());
+		// iterate through this hashmap, 
+		// check each square
+		// if empty, add to player class move squares,
+		// if item, add to possible pickups
+		// if movable item, test if item can move, store push + push direction?
+		// if chest item, add search
+		//
+		//
+		//checking for empty squares, if empty add to hashmap of empty location
+		// update this in player class
+		
+		// when player takes an action
+		
+		
+		// hashmap of neighbours
+		
+		// check hashmap for empty squares
+		
+		// check hashmap for pickup items
+		
+		// check hashmap for movable items
+		
+		
+		
 		
 	}
 	

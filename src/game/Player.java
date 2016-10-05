@@ -13,6 +13,8 @@ public class Player {
 	
 	
 	
+	
+	
 	public Player(int number, Room room){
 //		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
