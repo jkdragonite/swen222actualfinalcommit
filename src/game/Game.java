@@ -5,18 +5,37 @@ import java.util.ArrayList;
 
 public class Game {
 	private viewDirection view;
+	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
 
 	
 	public ArrayList<Player> players;
 	
 	
+	/**
+	 * indicates the players current view direction, i.e the
+	 * perspective to render from
+	 * 
+	 * @author Jordan
+	 *
+	 */
 	public enum viewDirection {
 		NORTH, SOUTH, EAST, WEST
 	}
 	
+	/**
+	 * indicates the player's current room i.e the room to render
+	 * 
+	 * @author Jordan
+	 *
+	 */
+	public enum renderRoom {
+		ROOM1, ROOM2, ROOM3, ROOM4, FINALROOM
+	}
+	
 	public Game() {
 		this.view = viewDirection.NORTH;	
+		this.currentRoom = renderRoom.ROOM1;
 		PuzzleRoom gamePackage = new PuzzleRoom(10);
 		// puzzle rooms added before final room
 		this.rooms.add(gamePackage);
@@ -31,8 +50,15 @@ public class Game {
 		this.view = direction;
 	}
 	
+	public void changeRoom(renderRoom room){
+		this.currentRoom = room;
+	}
+	
 	public void addPlayer(String nameString){
-		this.players.add(new Player(nameString));	
+		this.players.add(new Player(nameString));
+//		this.players.get(players.size()-1).setCharacter(players.size());
+//		method to set player character based on current number of players
+		
 	}
 	
 	// checked for unlocked door?
@@ -84,10 +110,22 @@ public class Game {
 		
 	}
 	
-	
 
+	/**
+	 * retrives enum current view direction for use by the renderer
+	 * 
+	 * @return enum viewdirection
+	 */
 	public viewDirection getDirection(){
 		return view;
 	}
 	
+	/**
+	 * returns current room the player is in for use by the renderer
+	 * 
+	 * @return enum renderRoom
+	 */
+	public renderRoom getRoom(){
+		return currentRoom;
+	}
 }

@@ -7,6 +7,7 @@ public class Player {
 	private ArrayList<InventoryItem> playerInventory;
 	private String nameString;
 	private Location location;
+	private char character;
 	
 	
 	
@@ -41,6 +42,14 @@ public class Player {
 		// if square in push direction empty / not door / exists
 		// can push
 		// else cannot push
+	}
+	
+	public void setCharacter(char newCharacter){
+		this.character = newCharacter;
+	}
+	
+	public char getCharacter(){
+		return this.character;
 	}
 	
 
