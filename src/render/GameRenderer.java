@@ -42,7 +42,7 @@ public class GameRenderer{
 		game = parent;
 		Room room = game.rooms.get(0);
 		Board board = room.board;
-		stage = board.getSquares();
+		stage = board.grid;
 		
 		if(board.grid[0][0] == null){
 			System.out.println("null squares");
