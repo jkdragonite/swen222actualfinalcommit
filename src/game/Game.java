@@ -2,21 +2,42 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 	private viewDirection view;
+	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
+	public HashMap<Integer, Item> itemCodes = new HashMap<>();
 
 	
-	public ArrayList<Player> players;
+	public ArrayList<Player> players = new ArrayList<Player>();
 	
 	
+	/**
+	 * indicates the players current view direction, i.e the
+	 * perspective to render from
+	 * 
+	 * @author Jordan
+	 *
+	 */
 	public enum viewDirection {
 		NORTH, SOUTH, EAST, WEST
 	}
 	
+	/**
+	 * indicates the player's current room i.e the room to render
+	 * 
+	 * @author Jordan
+	 *
+	 */
+	public enum renderRoom {
+		ROOM1, ROOM2, ROOM3, ROOM4, FINALROOM
+	}
+	
 	public Game() {
 		this.view = viewDirection.NORTH;	
+		this.currentRoom = renderRoom.ROOM1;
 		PuzzleRoom gamePackage = new PuzzleRoom(10);
 		// puzzle rooms added before final room
 		this.rooms.add(gamePackage);
@@ -31,9 +52,22 @@ public class Game {
 		this.view = direction;
 	}
 	
-	public void addPlayer(String nameString){
-		this.players.add(new Player(nameString));	
+	public void changeRoom(renderRoom room){
+		this.currentRoom = room;
 	}
+	
+	public void addPlayer(String nameString){
+		int currentSize = players.size();
+		this.players.add(new Player(currentSize));
+//		System.out.println(players.get(0).getCharacter());
+		
+//		this.players.get(players.size()-1).setCharacter(players.size());
+//		method to set player character based on current number of players
+		
+	}
+	
+	
+	// move up / down / left / right = update location for player?
 	
 	// checked for unlocked door?
 	
@@ -60,6 +94,15 @@ public class Game {
 		
 		
 	}
+	
+	
+	// method to creat room 1 items
+	
+	// method creat room 2 items
+	
+	// method create room 3 items
+	
+	// method creat room 4 items
 
 	public void createMovableItems(){
 		
@@ -84,10 +127,22 @@ public class Game {
 		
 	}
 	
-	
 
+	/**
+	 * retrives enum current view direction for use by the renderer
+	 * 
+	 * @return enum viewdirection
+	 */
 	public viewDirection getDirection(){
 		return view;
 	}
 	
+	/**
+	 * returns current room the player is in for use by the renderer
+	 * 
+	 * @return enum renderRoom
+	 */
+	public renderRoom getRoom(){
+		return currentRoom;
+	}
 }

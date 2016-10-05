@@ -6,12 +6,14 @@ public class Door extends Square{
 	private Room destinationRoom;
 	private Location location;
 	private Boolean unlocked;
+	private char character;
 	// reward item?
 	
 	public Door(Location location, Room destination) {
 		super(location);
 		this.destinationRoom = destination;
 		this.unlocked = false;
+		this.character = 'D';
 	}
 
 	private ArrayList<Item> solution;
@@ -29,11 +31,16 @@ public class Door extends Square{
 			player.removeItem(item);
 			if (solution.size() == keyHole.size()){
 				unlocked = true;
+				this.character = 'd';
 			}
 		}
 		
 		// render item didn't fit, or item fit sprite
 		
+	}
+	
+	public char getCharacter(){
+		return this.character;
 	}
 
 	

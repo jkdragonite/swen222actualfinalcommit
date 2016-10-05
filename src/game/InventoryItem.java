@@ -4,10 +4,12 @@ public class InventoryItem extends Item{
 	private String nameString;
 	private Player owner = null;
 	private Location location;
+	private char character;
 	
 	
 	public InventoryItem(String nameString){
 		super(nameString);
+		this.character = 'P';
 	}
 	
 	public void setLocation(Location location){
@@ -32,6 +34,14 @@ public class InventoryItem extends Item{
 		player.addItem(this);
 		
 		// display picked up item sprite?
+	}
+	
+	public void setCharacter(char character){
+		this.character = character;
+	}
+	
+	public char getCharacter(){
+		return this.character;
 	}
 	
 }
