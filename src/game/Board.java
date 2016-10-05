@@ -12,12 +12,19 @@ public class Board {
 
 	
 	
+	/**
+	 * Fills an 2d array of squares for the board class with the desidered number of squares
+	 * 
+	 * @param size
+	 */
 	public Board(int size){
 		this.gridSize = size;
-		System.out.println(size);
+//		System.out.println(size);
 		this.grid = new Square[size][size];
-		for (int y = 0; y > size; y++){
-			for (int x = 0; x > size; x++){
+		for (int y = 0; y < size; y++){
+			for (int x = 0; x < size; x++){
+//				System.out.println(y);
+//				System.out.println(x);
 				this.grid[y][x] = new PlayableSquare(new Location(x, y));
 			}
 		}

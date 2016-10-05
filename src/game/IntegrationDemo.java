@@ -10,7 +10,12 @@ public class IntegrationDemo {
 		Game game = new Game();
 	
 		// adds a player to the game
-		game.addPlayer("player 1");
+//		game.addPlayer("player 1");
+		
+		System.out.println(game.rooms.get(0).board.grid[0][0]);
+		
+		
+		
 		
 		// empty arraylist of locations
 		ArrayList<Location> playerMoves = new ArrayList<>();
