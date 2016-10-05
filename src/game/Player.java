@@ -66,7 +66,15 @@ public class Player {
 	}
 	
 
+	// possible player movement
 	
+	// possible player push
+	
+	// possible player pull
+	
+	// possible pickup
+	
+	// possible drop
 	
 	
 	// inventory

@@ -14,7 +14,7 @@ public abstract class Room {
 	 * @author Jordan
 	 *
 	 */
-	public enum movementDirection{
+	public enum MovementDirection{
 		UP, DOWN, LEFT, RIGHT
 	}
 	
@@ -32,6 +32,10 @@ public abstract class Room {
 	public void placePlayer(Player player, Location location){
 		this.board.grid[location.getY()][location.getX()].addPlayer(player);
 	}
+	
+	
+	
+	
 	
 	
 	
@@ -72,6 +76,16 @@ public abstract class Room {
 	// check for item
 	
 	
+//	
+//	public ArrayList<MovementDirection> freeMoves(Player player){
+//		ArrayList<MovementDirection> moves = new ArrayList<MovementDirection>();
+//		for (Square square : board.getNeighbours(player.getLocation())){
+//			if (square.isEmpty() == true){
+//		}
+//		return null;
+//		
+//	}
+	
 	
 	
 	
@@ -89,6 +103,18 @@ public abstract class Room {
 		}
 		return moves;
 	}
+	
+	
+	// method to test moves
+	
+	public void updatePlayerMoves(Player player){
+		
+	}
+	
+	// update moves in player class?
+	
+	// move player, which clear player's available moves
+	
 	
 	/**
 	 * checks neighbouring squares for items, and adds them to list of possible pickups where applicable
