@@ -2,11 +2,13 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 	private viewDirection view;
 	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
+	public HashMap<Integer, Item> itemCodes = new HashMap<>();
 
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
@@ -92,6 +94,15 @@ public class Game {
 		
 		
 	}
+	
+	
+	// method to creat room 1 items
+	
+	// method creat room 2 items
+	
+	// method create room 3 items
+	
+	// method creat room 4 items
 
 	public void createMovableItems(){
 		
