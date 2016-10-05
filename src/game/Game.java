@@ -38,9 +38,9 @@ public class Game {
 	public Game() {
 		this.view = viewDirection.NORTH;	
 		this.currentRoom = renderRoom.ROOM1;
-		PuzzleRoom gamePackage = new PuzzleRoom(10);
+		PuzzleRoom room1 = new PuzzleRoom(10);
 		// puzzle rooms added before final room
-		this.rooms.add(gamePackage);
+		this.rooms.add(room1);
 //		PuzzleRoom uiPackage = new PuzzleRoom(10);
 //		PuzzleRoom networkPackage = new PuzzleRoom(10);
 //		PuzzleRoom renderPackage = new PuzzleRoom(10);
@@ -58,7 +58,7 @@ public class Game {
 	
 	public void addPlayer(String nameString){
 		int currentSize = players.size();
-		this.players.add(new Player(currentSize));
+		this.players.add(new Player(currentSize, this.rooms.get(0)));
 //		System.out.println(players.get(0).getCharacter());
 		
 //		this.players.get(players.size()-1).setCharacter(players.size());
@@ -145,4 +145,30 @@ public class Game {
 	public renderRoom getRoom(){
 		return currentRoom;
 	}
+	
+	/**
+	 * returns a list of room's doors
+	 * 
+	 * @return arraylist door
+	 */
+	public ArrayList<Door> getDoors(){
+		ArrayList<Door> doors = new ArrayList<Door>();
+		for (Room room : this.rooms){
+			doors.add(room.getDoor());
+		}
+		return doors;
+	}
+	
+	/**
+	 * returns a list of rooms the players are currently in
+	 * @return arraylist rooms
+	 */
+	public ArrayList<Room> occupiedRooms(){
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		for (Player player : this.players){
+			rooms.add(player.getRoom());
+		}
+		return rooms;
+	}
+	
 }

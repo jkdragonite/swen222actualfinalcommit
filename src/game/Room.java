@@ -3,8 +3,20 @@ package game;
 import java.util.ArrayList;
 
 public abstract class Room {
+	// arraylist of players
+	private Door door;
+	
 	public Board board;
-
+	/**
+	 * 
+	 * Enum type covering all valid movement directions
+	 * 
+	 * @author Jordan
+	 *
+	 */
+	public enum movementDirection{
+		UP, DOWN, LEFT, RIGHT
+	}
 	
 	public Room(int size){
 		this.board = new Board(size);
@@ -59,6 +71,10 @@ public abstract class Room {
 	// check moves - empty square
 	// check for item
 	
+	
+	
+	
+	
 	/**
 	 * iterates through neighbouring squares, adding empty ones to possible move locations
 	 * @param player
@@ -89,5 +105,9 @@ public abstract class Room {
 		return items;
 	}
 	
+	
+	public Door getDoor(){
+		return this.door;
+	}
 
 }

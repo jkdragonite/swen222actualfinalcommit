@@ -39,6 +39,11 @@ public class Door extends Square{
 		
 	}
 	
+	public void goThroughDoor(Player player){
+		player.updateRoom(this.destinationRoom);
+		// update player location
+	}
+	
 	public char getCharacter(){
 		return this.character;
 	}
