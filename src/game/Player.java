@@ -5,17 +5,20 @@ import java.util.ArrayList;
 public class Player {
 	
 	private ArrayList<InventoryItem> playerInventory;
-	private String nameString;
+//	private String nameString;
 	private Location location;
 	private char character;
 	
 	
 	
 	
-	public Player(String nameString){
-		this.nameString = nameString;
+	public Player(int nameString){
+//		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
+		this.character = (char) nameString;
+//		System.out.println(nameString);
+		// check this
 
 	}
 	

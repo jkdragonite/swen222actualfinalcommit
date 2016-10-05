@@ -22,6 +22,7 @@ public class IntegrationDemo {
 		
 		// retrieves board from a room, uses player to creat list of possible moves
 		// this will be propperly implemented in the game class
+		game.addPlayer("hu");
 		playerMoves = game.rooms.get(0).possibleMoves(game.players.get(0));
 		
 		

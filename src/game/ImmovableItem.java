@@ -5,11 +5,15 @@ public class ImmovableItem extends Item {
 	
 	public ImmovableItem(String nameString) {
 		super(nameString);
-		this.character = 'I';
+		setCharacter();
 	}
 	
 	public char getCharacter(){
 		return this.character;
+	}
+	
+	public void setCharacter(){
+		this.character = 'I';
 	}
 	
 }

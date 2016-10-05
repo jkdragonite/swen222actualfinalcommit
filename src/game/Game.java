@@ -9,7 +9,7 @@ public class Game {
 	public ArrayList<Room> rooms = new ArrayList<Room>();
 
 	
-	public ArrayList<Player> players;
+	public ArrayList<Player> players = new ArrayList<Player>();
 	
 	
 	/**
@@ -55,11 +55,17 @@ public class Game {
 	}
 	
 	public void addPlayer(String nameString){
-		this.players.add(new Player(nameString));
+		int currentSize = players.size();
+		this.players.add(new Player(currentSize));
+//		System.out.println(players.get(0).getCharacter());
+		
 //		this.players.get(players.size()-1).setCharacter(players.size());
 //		method to set player character based on current number of players
 		
 	}
+	
+	
+	// move up / down / left / right = update location for player?
 	
 	// checked for unlocked door?
 	
