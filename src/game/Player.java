@@ -1,6 +1,9 @@
 package game;
 
+import game.Room.MovementDirection;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
 	
@@ -9,7 +12,7 @@ public class Player {
 	private Location location;
 	private int playerNumber;
 	private Room currentRoom;
-	
+	private HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
 	
 	
 	
@@ -65,6 +68,10 @@ public class Player {
 	
 	public int getCharacter(){
 		return this.playerNumber;
+	}
+	
+	public void addToMovement(MovementDirection direction, Square square){
+		this.moves.put(direction, square);
 	}
 	
 

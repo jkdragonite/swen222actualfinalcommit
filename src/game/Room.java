@@ -111,6 +111,16 @@ public abstract class Room {
 	
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours2(player.getLocation());
+		
+		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
+			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
+				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
+			}
+			else if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
+				
+			}
+		}
+		
 		// iterate through this hashmap, 
 		// check each square
 		// if empty, add to player class move squares,

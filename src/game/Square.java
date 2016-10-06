@@ -8,8 +8,7 @@ public abstract class Square {
 	public Square(Location location) {
 		this.location = location;
 	}
-	
-	
+		
 	public void addPlayer(Player player){
 		this.playerOnSquare = player;
 	}
