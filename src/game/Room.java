@@ -69,6 +69,7 @@ public abstract class Room {
 	 * @param location
 	 */
 	public void PlaceItem(Item item, Location location){
+		// instanceof for particular items?
 		this.board.grid[location.getY()][location.getX()].setItem(item);
 	}
 	
