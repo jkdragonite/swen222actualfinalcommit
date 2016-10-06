@@ -118,7 +118,6 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 1;
 			itemInfo.setText( "lance of fire - used to burn things");//string will be item.getString
-			//itemInfo.repaint();
 			repaint();
 		}
 		if (src == item2) {
@@ -130,7 +129,6 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 2;
 			itemInfo.setText( "lance of Ice - used to freeze things");
-			itemInfo.repaint();
 			repaint();
 		}
 		if (src == item3) {
@@ -140,9 +138,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item2.setEnabled(true);
 			item3.setEnabled(false);
 			item4.setEnabled(true);
-			itemText = "lance of Thunder - used to zap things";
+			itemInfo.setText("lance of Thunder - used to zap things");
 			selected = 3;
-			itemInfo.repaint();
 			repaint();
 
 		}
@@ -154,8 +151,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(false);
 			selected = 4;
-			itemText = "A box - just a box";
-			itemInfo.repaint();
+			itemInfo.setText("A box - just a box");
 			repaint();
 
 		}
