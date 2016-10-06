@@ -1,5 +1,21 @@
 - filling in some game objects i need for renderer
 
+Objects in the game are defined by a constant value as follows, which makes level
+design/game updates easier to parse.
+
+Box 					610
+Bookshelf				611
+Book/Paper?				612
+Bed						614
+Chair					615
+Computer				616
+Darkness				617
+Desk					618
+Key						619
+Table					620
+
+
+
 Physical/static objects represented in game file represented by text:
 Wall = W
 Locked Door = D
@@ -24,8 +40,15 @@ WWWWWWOOOW
 WWW2WOOOOW
 WWWWDWWWWW
 
+/*potentially add a few sentences about each S object, like what it contains? Q for a 'quest' item*/
+
 When the data is processed it's put into a 2D array, which can then be compared with the current 2D array. Makes checking for which
 object is where/if the player has clicked on an object/whether the player can move to a position a little more manageable? 
+
+/*****************************
+Initializing the game
+*****************************/
+Have a file for each room planned that can be loaded in when the level is requested. 
 
 //movePlayer(int dir)
 	//gets the next direction in the player queue and follows it (pickup, move up, drop)
@@ -43,7 +66,7 @@ object is where/if the player has clicked on an object/whether the player can mo
 	//		the 0-1 denotes lock state
 	//e.g. locked door at 0,1 and an unlocked door at 3,0 = 'd010301'
 	
-	//we secondly update containers with storage, sending an 's'., followed by their x,y location
+	//we secondly update containers with storage, sending an 's', followed by their x,y location
 	//and either a 0 or 1, to denote whether the container is empty or not.
 	//If 1, char 'i' is sent followed by a number denoting which object it is (as defined in a 
 	//level file)
@@ -51,10 +74,17 @@ object is where/if the player has clicked on an object/whether the player can mo
 	//we then update movable container locations by sending 'm' followed by a container's old x/y
 	//and then their new x/y
 	
-	//we then update pickupables/dropped items preceeded by 'p'. Each subsequent item is preceeded
+	//we then update pickupables/dropped items preceeded by 'i'. Each subsequent item is preceeded
 	//by either a 0 or 1, which is whether it was picked up or dropped. This is followed by either
 	//the x/y co-ordinates of the player, (or the player involved's uid?) and the x/y of where
-	//te=he object either was or is now. 
+	//the object either was or is now. 
+	e.g. player 202 dropped an item at 0,4 = 'i141202'
 	
-	//update player
-	//room, inventory, etc.
+	//finally? we update the players. This stage is signaled by a 'p' and is followed by the 
+	//player's uid. (inventory managed in the one before?)
+	//If the player has moved rooms a 1 is sent, followed by the id# of the room, else a 0 is sent
+	//If the player has moved in their current room a 1 is sent, followed by the new grid x/y pos
+	//	else a 0 is sent
+	//any other player details??
+	
+	
