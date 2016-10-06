@@ -27,12 +27,12 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	 */
 	public ButtonPanel() {
 
-		Dimension size = new Dimension(1200, 30);
+		Dimension size = new Dimension(1200, 25);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.blue));
 
 		// setting the dimension used for the buttons
-		Dimension button = new Dimension(295, 30);
+		Dimension button = new Dimension(295, 25);
 
 		rotateL = new JButton("Rotate Left");
 		rotateL.setPreferredSize(button);
@@ -49,7 +49,7 @@ public class ButtonPanel extends JPanel implements ActionListener {
 		rotateU.addActionListener(this);
 		add(rotateU, BorderLayout.NORTH);
 
-		rotateD = new JButton("Rotate Top");
+		rotateD = new JButton("Rotate Down");
 		rotateD.setPreferredSize(button);
 		rotateD.addActionListener(this);
 		add(rotateD, BorderLayout.NORTH);

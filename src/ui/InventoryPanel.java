@@ -1,16 +1,15 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventObject;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class InventoryPanel extends JPanel implements ActionListener {
 
@@ -26,6 +25,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton pull;
 	private JButton trade;
 
+	private JTextArea itemInfo;
+	private String itemText = "Item info";
+
 	private int selected;
 
 	/**
@@ -34,12 +36,18 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	public InventoryPanel() {
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
-		
+
 		setLayout(null);
 
 		Dimension size = new Dimension(1200, 240);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
+
+		itemInfo = new JTextArea();
+		itemInfo.setText(itemText);
+		itemInfo.setBounds(960, 10, 240, 40);
+
+		this.add(itemInfo);
 
 		// setting the dimension used for the buttons
 
@@ -109,6 +117,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(true);
 			selected = 1;
+			itemInfo.setText( "lance of fire - used to burn things");//string will be item.getString
+			//itemInfo.repaint();
 			repaint();
 		}
 		if (src == item2) {
@@ -119,6 +129,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(true);
 			selected = 2;
+			itemInfo.setText( "lance of Ice - used to freeze things");
+			itemInfo.repaint();
 			repaint();
 		}
 		if (src == item3) {
@@ -128,7 +140,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item2.setEnabled(true);
 			item3.setEnabled(false);
 			item4.setEnabled(true);
+			itemText = "lance of Thunder - used to zap things";
 			selected = 3;
+			itemInfo.repaint();
 			repaint();
 
 		}
@@ -140,6 +154,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(false);
 			selected = 4;
+			itemText = "A box - just a box";
+			itemInfo.repaint();
 			repaint();
 
 		}
@@ -187,6 +203,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		gr.fillRect(510, imageY, imageSize, imageSize);
 		gr.fillRect(750, imageY, imageSize, imageSize);
 		gr.setColor(Color.black);
+		// itemInfo.update(gr);
 		if (selected == 1) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
 			gr.fillRect(25, imageY - 5, imageSize + 10, imageSize + 10);
