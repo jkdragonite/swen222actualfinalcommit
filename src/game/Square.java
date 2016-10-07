@@ -6,6 +6,9 @@ public abstract class Square {
 	private InventoryItem inventory = null;
 	private MovableItem movableItem = null;
 	private ImmovableItem immovableItem = null;
+	private Container container = null;
+
+
 	private Item item = null;
 	private Location location;
 	
@@ -37,6 +40,14 @@ public abstract class Square {
 		this.immovableItem = immovableItem;
 	}
 
+	
+	public Container getContainer() {
+		return container;
+	}
+
+	public void setContainer(Container container) {
+		this.container = container;
+	}
 
 		
 	public void addPlayer(Player player){

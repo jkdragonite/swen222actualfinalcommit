@@ -14,6 +14,8 @@ public class Player {
 	private Room currentRoom;
 	private HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
 	private HashMap<MovementDirection, Square> pushMoves = new HashMap<MovementDirection, Square>();
+	private HashMap<MovementDirection, Square> itemPickups = new HashMap<MovementDirection, Square>();
+	private HashMap<MovementDirection, Square> searchMoves = new HashMap<MovementDirection, Square>();
 	
 	
 	
@@ -80,6 +82,13 @@ public class Player {
 		this.moves.put(direction, square);
 	}
 	
+	public void addToItemPickups(MovementDirection direction, Square square){
+		this.itemPickups.put(direction, square);
+	}
+	
+	public void addToSearchMoves(MovementDirection direction, Square square){
+		this.searchMoves.put(direction, square);
+	}
 
 	// possible player movement
 	

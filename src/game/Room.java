@@ -114,6 +114,7 @@ public abstract class Room {
 	
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
+		// method to resetmoves?
 		
 		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
@@ -127,8 +128,17 @@ public abstract class Room {
 					
 					if (testPull(direction, board.getSquare(player.getLocation())) == true){
 						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));
+						// finish this pull move method
 					}
 				}
+			}
+			
+			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
+				player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
+			}
+			
+			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
+				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
 			
 		}
@@ -202,6 +212,7 @@ public abstract class Room {
 	// update moves in player class?
 	
 	// move player, which clear player's available moves
+	
 	
 	
 	/**
