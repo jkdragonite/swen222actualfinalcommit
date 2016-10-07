@@ -8,7 +8,7 @@ public class Game {
 	private viewDirection view;
 	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
-	public HashMap<Integer, Item> itemCodes = new HashMap<>();
+	public HashMap<Integer, itemType> itemCodes = new HashMap<>();
 
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
@@ -35,6 +35,21 @@ public class Game {
 		ROOM1, ROOM2, ROOM3, ROOM4, FINALROOM
 	}
 	
+	
+	
+	/**
+	 * 
+	 * enum type for items
+	 * 
+	 * @author Jordan
+	 *
+	 */
+	public enum itemType {
+		BOX, BOOKSHELF, BOOK, BED, CHAIR,
+		COMPUTER, DARKNESS, DESK, KEY, TABLE
+	}
+	
+	
 	public Game() {
 		this.view = viewDirection.NORTH;	
 		this.currentRoom = renderRoom.ROOM1;
@@ -46,6 +61,21 @@ public class Game {
 //		PuzzleRoom renderPackage = new PuzzleRoom(10);
 		// add rooms with names? like game package etc
 		this.rooms.add(new FinalRoom(10));
+	}
+	
+	public void initializeItemsCodes(){
+		this.itemCodes.put(610, itemType.BOX);
+		this.itemCodes.put(611, itemType.BOOKSHELF);
+		this.itemCodes.put(612, itemType.BOOK);
+		this.itemCodes.put(614, itemType.BED);
+		this.itemCodes.put(615, itemType.CHAIR);
+		this.itemCodes.put(616, itemType.COMPUTER);
+		this.itemCodes.put(618, itemType.DARKNESS);
+		this.itemCodes.put(610, itemType.DESK);
+		this.itemCodes.put(610, itemType.KEY);
+		this.itemCodes.put(610, itemType.TABLE);
+		
+		
 	}
 	
 	public void shiftView(viewDirection direction){

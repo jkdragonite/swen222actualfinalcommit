@@ -13,6 +13,8 @@ public class Player {
 	private int playerNumber;
 	private Room currentRoom;
 	private HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
+	private HashMap<MovementDirection, Square> pushMoves = new HashMap<MovementDirection, Square>();
+	
 	
 	
 	
@@ -71,6 +73,10 @@ public class Player {
 	}
 	
 	public void addToMovement(MovementDirection direction, Square square){
+		this.moves.put(direction, square);
+	}
+	
+	public void addToPushMoves(MovementDirection direction, Square square){
 		this.moves.put(direction, square);
 	}
 	

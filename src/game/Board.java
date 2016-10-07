@@ -39,8 +39,15 @@ public class Board {
 	}
 	
 	
+	public Square getSquare(Location location){
+		Square square = null;
+		square = this.grid[location.getY()][location.getX()];
+		return square;
+	}
 	
-	public HashMap<MovementDirection, Square> getNeighbours2(Location location){
+	
+	
+	public HashMap<MovementDirection, Square> getNeighbours(Location location){
 		HashMap<MovementDirection, Square> neighBours = new HashMap<MovementDirection, Square>();
 		int xValue = location.getX();
 		int yValue = location.getY();
@@ -73,36 +80,36 @@ public class Board {
 	
 	
 	
-	public ArrayList<Square> getNeighbours(Location location){
-		ArrayList<Square> neighBours = new ArrayList<>();
-		int xValue = location.getX();
-		int yValue = location.getY();
-		
-		if (xValue - 1 > 0 && xValue -1 > this.gridSize){
-			if (yValue > 0 && yValue > this.gridSize){
-			neighBours.add(this.grid[yValue][xValue -1]);
-			}
-		}
-		
-		if (xValue +1 > 0 && xValue +1 > this.gridSize){
-			if (yValue > 0 && yValue > this.gridSize){
-			neighBours.add(this.grid[yValue][xValue +1]);
-			}
-		}
-		
-		if (xValue > 0 && xValue > this.gridSize){
-			if (yValue -1 > 0 && yValue -1 > this.gridSize){
-			neighBours.add(this.grid[yValue -1][xValue]);
-			}
-		}
-		
-		if (xValue > 0 && xValue > this.gridSize){
-			if (yValue +1 > 0 && yValue +1 > this.gridSize){
-			neighBours.add(this.grid[yValue +1][xValue]);
-			}
-		}
-		return neighBours;
-	}
+//	public ArrayList<Square> getNeighbours(Location location){
+//		ArrayList<Square> neighBours = new ArrayList<>();
+//		int xValue = location.getX();
+//		int yValue = location.getY();
+//		
+//		if (xValue - 1 > 0 && xValue -1 > this.gridSize){
+//			if (yValue > 0 && yValue > this.gridSize){
+//			neighBours.add(this.grid[yValue][xValue -1]);
+//			}
+//		}
+//		
+//		if (xValue +1 > 0 && xValue +1 > this.gridSize){
+//			if (yValue > 0 && yValue > this.gridSize){
+//			neighBours.add(this.grid[yValue][xValue +1]);
+//			}
+//		}
+//		
+//		if (xValue > 0 && xValue > this.gridSize){
+//			if (yValue -1 > 0 && yValue -1 > this.gridSize){
+//			neighBours.add(this.grid[yValue -1][xValue]);
+//			}
+//		}
+//		
+//		if (xValue > 0 && xValue > this.gridSize){
+//			if (yValue +1 > 0 && yValue +1 > this.gridSize){
+//			neighBours.add(this.grid[yValue +1][xValue]);
+//			}
+//		}
+//		return neighBours;
+//	}
 	
 	
 	

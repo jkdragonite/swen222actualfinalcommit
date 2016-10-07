@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.scene.shape.Box;
+
 public abstract class Room {
 	// arraylist of players
 	private Door door;
@@ -92,34 +94,43 @@ public abstract class Room {
 	
 	
 	
-	/**
-	 * iterates through neighbouring squares, adding empty ones to possible move locations
-	 * @param player
-	 * @return
-	 */
-	public ArrayList<Location> possibleMoves(Player player){
-		ArrayList<Location> moves = new ArrayList<>();
-		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-			if (neighbour.isEmpty() == true){
-				moves.add(neighbour.getLocation());
-			}
-		}
-		return moves;
-	}
+//	/**
+//	 * iterates through neighbouring squares, adding empty ones to possible move locations
+//	 * @param player
+//	 * @return
+//	 */
+//	public ArrayList<Location> possibleMoves(Player player){
+//		ArrayList<Location> moves = new ArrayList<>();
+//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
+//			if (neighbour.isEmpty() == true){
+//				moves.add(neighbour.getLocation());
+//			}
+//		}
+//		return moves;
+//	}
 	
 	
 	// method to test moves
 	
 	public void updatePlayerMoves(Player player){
-		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours2(player.getLocation());
+		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
 		
 		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
 				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
 			}
 			else if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
-				
+				if (neighbouringSquareHashMap.get(direction).getMovableItem() != null){
+					if (testPush(direction, neighbouringSquareHashMap.get(direction)) == true){
+						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));
+					}
+					
+					if (testPull(direction, board.getSquare(player.getLocation())) == true){
+						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));
+					}
+				}
 			}
+			
 		}
 		
 		// iterate through this hashmap, 
@@ -149,6 +160,45 @@ public abstract class Room {
 		
 	}
 	
+	
+	public boolean testPush(MovementDirection direction, Square square){
+		boolean push = false;
+		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
+		if (boxNeighbours.get(direction).isEmpty() == true) {
+			push = true;
+		}
+		return push;
+	}
+	
+	
+	public boolean testPull(MovementDirection direction, Square square){
+		boolean pull = false;
+		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
+		
+		if (direction == MovementDirection.UP){
+			if (boxNeighbours.get(MovementDirection.DOWN).isEmpty() == true) {
+				pull = true;
+			}
+		}
+		if (direction == MovementDirection.DOWN){
+			if (boxNeighbours.get(MovementDirection.UP).isEmpty() == true) {
+				pull = true;
+			}
+		}
+		if (direction == MovementDirection.LEFT){
+			if (boxNeighbours.get(MovementDirection.RIGHT).isEmpty() == true) {
+				pull = true;
+			}
+		}
+		if (direction == MovementDirection.RIGHT){
+			if (boxNeighbours.get(MovementDirection.LEFT).isEmpty() == true) {
+				pull = true;
+			}
+		}	
+		return pull;
+	}
+	
+	
 	// update moves in player class?
 	
 	// move player, which clear player's available moves
@@ -159,15 +209,15 @@ public abstract class Room {
 	 * @param player
 	 * @return
 	 */
-	public ArrayList<Item> possiblePickups(Player player){
-		ArrayList<Item> items = new ArrayList<>();
-		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-			if (neighbour.getItem() != null){
-				items.add(neighbour.getItem());
-			}
-		}
-		return items;
-	}
+//	public ArrayList<Item> possiblePickups(Player player){
+//		ArrayList<Item> items = new ArrayList<>();
+//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
+//			if (neighbour.getItem() != null){
+//				items.add(neighbour.getItem());
+//			}
+//		}
+//		return items;
+//	}
 	
 	
 	public Door getDoor(){

@@ -43,6 +43,7 @@ public abstract class Square {
 		this.playerOnSquare = player;
 	}
 	
+	
 	public void removePlayer(){
 		this.playerOnSquare = null;
 	}
@@ -56,6 +57,7 @@ public abstract class Square {
 	
 	public void removeItem(){
 		this.itemOnSquare = null;
+		// update to change movable / immovable items
 	}
 	
 	public Location getLocation(){
@@ -71,7 +73,7 @@ public abstract class Square {
 	}
 	
 	public Boolean isEmpty(){
-		if (this.playerOnSquare == null && this.itemOnSquare == null){
+		if (this.playerOnSquare == null && this.movableItem == null && this.immovableItem == null){
 			return true;
 		}
 		else {
