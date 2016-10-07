@@ -1,11 +1,14 @@
 package network;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import game.Game;
 
@@ -42,13 +45,29 @@ public class Parser {
 	 * @param file
 	 * @return
 	 */
-	public synchronized byte[] initToByteArray(File file){
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(bout);
+	public static Game gameFromFile(File file)throws IOException{
+		//create the file readers ready for parsing
+		FileReader fr = new FileReader(file);
+		BufferedReader in = new BufferedReader(fr);
 		
+		//initialize a new basic game which we will modify based on file contents
+		Game game = new Game();
 		
+		ArrayList<String> lines = new ArrayList<String>();	//all lines in file
+		String line; //current line in file
+		int lineCount  = 0;
 		
-		return bout.toByteArray();
+		//while the file has lines, process them
+		while((line = in.readLine()) != null){
+			lines.add(line);
+			
+			//process 
+			if(lineCount == 0){
+				
+			}
+		}
+		
+		return game;
 	}
 	
 	public static byte[] stateToBytes() throws IOException{

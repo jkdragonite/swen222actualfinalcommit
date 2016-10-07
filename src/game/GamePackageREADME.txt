@@ -11,7 +11,7 @@ Chair					615
 Computer				616
 Darkness				617
 Desk					618
-Key						619
+Key						619			//quest item thing
 Table					620
 
 
