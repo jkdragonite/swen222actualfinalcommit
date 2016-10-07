@@ -31,6 +31,10 @@ public abstract class Square {
 	public void setMovableItem(MovableItem movableItem) {
 		this.movableItem = movableItem;
 	}
+	
+	public void removeMovableItem(){
+		this.movableItem = null;
+	}
 
 	public ImmovableItem getImmovableItem() {
 		return immovableItem;

@@ -34,9 +34,11 @@ public class Board {
 	}
 	
 	
+	
 	public void setDoor(Door door, Location location){
 		this.grid[location.getY()][location.getX()] = door;
 	}
+	
 	
 	
 	public Square getSquare(Location location){

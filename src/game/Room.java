@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javafx.scene.shape.Box;
-
 public abstract class Room {
 	// arraylist of players
 	private Door door;
@@ -141,19 +139,8 @@ public abstract class Room {
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
 			
-		}
-		
-		// iterate through this hashmap, 
-		// check each square
-		// if empty, add to player class move squares,
-		// if item, add to possible pickups
-		// if movable item, test if item can move, store push + push direction?
-		// if chest item, add search
-		//
-		//
-		//checking for empty squares, if empty add to hashmap of empty location
-		// update this in player class
-		
+		}	
+				
 		// when player takes an action
 		
 		
@@ -163,11 +150,8 @@ public abstract class Room {
 		
 		// check hashmap for pickup items
 		
-		// check hashmap for movable items
-		
-		
-		
-		
+		// check hashmap for movable items		
+				
 	}
 	
 	
@@ -208,6 +192,113 @@ public abstract class Room {
 		return pull;
 	}
 	
+	
+	public void MovePlayer(Player player, MovementDirection direction){
+		Location currentLocation = player.getLocation();
+		if (direction == MovementDirection.UP){
+			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
+			player.updateLocation(newLocation);
+			board.getSquare(currentLocation).removePlayer();
+			board.getSquare(newLocation).addPlayer(player);
+		}
+		if (direction == MovementDirection.DOWN){
+			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
+			player.updateLocation(newLocation);
+			board.getSquare(currentLocation).removePlayer();
+			board.getSquare(newLocation).addPlayer(player);
+		}
+		if (direction == MovementDirection.LEFT){
+			Location newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			player.updateLocation(newLocation);
+			board.getSquare(currentLocation).removePlayer();
+			board.getSquare(newLocation).addPlayer(player);
+		}
+		if (direction == MovementDirection.RIGHT){
+			Location newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
+			player.updateLocation(newLocation);
+			board.getSquare(currentLocation).removePlayer();
+			board.getSquare(newLocation).addPlayer(player);
+		}
+		// call reset moves on player
+		updatePlayerMoves(player);
+	}
+	
+	
+	/**
+	 * Takes a square containing a movable item, as well as a direction
+	 * and moves said item to another square based on the direction given
+	 * 
+	 * @param direction
+	 * @param square
+	 */
+	public void pushItem(Player player, MovementDirection direction, Square square){
+		if (direction == MovementDirection.UP){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+		
+		if (direction == MovementDirection.DOWN){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+		
+		if (direction == MovementDirection.LEFT){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();		
+		}
+		
+		if (direction == MovementDirection.RIGHT){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+	}
+	
+	/**
+	 * Takes a square and a pull direction, moves player and box based on these two factors
+	 * 
+	 * @param direction
+	 * @param square
+	 */
+	public void pullItem(MovementDirection direction, Square square){
+		if (direction == MovementDirection.UP){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+		
+		if (direction == MovementDirection.DOWN){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+		
+		if (direction == MovementDirection.LEFT){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();		
+		}
+		
+		if (direction == MovementDirection.RIGHT){
+			int squareX = square.getLocation().getX();
+			int squareY = square.getLocation().getY();
+			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
+			board.getSquare(square.getLocation()).removeMovableItem();
+		}
+	}
+	
+	
+
 	
 	// update moves in player class?
 	
