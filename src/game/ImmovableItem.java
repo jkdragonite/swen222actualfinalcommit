@@ -20,4 +20,12 @@ public class ImmovableItem extends Item {
 		this.character = 'I';
 	}
 	
+	public ArrayList<Location> getLocations(){
+		return this.locationsCovered;
+	}
+	
+	public void addToLocations(Location location){
+		locationsCovered.add(location);
+	}
+	
 }

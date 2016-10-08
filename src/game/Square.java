@@ -6,6 +6,7 @@ public abstract class Square {
 	private MovableItem movableItem = null;
 	private ImmovableItem immovableItem = null;
 	private Container container = null;
+	private Boolean renderFlag = false;
 	private Location location;
 	
 	public Square(Location location) {
@@ -82,6 +83,18 @@ public abstract class Square {
 		return this.playerOnSquare;
 	}
 	
+	public void setRenderFlag(Boolean valueBoolean){
+		this.renderFlag = valueBoolean;
+	}
+	
+	public void resetRenderFlag(){
+		this.renderFlag = true;
+	}
+	
+	public Boolean getRenderFlag(){
+		return this.renderFlag;
+	}
+	
 	public Boolean isEmpty(){
 		if (this.playerOnSquare == null && this.movableItem == null && this.immovableItem == null){
 			return true;
@@ -90,5 +103,7 @@ public abstract class Square {
 			return false;
 		}
 	}
+	
+
 	
 }

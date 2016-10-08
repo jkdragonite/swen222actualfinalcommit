@@ -68,6 +68,8 @@ public abstract class Room {
 	}
 	
 	public void setImmovableItem(ImmovableItem item, Location location){
+		// update to take item and arraylist of locations, set each to be instance of item?
+		
 		this.board.grid[location.getY()][location.getX()].setImmovableItem(item);
 	}
 	
