@@ -14,13 +14,16 @@ import render.GameRenderer;
 
 public class RenderPanel extends JPanel implements ActionListener{
 
+	
+	private Game theGame;
 	private GameRenderer gam;
 	
-	public RenderPanel(){
+	public RenderPanel(Game g){
+	theGame = g;
 	Dimension size = new Dimension(1200, 400);
 	setPreferredSize(size);
 	setBorder(BorderFactory.createLineBorder(Color.red));
-	gam = new GameRenderer (new Game());
+	gam = new GameRenderer (g);
 	}
 	
 	@Override

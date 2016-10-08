@@ -18,7 +18,7 @@ import javax.swing.JPopupMenu;
 import game.Game;
 import render.GameRenderer;
 
-public class Frame extends JFrame implements MouseListener, ActionListener {
+public class Frame extends JFrame implements  ActionListener {
 
 	// panel fields
 	public ButtonPanel bp;
@@ -30,11 +30,15 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 	JMenu menu;
 	JMenu help;
 	JMenu save;
+	
+	// the game
+	private Game theGame;
    
 	
 	
-    public Frame(String title, KeyListener kl) {
+    public Frame(String title, KeyListener kl,Game g) {
     	super(title);
+    	theGame = g;
 		// Menu bar things
 		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -72,18 +76,17 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 		setLayout(new BorderLayout());
 
 		
-		bp = new ButtonPanel();
+		bp = new ButtonPanel(theGame);
 		add(bp, BorderLayout.CENTER);
 
-		ip = new InventoryPanel();
+		ip = new InventoryPanel(theGame);
 		add(ip, BorderLayout.SOUTH);
 		
-		rp = new RenderPanel();
+		rp = new RenderPanel(theGame);
 		add(rp, BorderLayout.NORTH);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
-		addMouseListener(this);
 		addKeyListener(kl);
 		setResizable(false);
 		setVisible(true);
@@ -117,36 +120,6 @@ public class Frame extends JFrame implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}

@@ -3,16 +3,14 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import game.Game;
 
 public class ButtonPanel extends JPanel implements ActionListener {
 
@@ -21,11 +19,15 @@ public class ButtonPanel extends JPanel implements ActionListener {
 	private JButton rotateR; // rotate right
 	private JButton rotateU; //  rotate top
 	private JButton rotateD; // rotate down
+	
+	//the game
+	private Game theGame;
 
 	/**
 	 * Constructor for ButtonPanel
 	 */
-	public ButtonPanel() {
+	public ButtonPanel(Game g) {
+		theGame = g;
 
 		Dimension size = new Dimension(1200, 25);
 		setPreferredSize(size);

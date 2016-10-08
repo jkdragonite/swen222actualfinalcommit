@@ -6,6 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import game.Game;
+
 public class NetworkTesting {
 	
 	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;
@@ -59,7 +61,7 @@ public class NetworkTesting {
 	 * Creates a 'server' (a master and a servant) to test whether they're working together and sending
 	 * /receiving on a basic level
 	 */
-	public static void testBasicNetwork(){
+	/*public static void testBasicNetwork(){
 		try{
 			ServerSocket ss = new ServerSocket(DEFAULT_PORT);
 			InetAddress address = InetAddress.getByName(DEFAULT_HOST);
@@ -75,7 +77,7 @@ public class NetworkTesting {
 			System.out.println(ioe.getMessage());
 		}
 		
-	}
+	}*/
 	
 	/************************************************
 	 * 				HELPER METHODS
@@ -118,7 +120,7 @@ public class NetworkTesting {
 	private static void runClient(InetAddress addr, int port) throws IOException {		
 		Socket s = new Socket(addr,port);
 		System.out.println("Creating new SERVANT " + addr + ":" + port);			
-		new Servant(s).run();		
+		new Servant(s, new Game()).run();		
 	}
 	
 	

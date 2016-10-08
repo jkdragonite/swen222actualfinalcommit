@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 
+import game.Game;
 import ui.Frame;
 
 /**
@@ -15,7 +16,7 @@ import ui.Frame;
  *
  */
 public final class Servant extends Thread implements KeyListener, MouseListener{
-	//field for a game board
+	Game game;
 	/** The socket user to communicate with it's assigned Master*/
 	private final Socket socket;
 	private DataOutputStream output;
@@ -23,7 +24,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	private int uid;
 	private Frame gui;
 	
-	public Servant(Socket socket){
+	public Servant(Socket socket, Game game){
 		this.socket = socket;
 		System.out.println("SERVANT creating input and output streams");
 		try {
@@ -40,7 +41,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			uid = input.readInt();					
 			System.out.println("CLIENT UID: " + uid);
 			
-			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, this);
+			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, this, game);
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");
@@ -117,7 +118,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			addr = InetAddress.getByName("localhost");
 			Socket s = new Socket(addr,port);
 			System.out.println("Creating new SERVANT " + addr + ":" + port);			
-			new Servant(s).run();
+			new Servant(s, new Game()).run();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

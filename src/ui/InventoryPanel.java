@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import game.Game;
 import game.InventoryItem;
 
 public class InventoryPanel extends JPanel implements ActionListener {
@@ -24,11 +25,14 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private static Image bookIcon;
 	private static Image boxIcon;
 	
-	
+	//inventory slots
 	private InventoryItem slot1=null;
 	private InventoryItem slot2=null;
 	private InventoryItem slot3=null;
 	private InventoryItem slot4=null;
+	
+	//the game
+	private Game theGame;
 	
 	
 	// buttons
@@ -51,7 +55,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	/**
 	 * Constructor for InventoryPanel
 	 */
-	public InventoryPanel() {
+	public InventoryPanel(Game g) {
+		theGame = g;
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
 		
