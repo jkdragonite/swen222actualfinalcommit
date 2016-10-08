@@ -141,12 +141,25 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * Adds all valid player items from player inventory to door 
+	 * 
+	 * @param player player executing move
+	 * @param door door player is standing on/by (door extends square)
+	 */
 	public void useItem(Player player, Door door){
 		for (InventoryItem item : player.getInventory()){
 			door.testItem(player, item);
 		}
 	}
 	
+	
+	/**
+	 * Searches a container on a given square, and adds the items found to the given player's inventory
+	 * 
+	 * @param player executing move
+	 * @param square holding container
+	 */
 	public void searchContainer(Player player, Square square){
 		ArrayList<InventoryItem> containerItems = square.getContainer().getItems();
 		for (InventoryItem item : containerItems){
