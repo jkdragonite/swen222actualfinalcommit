@@ -151,6 +151,8 @@ public abstract class Room {
 		for (InventoryItem item : player.getInventory()){
 			door.testItem(player, item);
 		}
+		player.resetMoves();
+		updatePlayerMoves(player);
 	}
 	
 	
@@ -166,6 +168,8 @@ public abstract class Room {
 			player.addItem(item);
 			square.getContainer().removeItem(item);
 		}
+		player.resetMoves();
+		updatePlayerMoves(player);
 	}
 	
 	
@@ -294,6 +298,8 @@ public abstract class Room {
 	public void pickupItem(Player player, Square square){
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
+		player.resetMoves();
+		updatePlayerMoves(player);
 	}
 	
 	public Door getDoor(){
