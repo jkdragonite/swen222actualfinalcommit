@@ -107,6 +107,9 @@ public abstract class Room {
 					player.canGoThroughDoor = true;
 				}
 			}
+			else if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
+				player.canDropItem = true;
+			}
 		}		
 	}
 	
@@ -161,6 +164,19 @@ public abstract class Room {
 		}
 		player.resetMoves();
 		updatePlayerMoves(player);
+	}
+	
+	
+	
+	/**
+	 * 
+	 * Drops the first item in the player's inventory
+	 * 
+	 * @param player
+	 */
+	public void dropItem(Player player){
+		board.getSquare(player.getLocation()).setItem(player.getItem(0));
+		player.removeItem(player.getItem(0));
 	}
 	
 	
