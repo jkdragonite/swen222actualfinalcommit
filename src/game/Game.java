@@ -53,14 +53,6 @@ public class Game {
 	public Game() {
 		this.view = viewDirection.NORTH;	
 		this.currentRoom = renderRoom.ROOM1;
-		PuzzleRoom room1 = new PuzzleRoom(10);
-		// puzzle rooms added before final room
-		this.rooms.add(room1);
-//		PuzzleRoom uiPackage = new PuzzleRoom(10);
-//		PuzzleRoom networkPackage = new PuzzleRoom(10);
-//		PuzzleRoom renderPackage = new PuzzleRoom(10);
-		// add rooms with names? like game package etc
-		this.rooms.add(new FinalRoom(10));
 		initializeItemsCodes();
 	}
 	
