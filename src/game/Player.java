@@ -8,7 +8,6 @@ import java.util.HashMap;
 public class Player {
 	
 	private ArrayList<InventoryItem> playerInventory;
-//	private String nameString;
 	private Location location;
 	private int playerNumber;
 	private Room currentRoom;
@@ -25,14 +24,10 @@ public class Player {
 	
 	
 	public Player(int number, Room room){
-//		this.nameString = nameString;
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
 		this.playerNumber = number;
 		this.currentRoom = room;
-
-		// check this
-
 	}
 	
 	public Room getRoom(){
@@ -106,5 +101,9 @@ public class Player {
 		this.pullMoves = new HashMap<MovementDirection, Square>();
 		this.itemPickups = new HashMap<MovementDirection, Square>();
 		this.searchMoves = new HashMap<MovementDirection, Square>();
+	}
+	
+	public InventoryItem getItem(int index){
+		return this.playerInventory.get(index);
 	}
 }
