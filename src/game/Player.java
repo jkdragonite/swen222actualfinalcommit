@@ -98,22 +98,4 @@ public class Player {
 		this.itemPickups = new HashMap<MovementDirection, Square>();
 		this.searchMoves = new HashMap<MovementDirection, Square>();
 	}
-
-	// possible player movement
-	
-	// possible player push
-	
-	// possible player pull
-	
-	// possible pickup
-	
-	// possible drop
-	
-	
-	// inventory
-	
-	// current view direction
-	
-	// location
-	
 }
