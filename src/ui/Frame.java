@@ -20,6 +20,9 @@ import render.GameRenderer;
 
 public class Frame extends JFrame implements  ActionListener {
 
+	//unique player ID
+	public static int playerID;
+	
 	// panel fields
 	public ButtonPanel bp;
 	public InventoryPanel ip;
@@ -39,6 +42,9 @@ public class Frame extends JFrame implements  ActionListener {
     public Frame(String title, KeyListener kl,Game g) {
     	super(title);
     	theGame = g;
+    	
+    	//playerID = theGame.getPlayerID
+    	
 		// Menu bar things
 		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);

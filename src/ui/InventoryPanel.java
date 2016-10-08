@@ -56,7 +56,16 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 * Constructor for InventoryPanel
 	 */
 	public InventoryPanel(Game g) {
+		
+		
+		//player(playerID).getItem[0] = slot1;
+		//player(playerID).getItem[1] = slot2;
+		//player(playerID).getItem[2] = slot3;
+		//player(playerID).getItem[3] = slot4;
+		
 		theGame = g;
+		
+		
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
 		
@@ -76,7 +85,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		itemInfo = new JTextArea();
 		itemInfo.setText(itemText);
-		itemInfo.setBounds(960, 10, 240, 40);
+		itemInfo.setBounds(970, 10, 240, 40);
 
 		this.add(itemInfo);
 
@@ -170,7 +179,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item2.setEnabled(true);
 			item3.setEnabled(false);
 			item4.setEnabled(true);
-			itemInfo.setText("lance of Thunder - used to zap things");
+			itemInfo.setText(slot3.toString());
 			selected = 3;
 			repaint();
 
@@ -225,12 +234,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		int imageSize = 180;
 		int imageY = 10;
 		super.paintComponent(gr);
-		gr.setColor(Color.red);
-		gr.fillRect(30, imageY, imageSize, imageSize);
-		gr.fillRect(270, imageY, imageSize, imageSize);
-		gr.fillRect(510, imageY, imageSize, imageSize);
-		gr.fillRect(750, imageY, imageSize, imageSize);
-		gr.setColor(Color.black);
+		
+
+		
 		// itemInfo.update(gr);
 		if (selected == 1) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
@@ -260,5 +266,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.drawImage(boxIcon,750, imageY, null, null);
 			// draw item image
 		}
+		if(1==1){
+		gr.fillRect(30, imageY, imageSize, imageSize);
+		}
+		gr.fillRect(270, imageY, imageSize, imageSize);
+		gr.fillRect(510, imageY, imageSize, imageSize);
+		gr.fillRect(750, imageY, imageSize, imageSize);
 	}
 }
