@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Container extends ImmovableItem{
 	private char character;
-	private ArrayList<Item> items = new ArrayList<Item>();
+	private ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
 	public Container(game.Game.itemType type, Location loc) {
 		super(type);
@@ -20,7 +20,7 @@ public class Container extends ImmovableItem{
 		return this.character;
 	}
 	
-	public void addItem(Item item){
+	public void addItem(InventoryItem item){
 		this.items.add(item);
 	}
 	
@@ -28,7 +28,7 @@ public class Container extends ImmovableItem{
 		this.items.remove(item);
 	}
 	
-	public ArrayList<Item> getItem(){
+	public ArrayList<InventoryItem> getItems(){
 		return items;
 	}
 

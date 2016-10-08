@@ -147,6 +147,14 @@ public abstract class Room {
 		}
 	}
 	
+	public void searchContainer(Player player, Square square){
+		ArrayList<InventoryItem> containerItems = square.getContainer().getItems();
+		for (InventoryItem item : containerItems){
+			player.addItem(item);
+			square.getContainer().removeItem(item);
+		}
+	}
+	
 	
 	/**
 	 * Takes a player and a direction updates their location and the board's square's location to reflect a
@@ -274,11 +282,6 @@ public abstract class Room {
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
 	}
-	
-	
-	
-	
-	
 	
 	public Door getDoor(){
 		return this.door;
