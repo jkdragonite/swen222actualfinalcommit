@@ -16,7 +16,9 @@ import game.Door;
 import game.FinalRoom;
 import game.Game;
 import game.Game.itemType;
+import game.ImmovableItem;
 import game.InventoryItem;
+import game.Item;
 import game.Location;
 import game.PuzzleRoom;
 import game.Room;
@@ -91,6 +93,7 @@ public class Parser {
 				Location loc = new Location(sc.nextInt(), sc.nextInt());
 				int itemID;
 				itemType type;
+				Item item;
 				
 				switch(id){
 					case 'D':
@@ -100,26 +103,39 @@ public class Parser {
 					case 'C':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						Container cont = new Container(type, loc);
-						containers.add(cont);
-						room.setImmovableItem(cont, loc);
+						item = new Container(type, loc);
+						//containers.add(item);
+						//room.setImmovableItem(item, loc);
 						break;
 					case 'Q':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						InventoryItem item = new InventoryItem(type);
+						item = new InventoryItem(type);
 						item.setLocation(loc);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
-								c.addItem(item);
+								//c.addItem(item);
 							}
 						}
 						//add item to room
-						room.setInventoryItem(item, loc);
+						//room.setInventoryItem(item, loc);
 						break;
 					case 'I':
-						//process additional locations it covers
+						//process type
+						itemID = sc.nextInt();
+						type = game.itemCodes.get(itemID);
+						
+						//process additional locations it covers based on changes
+						Location secondary = new Location(sc.nextInt(), sc.nextInt());
+						if(type == Game.itemType.TABLE){
+							Location tertiary = new Location(sc.nextInt(), sc.nextInt());
+							item = new ImmovableItem(type, loc);
+							
+						}
+						else{
+							
+						}
 						break;
 					case 'P':
 						room.addPSP(loc);

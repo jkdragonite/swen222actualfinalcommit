@@ -3,16 +3,16 @@
 Objects in the game are defined by a constant value as follows, which makes level
 design/game updates easier to parse.
 
-Box 					610
-Bookshelf				611
-Book/Paper?				612
-Bed						614
-Chair					615
-Computer				616
-Darkness				617
-Desk					618
-Key						619			//quest item thing
-Table					620
+Box 					610			1
+Bookshelf				611			2
+Book/Paper?				612			1
+Bed						614			2
+Chair					615			1				
+Computer				616			1
+Darkness				617			1
+Desk					618			2
+Key						619			1	//quest item thing
+Table					620			3
 
 
 

@@ -7,9 +7,10 @@ public class ImmovableItem extends Item {
 	// array of locations
 	private ArrayList<Location> locationsCovered;
 	
-	public ImmovableItem(game.Game.itemType type) {
+	public ImmovableItem(game.Game.itemType type, Location leftmost) {
 		super(type);
 		setCharacter();
+		setLocation(leftmost);
 	}
 	
 	public char getCharacter(){

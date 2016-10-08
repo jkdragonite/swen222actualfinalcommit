@@ -7,8 +7,7 @@ public class Container extends ImmovableItem{
 	private ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
 	public Container(game.Game.itemType type, Location loc) {
-		super(type);
-		setLocation(loc);
+		super(type, loc);
 	}
 	
 	@Override
