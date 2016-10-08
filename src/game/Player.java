@@ -12,12 +12,26 @@ public class Player {
 	private int playerNumber;
 	private Room currentRoom;
 	
-	private HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
-	private HashMap<MovementDirection, Square> pushMoves = new HashMap<MovementDirection, Square>();
-	private HashMap<MovementDirection, Square> pullMoves = new HashMap<MovementDirection, Square>();
-	private HashMap<MovementDirection, Square> itemPickups = new HashMap<MovementDirection, Square>();
-	private HashMap<MovementDirection, Square> searchMoves = new HashMap<MovementDirection, Square>();
-	private HashMap<MovementDirection, Square> useMoves = new HashMap<MovementDirection, Square>();
+	public HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
+	// Based on key press, up = UP etc, if in keyset, this is a valid move
+	
+	public HashMap<MovementDirection, Square> pushMoves = new HashMap<MovementDirection, Square>();
+	// if keyset length not 0, there is a valid push
+	
+	public HashMap<MovementDirection, Square> pullMoves = new HashMap<MovementDirection, Square>();
+	// if keyset length not 0, there is a valid pull
+	
+	public HashMap<MovementDirection, Square> itemPickups = new HashMap<MovementDirection, Square>();
+	// if keyset length not 0, there is a valid item pickup
+	
+	
+	public HashMap<MovementDirection, Square> searchMoves = new HashMap<MovementDirection, Square>();
+	// if keyset length not 0, there is a valid search
+	
+	
+	public HashMap<MovementDirection, Square> useMoves = new HashMap<MovementDirection, Square>();
+	// if keyset length not 0, there is a valid use item
+	
 	
 	
 	

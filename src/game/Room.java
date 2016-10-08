@@ -150,9 +150,9 @@ public abstract class Room {
 	 * @param player player executing move
 	 * @param door door player is standing on/by (door extends square)
 	 */
-	public void useItem(Player player, Door door){
+	public void useItem(Player player){
 		for (InventoryItem item : player.getInventory()){
-			door.testItem(player, item);
+			this.door.testItem(player, item);
 		}
 		player.resetMoves();
 		updatePlayerMoves(player);
