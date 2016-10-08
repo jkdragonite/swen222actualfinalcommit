@@ -3,16 +3,34 @@ package ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import game.InventoryItem;
+
 public class InventoryPanel extends JPanel implements ActionListener {
 
+	//images for the differnt items
+	private static Image questIcon;
+	private static Image bookIcon;
+	private static Image boxIcon;
+	
+	
+	private InventoryItem slot1=null;
+	private InventoryItem slot2=null;
+	private InventoryItem slot3=null;
+	private InventoryItem slot4=null;
+	
+	
 	// buttons
 	private JButton item1;
 	private JButton item2;
@@ -36,6 +54,14 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	public InventoryPanel() {
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
+		
+		try{
+			questIcon = ImageIO.read(new File("../existential-dread/images/QuestItemIcon.png"));
+			boxIcon = ImageIO.read(new File("../existential-dread/images/BoxIcon.png"));
+			bookIcon = ImageIO.read(new File("../existential-dread/images/BookIcon.png"));
+		}catch (IOException e) {
+			System.out.println("file error loading images from inventoy panel" + e.getMessage());
+		}
 
 		setLayout(null);
 
@@ -112,6 +138,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		Object src = evt.getSource();
 		if (src == item1) {
 			System.out.println("Item 1 selected");
+			// Disable button && enable others
 			item1.setEnabled(false);
 			item2.setEnabled(true);
 			item3.setEnabled(true);
@@ -122,7 +149,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 		if (src == item2) {
 			System.out.println("Item 2 selected");
-			// pop up 2
+			// Disable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(false);
 			item3.setEnabled(true);
@@ -133,7 +160,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 		if (src == item3) {
 			System.out.println("Item 3 selected");
-			// pop up 3
+			// Disable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(true);
 			item3.setEnabled(false);
@@ -145,7 +172,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 		if (src == item4) {
 			System.out.println("Item 4 selected");
-			// diable button
+			// diable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(true);
 			item3.setEnabled(true);
@@ -204,28 +231,28 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.setColor(Color.yellow);
 			gr.fillRect(25, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.fillRect(30, imageY, imageSize, imageSize);
+			gr.drawImage(questIcon,30, imageY, null, null);
 			// draw item image
 		}
 		if (selected == 2) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
 			gr.fillRect(265, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.fillRect(270, imageY, imageSize, imageSize);
+			gr.drawImage(bookIcon,270, imageY, null, null);
 			// draw item image
 		}
 		if (selected == 3) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
 			gr.fillRect(505, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.fillRect(510, imageY, imageSize, imageSize);
+			gr.drawImage(boxIcon,510, imageY, null, null);
 			// draw item image
 		}
 		if (selected == 4) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
 			gr.fillRect(745, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.fillRect(750, imageY, imageSize, imageSize);
+			gr.drawImage(boxIcon,750, imageY, null, null);
 			// draw item image
 		}
 	}
