@@ -53,6 +53,8 @@ public class Game {
 		this.view = viewDirection.NORTH;	
 //		this.currentRoom = renderRoom.ROOM1;
 		initializeItemsCodes();
+		rooms.add(new PuzzleRoom(10));
+		players.add(new Player(201, rooms.get(0)));
 	}
 	
 	public void initializeItemsCodes(){

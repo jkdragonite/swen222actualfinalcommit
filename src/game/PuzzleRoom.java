@@ -10,6 +10,7 @@ public class PuzzleRoom extends Room {
 	
 	public PuzzleRoom(int size){
 		super(size);
+		playerSpawnPoints = new ArrayList<Location>();
 	}
 		
 	

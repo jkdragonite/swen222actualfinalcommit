@@ -16,6 +16,7 @@ import game.Door;
 import game.FinalRoom;
 import game.Game;
 import game.Game.itemType;
+import game.InventoryItem;
 import game.Location;
 import game.PuzzleRoom;
 import game.Room;
@@ -31,7 +32,7 @@ import game.Room;
  *
  */
 public class Parser {
-	private Game game;
+	public Game game;
 	
 	//list of constant ints representing how many bytes each game element
 	//is typically comprised of when they are sent from the master
@@ -88,6 +89,8 @@ public class Parser {
 				sc.next(); //skip char
 				//get one location as all items have at least one
 				Location loc = new Location(sc.nextInt(), sc.nextInt());
+				int itemID;
+				itemType type;
 				
 				switch(id){
 					case 'D':
@@ -95,17 +98,31 @@ public class Parser {
 						room.addDoor(door);
 						break;
 					case 'C':
-						int itemID = sc.nextInt();
-						itemType type = game.itemCodes.get(itemID);
+						itemID = sc.nextInt();
+						type = game.itemCodes.get(itemID);
 						Container cont = new Container(type, loc);
 						containers.add(cont);
 						room.setImmovableItem(cont, loc);
 						break;
 					case 'Q':
+						itemID = sc.nextInt();
+						type = game.itemCodes.get(itemID);
+						InventoryItem item = new InventoryItem(type);
+						item.setLocation(loc);
+						//check whether this inventory item is in the same space as a container
+						for(Container c: containers){
+							if(c.getLocation().equals(loc)){
+								c.addItem(item);
+							}
+						}
+						//add item to room
+						room.setInventoryItem(item, loc);
 						break;
 					case 'I':
+						//process additional locations it covers
 						break;
 					case 'P':
+						room.addPSP(loc);
 						break;						
 				}
 			}

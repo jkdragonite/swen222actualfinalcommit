@@ -7,7 +7,7 @@ import java.util.HashMap;
 public abstract class Room {
 	// arraylist of players
 	private Door door;
-	
+	protected ArrayList<Location> playerSpawnPoints; 
 	public Board board;
 	/**
 	 * 
@@ -316,6 +316,10 @@ public abstract class Room {
 	
 	public Door getDoor(){
 		return this.door;
+	}
+	
+	public void addPSP(Location loc){
+		playerSpawnPoints.add(loc);
 	}
 
 }

@@ -10,7 +10,7 @@ public class InventoryItem extends Item{
 	
 	public InventoryItem(itemType type){
 		super(type);
-		this.character = 'P';
+		this.character = 'Q';
 	}
 	
 	public void setLocation(Location location){
