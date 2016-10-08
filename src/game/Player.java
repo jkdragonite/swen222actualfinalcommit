@@ -43,8 +43,7 @@ public class Player {
 	}
 	
 	public void addItem(InventoryItem item){
-		this.playerInventory.add(item);
-		
+		this.playerInventory.add(item);	
 	}
 	
 	public void removeItem(InventoryItem item){
@@ -59,19 +58,15 @@ public class Player {
 		this.location = location;
 	}
 	
-	public void pushItem(){
-		// get neighbouts
-		// if neighbour has movable item
-		// if square in push direction empty / not door / exists
-		// can push
-		// else cannot push
-	}
-	
 	public void setPlayerNumber(int newCharacter){
 		this.playerNumber = newCharacter;
 	}
 	
 	public int getCharacter(){
+		return this.playerNumber;
+	}
+	
+	public int getPlayerNumber(){
 		return this.playerNumber;
 	}
 	
@@ -81,6 +76,10 @@ public class Player {
 	
 	public void addToPushMoves(MovementDirection direction, Square square){
 		this.pushMoves.put(direction, square);
+	}
+	
+	public void addToPullMoves(MovementDirection direction, Square square){
+		this.pullMoves.put(direction, square);
 	}
 	
 	public void addToItemPickups(MovementDirection direction, Square square){

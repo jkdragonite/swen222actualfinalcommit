@@ -86,13 +86,21 @@ public class Game {
 		this.currentRoom = room;
 	}
 	
+	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
+		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
+	}
+	
+	public void addMovableItemToGame(MovableItem item, int roomNumber){
+		this.rooms.get(roomNumber).setMovableItem(item, item.getLocation());
+	}
+	
+	public void addImmovableItemToGame(ImmovableItem item, int roomNumber){
+		this.rooms.get(roomNumber).setImmovableItem(item, item.getLocation());
+	}
+	
 	public void addPlayer(String nameString){
 		int currentSize = players.size();
 		this.players.add(new Player(currentSize, this.rooms.get(0)));
-//		System.out.println(players.get(0).getCharacter());
-		
-//		this.players.get(players.size()-1).setCharacter(players.size());
-//		method to set player character based on current number of players
 		
 	}
 	
@@ -110,13 +118,13 @@ public class Game {
 	
 	public void createInventoryItems(){
 		
-		InventoryItem classDiagram = new InventoryItem("Class Diagram");
-		InventoryItem sequenceDiagram = new InventoryItem("Sequence Diagram");
-		InventoryItem useCaseDiagram = new InventoryItem("Use Case Diagram");
+//		InventoryItem classDiagram = new InventoryItem("Class Diagram");
+//		InventoryItem sequenceDiagram = new InventoryItem("Sequence Diagram");
+//		InventoryItem useCaseDiagram = new InventoryItem("Use Case Diagram");
 //		etc InventoryItem useCaseDiagram = new InventoryItem("Use Case Diagram");
-		
-		this.rooms.get(0).PlaceItem(classDiagram, new Location(4, 4));
-		this.rooms.get(0).PlaceItem(sequenceDiagram, new Location(6, 6));
+//		
+//		this.rooms.get(0).PlaceItem(classDiagram, new Location(4, 4));
+//		this.rooms.get(0).PlaceItem(sequenceDiagram, new Location(6, 6));
 		
 		// javadoc
 		
@@ -136,11 +144,11 @@ public class Game {
 
 	public void createMovableItems(){
 		
-		MovableItem box1 = new MovableItem("box1");
-		MovableItem box2 = new MovableItem("box2");
+//		MovableItem box1 = new MovableItem("box1");
+//		MovableItem box2 = new MovableItem("box2");
 		
-		this.rooms.get(0).PlaceItem(box1, new Location(2, 2));
-		this.rooms.get(0).PlaceItem(box2, new Location(3, 3));
+//		this.rooms.get(0).PlaceItem(box1, new Location(2, 2));
+//		this.rooms.get(0).PlaceItem(box2, new Location(3, 3));
 		
 //		MovableItem box3 = new MovableItem("box3");
 //		MovableItem box4 = new MovableItem("box4");
@@ -152,10 +160,10 @@ public class Game {
 		
 	}
 	
-	public void createImmovableItems(){
-		ImmovableItem stone = new ImmovableItem("stone");
-		
-	}
+//	public void createImmovableItems(){
+//		ImmovableItem stone = new ImmovableItem("stone");
+//		
+//	}
 	
 
 	/**

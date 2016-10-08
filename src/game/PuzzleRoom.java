@@ -25,18 +25,6 @@ public class PuzzleRoom extends Room {
 		this.board.grid[doorLocation.getY()][doorLocation.getX()] = door;
 	}
 	
-	/**
-	 * 
-	 * Adds an item at a given location to a puzzle room
-	 * 
-	 * @param item
-	 * @param location 
-	 */
-	public void addItem(Item item, Location location){
-		item.setLocation(location);
-		this.board.grid[location.getY()][location.getX()].setItem(item);
-	}
-	
 	
 	public Door getDoor(){
 		return this.door;

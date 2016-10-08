@@ -1,14 +1,15 @@
 package game;
 
+import game.Game.itemType;
+
 public class InventoryItem extends Item{
-	private String nameString;
 	private Player owner = null;
 	private Location location;
 	private char character;
 	
 	
-	public InventoryItem(String nameString){
-		super(nameString);
+	public InventoryItem(itemType type){
+		super(type);
 		this.character = 'P';
 	}
 	
