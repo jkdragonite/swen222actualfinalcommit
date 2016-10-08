@@ -39,8 +39,8 @@ public class GameRenderer{
 
 	public GameRenderer(Game parent){
 
-		game = parent;
-		Room room = null;
+		game = new Game();
+		Room room = game.rooms.get(0);
 		Board board = room.board;
 		stage = board.grid;
 
@@ -149,7 +149,7 @@ public class GameRenderer{
 	}
 
 	public Image getImage(){
-		int get = (int)(Math.random()*3);
+		int get = (int)(Math.random()*4);
 		return spriteSet.spriteList.get("0" + get);
 	}
 
