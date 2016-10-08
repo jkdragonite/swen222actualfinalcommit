@@ -7,9 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,24 +38,29 @@ public class GameRenderer{
 	Game game;
 	int x, y;
 
+	//FIXME: delete later 
+	String str = "abqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeabqcdqeab";
+	char[] boxTest = str.toCharArray();
+	int boxIndex = 0;
+
 	public static final int floor = 450;
 
 	public GameRenderer(Game parent){
-		
+
 		game = parent;
 		Room room = game.rooms.get(0);
 		Board board = room.board;
 		stage = board.grid;
-		
+
 		if(board.grid[0][0] == null){
 			System.out.println("null squares");
 		}
-		
+
 		if (stage[0][0] == null){
 			System.out.println("null titles");
 		}
 
-		
+
 	}
 
 	public void rotateCW() {
@@ -87,12 +95,12 @@ public class GameRenderer{
 		}
 
 	}
-	
+
 	public void paint(Graphics g){
 		System.out.println("painting...");
 		render(g);
 	}
-	
+
 
 	//coordinates of the floor
 	private static final int BASE = 375;
@@ -110,23 +118,23 @@ public class GameRenderer{
 	 */
 	public void render(Graphics g){		
 		Game.viewDirection newDir = game.getDirection();
-		
+
 
 		//get our new direction
 		while (viewDir != newDir){
 			rotateCW();
 		}
-		
-		 int TOP_LEFT = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
-		 int TOP_WALL = (int)(BASE - 150 - (stage.length*VERT_DISP));
+
+		int TOP_LEFT = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
+		int TOP_WALL = (int)(BASE - 150 - (stage.length*VERT_DISP));
 
 		//render the floor
 		g.fillRect(LEFT, BASE, SIZE*10, 3);
-		
+
 		//render the wall
 		g.setColor(Color.GRAY);
 		g.fillRect(TOP_LEFT, TOP_WALL-60, 640, 150);
-		
+
 		//left wall
 		g.setColor(Color.lightGray);
 		int[] leftX = {LEFT, LEFT, TOP_LEFT, TOP_LEFT};
@@ -138,25 +146,64 @@ public class GameRenderer{
 		g.fillPolygon(leftX, leftY, 4);
 		g.fillPolygon(rightX, rightY, 4);
 
+		Image ret = null;
+
+		try{
+			File spriteFile = new File("images/empty.png");
+			System.out.println("File created.");
+			ret = ImageIO.read(spriteFile);
+		}catch(IOException e){
+			System.out.println(e);
+		}
+
 		//render the tiles
-		Image img = sprites.get(0);
 		for (int y = stage.length -1; y >= 0; y--){
 			for (int x = 0; x < stage.length; x++){
+				Image img = getImage(ret);
 				//scale the image
 				int scaleX = (int)(img.getWidth(null)*(1-(y*SCALE_FAC)));
 				int scaleY = (int)(img.getHeight(null)*(1-(y*SCALE_FAC)));
-				
+
 				Image newImg = getScaledImage(img, scaleX, scaleY);
-				
+
 				int imgX = (LEFT+y*(HORZ_DISP) + x*scaleX);
-				int imgY = (BASE - y*VERT_DISP);
-				
+				int imgY = (BASE - y*VERT_DISP)+100 - img.getHeight(null);
+
 				this.renderObject(newImg, imgX, imgY, g);
 			}
 		}
 
 	}
-	
+
+	public Image getImage(Image ret){
+
+		switch(boxTest[boxIndex]){
+		case 'a':
+			ret = spriteSet.spritesheet.getSubimage(0, 0, 100, 100);
+			boxIndex++;
+			return ret;
+		case 'b':
+			ret = spriteSet.spritesheet.getSubimage(0, 0, 200, 100);
+			boxIndex++;
+			return ret;	
+		case 'c':
+			ret = spriteSet.spritesheet.getSubimage(100, 0, 100, 200);
+			boxIndex++;
+			return ret;	
+		case 'd':
+			ret = spriteSet.spritesheet.getSubimage(200, 0, 200, 200);
+			boxIndex++;
+			return ret;	
+		case 'e':
+			ret = spriteSet.spritesheet.getSubimage(0, 100, 100, 100);
+			boxIndex++;
+			return ret;	
+		default:
+			boxIndex++;
+			return ret;
+		}
+	}
+
 	/**
 	 * Render object windows - in this case all objects are boxes.
 	 * @param x
@@ -168,7 +215,7 @@ public class GameRenderer{
 		//System.out.println("box get");
 		g.drawImage(img, x, y-100, null);
 	}
-	
+
 	/**
 	 * This method will scale the image so that things further away
 	 * from the 'camera' are rendered as smaller and distant.
@@ -176,12 +223,12 @@ public class GameRenderer{
 	 * @return the scaled image
 	 */
 	private BufferedImage getScaledImage(Image srcImg, int w, int h){
-	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
-	    Graphics2D g2 = resizedImg.createGraphics();
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(srcImg, 0, 0, w, h, null);
-	    g2.dispose();
-	    return resizedImg;
+		BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
+		Graphics2D g2 = resizedImg.createGraphics();
+		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2.drawImage(srcImg, 0, 0, w, h, null);
+		g2.dispose();
+		return resizedImg;
 	}
 
 	public static void main(String[] args){

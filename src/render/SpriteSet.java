@@ -9,21 +9,21 @@ import javax.imageio.ImageIO;
 
 public class SpriteSet {
 	
-	private BufferedImage spritesheet;
+	public BufferedImage spritesheet;
 	private File spriteFile;
 	private Map<String, Image> spriteList = new HashMap<String, Image>();
 	
 	public SpriteSet(){
-		loadImage();
+		loadImage("spritesheet.png");
 	}
 
 	/**
 	 * This method reads the packaged file and loads it up as the main 
 	 * 
 	 */
-	private void loadImage() {
+	private void loadImage(String name) {
 		try{
-			spriteFile = new File("images/spritesheet.bmp");
+			spriteFile = new File("images/" + name);
 			System.out.println("File created.");
 			spritesheet = ImageIO.read(spriteFile);
 		}catch(IOException e){
@@ -39,7 +39,6 @@ public class SpriteSet {
 	 */
 	private void loadSprites(){
 		BufferedImage smol = spritesheet.getSubimage(0, 0, 100, 100);
-		if (spriteList == null){System.out.println("aaa");}
 		spriteList.put("box", smol);
 	}
 	
