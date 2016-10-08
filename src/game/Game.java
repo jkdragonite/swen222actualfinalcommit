@@ -61,6 +61,7 @@ public class Game {
 //		PuzzleRoom renderPackage = new PuzzleRoom(10);
 		// add rooms with names? like game package etc
 		this.rooms.add(new FinalRoom(10));
+		initializeItemsCodes();
 	}
 	
 	public void initializeItemsCodes(){
@@ -103,19 +104,7 @@ public class Game {
 		this.players.add(new Player(currentSize, this.rooms.get(0)));
 		
 	}
-	
-	
-	// move up / down / left / right = update location for player?
-	
-	// checked for unlocked door?
-	
-	public void pickupItem(Player player, InventoryItem item){
-		player.addItem(item);
-		item.setOwner(player);
-		// update location in room
-		// check for proximity to item?
-	}
-	
+		
 
 	/**
 	 * retrives enum current view direction for use by the renderer

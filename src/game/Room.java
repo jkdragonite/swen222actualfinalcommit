@@ -187,8 +187,6 @@ public abstract class Room {
 	}
 	
 	
-	
-	
 	/**
 	 * Takes a square containing a movable item, as well as a direction
 	 * and moves said item to another square based on the direction given

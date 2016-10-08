@@ -10,7 +10,6 @@ public class PuzzleRoom extends Room {
 	
 	public PuzzleRoom(int size){
 		super(size);
-		// add field to constuctor which takes a list of items, to add to room
 	}
 		
 	
