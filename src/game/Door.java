@@ -27,10 +27,7 @@ public class Door extends Square{
 				unlocked = true;
 				this.character = 'd';
 			}
-		}
-		
-		// render item didn't fit, or item fit sprite
-		
+		}		
 	}
 	
 	public void goThroughDoor(Player player){
@@ -48,4 +45,17 @@ public class Door extends Square{
 	public void setDestination(Room room){
 		this.destinationRoom = room;
 	}
+	
+	public Boolean isUnlocked(){
+		return this.unlocked;
+	}
+	
+	public void setLocation(Location location){
+		this.location = location;
+	}
+	
+	public Location getLocation(){
+		return this.location;
+	}
+	
 }

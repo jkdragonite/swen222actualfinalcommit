@@ -32,10 +32,8 @@ public class Player {
 	public HashMap<MovementDirection, Square> useMoves = new HashMap<MovementDirection, Square>();
 	// if keyset length not 0, there is a valid use item
 	
-	
-	
-	
-	
+	public Boolean canGoThroughDoor = false;
+	// if this is true, player can go through door they are standing on
 	
 	public Player(int number, Room room){
 		this.playerInventory = new ArrayList<InventoryItem>();

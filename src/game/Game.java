@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Game {
 	private viewDirection view;
-	private renderRoom currentRoom;
+//	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public HashMap<Integer, itemType> itemCodes = new HashMap<>();
 
@@ -51,7 +51,7 @@ public class Game {
 	
 	public Game() {
 		this.view = viewDirection.NORTH;	
-		this.currentRoom = renderRoom.ROOM1;
+//		this.currentRoom = renderRoom.ROOM1;
 		initializeItemsCodes();
 	}
 	
@@ -74,9 +74,9 @@ public class Game {
 		this.view = direction;
 	}
 	
-	public void changeRoom(renderRoom room){
-		this.currentRoom = room;
-	}
+//	public void changeRoom(renderRoom room){
+//		this.currentRoom = room;
+//	}
 	
 	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
 		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
@@ -98,7 +98,7 @@ public class Game {
 		
 
 	/**
-	 * retrives enum current view direction for use by the renderer
+	 * retrieves enum current view direction for use by the renderer
 	 * 
 	 * @return enum viewdirection
 	 */
@@ -106,14 +106,14 @@ public class Game {
 		return view;
 	}
 	
-	/**
-	 * returns current room the player is in for use by the renderer
-	 * 
-	 * @return enum renderRoom
-	 */
-	public renderRoom getRoom(){
-		return currentRoom;
-	}
+//	/**
+//	 * returns current room the player is in for use by the renderer
+//	 * 
+//	 * @return enum renderRoom
+//	 */
+//	public renderRoom getRoom(){
+//		return currentRoom;
+//	}
 	
 	/**
 	 * returns a list of room's doors

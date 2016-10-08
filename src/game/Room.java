@@ -102,6 +102,11 @@ public abstract class Room {
 			else if (board.getSquare(player.getLocation()) instanceof Door){
 				player.addToUseMoves(direction, board.getSquare(player.getLocation()));
 			}
+			else if (board.getSquare(player.getLocation()) instanceof Door){
+				if (((Door) board.getSquare(player.getLocation())).isUnlocked() == true){
+					player.canGoThroughDoor = true;
+				}
+			}
 		}		
 	}
 	
@@ -296,6 +301,10 @@ public abstract class Room {
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
 		}
+	}
+	
+	public void goThroughDoor(Player player){
+//		board.getSquare(player.getLocation())
 	}
 	
 	public void pickupItem(Player player, Square square){

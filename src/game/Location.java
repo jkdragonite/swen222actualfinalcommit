@@ -25,5 +25,12 @@ public class Location {
 	public int getY(){
 		return this.ycoordinate;
 	}
+	
+	public Boolean equals(int x, int y){
+		if (x == this.xcoordinate && y == this.ycoordinate){
+			return true;
+		}
+		return false;
+	}
 
 }
