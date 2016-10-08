@@ -32,7 +32,7 @@ public class HelpFrame extends JFrame {
 		hp.add(new JTextArea(content));
 		add(hp, BorderLayout.CENTER);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	setDefaultCloseOperation(JFrame.);
 		pack();
 		setResizable(false);
 		setVisible(true);
