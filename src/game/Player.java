@@ -35,6 +35,8 @@ public class Player {
 	public Boolean canGoThroughDoor = false;
 	// if this is true, player can go through door they are standing on
 	
+	public Boolean canDropItem = false;
+	
 	public Player(int number, Room room){
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
@@ -106,6 +108,10 @@ public class Player {
 		this.useMoves.put(direction, square);
 	}
 	
+	public void setCanDropItem(Boolean valueBoolean){
+		this.canDropItem = valueBoolean;
+	}
+	
 	public void resetMoves(){
 		
 		this.moves = new HashMap<MovementDirection, Square>();
@@ -113,6 +119,8 @@ public class Player {
 		this.pullMoves = new HashMap<MovementDirection, Square>();
 		this.itemPickups = new HashMap<MovementDirection, Square>();
 		this.searchMoves = new HashMap<MovementDirection, Square>();
+		this.canGoThroughDoor = false;
+		this.canDropItem = false;
 	}
 	
 	public InventoryItem getItem(int index){
