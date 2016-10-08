@@ -58,4 +58,8 @@ public class Door extends Square{
 		return this.location;
 	}
 	
+	public Room getDestinationRoom() {
+		return destinationRoom;
+	}
+	
 }

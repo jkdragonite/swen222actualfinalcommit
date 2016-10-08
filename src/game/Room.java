@@ -304,7 +304,7 @@ public abstract class Room {
 	}
 	
 	public void goThroughDoor(Player player){
-//		board.getSquare(player.getLocation())
+		player.updateRoom(this.door.getDestinationRoom());
 	}
 	
 	public void pickupItem(Player player, Square square){
