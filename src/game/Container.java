@@ -6,9 +6,9 @@ public class Container extends ImmovableItem{
 	private char character;
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
-	public Container(game.Game.itemType type) {
+	public Container(game.Game.itemType type, Location loc) {
 		super(type);
-		// items
+		setLocation(loc);
 	}
 	
 	@Override
@@ -27,5 +27,12 @@ public class Container extends ImmovableItem{
 	public void removeItem(Item item){
 		this.items.remove(item);
 	}
+	
+	public ArrayList<Item> getItem(){
+		return items;
+	}
 
+	public boolean hasItem(){
+		return !(items.isEmpty());
+	}
 }

@@ -9,8 +9,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import game.Container;
+import game.Door;
+import game.FinalRoom;
 import game.Game;
+import game.Game.itemType;
+import game.Location;
+import game.PuzzleRoom;
+import game.Room;
 
 /**
  * Responsible for testing the methods to be used in game for translating 
@@ -45,13 +53,13 @@ public class Parser {
 	 * @param file
 	 * @return
 	 */
-	public static Game gameFromFile(File file)throws IOException{
+	public static Room roomFromFile(Game game, File file)throws IOException{
 		//create the file readers ready for parsing
 		FileReader fr = new FileReader(file);
 		BufferedReader in = new BufferedReader(fr);
-		
-		//initialize a new basic game which we will modify based on file contents
-		Game game = new Game();
+
+		Room room = new PuzzleRoom(10);
+		ArrayList<Container> containers = new ArrayList<Container>();
 		
 		ArrayList<String> lines = new ArrayList<String>();	//all lines in file
 		String line; //current line in file
@@ -60,14 +68,51 @@ public class Parser {
 		//while the file has lines, process them
 		while((line = in.readLine()) != null){
 			lines.add(line);
+			Scanner sc = new Scanner(line);
 			
-			//process 
-			if(lineCount == 0){
+			//first line we need to process is line 12, for the room size
+			if(lineCount == 11){
+				char id = line.charAt(0);
+				sc.next(); //skip char
 				
+				if(id == 'R'){
+					room = new PuzzleRoom(sc.nextInt());
+				}
+				else if(id == 'F'){
+					room = new FinalRoom(sc.nextInt());
+				}
 			}
+			//process the items in the room
+			else if(lineCount > 11){
+				char id = line.charAt(0);
+				sc.next(); //skip char
+				//get one location as all items have at least one
+				Location loc = new Location(sc.nextInt(), sc.nextInt());
+				
+				switch(id){
+					case 'D':
+						Door door = new Door(loc);
+						room.addDoor(door);
+						break;
+					case 'C':
+						int itemID = sc.nextInt();
+						itemType type = game.itemCodes.get(itemID);
+						Container cont = new Container(type, loc);
+						containers.add(cont);
+						room.setImmovableItem(cont, loc);
+						break;
+					case 'Q':
+						break;
+					case 'I':
+						break;
+					case 'P':
+						break;						
+				}
+			}
+			lineCount++;
 		}
 		
-		return game;
+		return room;
 	}
 	
 	public static byte[] stateToBytes() throws IOException{
