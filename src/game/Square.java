@@ -2,14 +2,10 @@ package game;
 
 public abstract class Square {
 	private Player playerOnSquare = null;
-	private Item itemOnSquare = null;
-	private InventoryItem inventory = null;
+	private InventoryItem inventoryItem = null;
 	private MovableItem movableItem = null;
 	private ImmovableItem immovableItem = null;
 	private Container container = null;
-
-
-	private Item item = null;
 	private Location location;
 	
 	public Square(Location location) {
@@ -17,11 +13,11 @@ public abstract class Square {
 	}
 	
 	public InventoryItem getInventory() {
-		return inventory;
+		return inventoryItem;
 	}
 
 	public void setInventory(InventoryItem inventory) {
-		this.inventory = inventory;
+		this.inventoryItem = inventory;
 	}
 
 	public MovableItem getMovableItem() {
@@ -65,14 +61,13 @@ public abstract class Square {
 	
 
 	
-	public void setItem(Item item){
-		this.item = item;
+	public void setItem(InventoryItem item){
+		this.inventoryItem = item;
 	}
 	
 	
-	public void removeItem(){
-		this.itemOnSquare = null;
-		// update to change movable / immovable items
+	public void removeInventoryItem(){
+		this.inventoryItem = null;
 	}
 	
 	public Location getLocation(){
@@ -80,7 +75,7 @@ public abstract class Square {
 	}
 	
 	public Item getItem(){
-		return this.itemOnSquare;
+		return this.inventoryItem;
 	}
 	
 	public Player getPlayer(){

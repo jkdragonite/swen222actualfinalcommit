@@ -6,8 +6,8 @@ public class Container extends ImmovableItem{
 	private char character;
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
-	public Container(String nameString) {
-		super(nameString);
+	public Container(game.Game.itemType type) {
+		super(type);
 		// items
 	}
 	

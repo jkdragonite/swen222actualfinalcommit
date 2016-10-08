@@ -37,6 +37,18 @@ public abstract class Room {
 	
 	
 	
+	/**
+	 * 
+	 * replaces a square with an instance of a door
+	 * 
+	 * @param door
+	 */
+	public void addDoor(Door door){
+		this.door = door;
+		Location doorLocation = door.getLocation();
+		this.board.grid[doorLocation.getY()][doorLocation.getX()] = door;
+	}
+
 	
 	
 	
@@ -68,51 +80,20 @@ public abstract class Room {
 	 * @param item
 	 * @param location
 	 */
-	public void PlaceItem(Item item, Location location){
-		// instanceof for particular items?
-		this.board.grid[location.getY()][location.getX()].setItem(item);
+	public void setMovableItem(MovableItem item, Location location){
+		this.board.grid[location.getY()][location.getX()].setMovableItem(item);
 	}
 	
+	public void setInventoryItem(InventoryItem item, Location location){
+		this.board.grid[location.getY()][location.getX()].setInventory(item);
+	}
 	
-	
-	// check moves - empty square
-	// check for item
-	
-	
-//	
-//	public ArrayList<MovementDirection> freeMoves(Player player){
-//		ArrayList<MovementDirection> moves = new ArrayList<MovementDirection>();
-//		for (Square square : board.getNeighbours(player.getLocation())){
-//			if (square.isEmpty() == true){
-//		}
-//		return null;
-//		
-//	}
-	
-	
-	
-	
-//	/**
-//	 * iterates through neighbouring squares, adding empty ones to possible move locations
-//	 * @param player
-//	 * @return
-//	 */
-//	public ArrayList<Location> possibleMoves(Player player){
-//		ArrayList<Location> moves = new ArrayList<>();
-//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-//			if (neighbour.isEmpty() == true){
-//				moves.add(neighbour.getLocation());
-//			}
-//		}
-//		return moves;
-//	}
-	
-	
-	// method to test moves
+	public void setImmovableItem(ImmovableItem item, Location location){
+		this.board.grid[location.getY()][location.getX()].setImmovableItem(item);
+	}
 	
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
-		// method to resetmoves?
 		
 		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
@@ -125,12 +106,10 @@ public abstract class Room {
 					}
 					
 					if (testPull(direction, board.getSquare(player.getLocation())) == true){
-						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));
-						// finish this pull move method
+						player.addToPullMoves(direction, neighbouringSquareHashMap.get(direction));
 					}
 				}
 			}
-			
 			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
 				player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
 			}
@@ -138,7 +117,6 @@ public abstract class Room {
 			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
-			
 		}	
 				
 		// when player takes an action
@@ -233,6 +211,8 @@ public abstract class Room {
 	}
 	
 	
+	
+	
 	/**
 	 * Takes a square containing a movable item, as well as a direction
 	 * and moves said item to another square based on the direction given
@@ -316,21 +296,14 @@ public abstract class Room {
 		}
 	}
 	
+	public void pickupItem(Player player, Square square){
+		player.addItem(square.getInventory());
+		square.removeInventoryItem();
+	}
 	
-	/**
-	 * checks neighbouring squares for items, and adds them to list of possible pickups where applicable
-	 * @param player
-	 * @return
-	 */
-//	public ArrayList<Item> possiblePickups(Player player){
-//		ArrayList<Item> items = new ArrayList<>();
-//		for (Square neighbour : this.board.getNeighbours(player.getLocation())){
-//			if (neighbour.getItem() != null){
-//				items.add(neighbour.getItem());
-//			}
-//		}
-//		return items;
-//	}
+	
+	
+	
 	
 	
 	public Door getDoor(){
