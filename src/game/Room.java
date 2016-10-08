@@ -68,9 +68,10 @@ public abstract class Room {
 	}
 	
 	public void setImmovableItem(ImmovableItem item, Location location){
-		// update to take item and arraylist of locations, set each to be instance of item?
-		
 		this.board.grid[location.getY()][location.getX()].setImmovableItem(item);
+		for (Location secondaryLocation : item.getLocationsCovered()){
+			this.board.grid[secondaryLocation.getY()][secondaryLocation.getX()].setRenderFlag(false);	
+		}
 	}
 	
 	public void updatePlayerMoves(Player player){

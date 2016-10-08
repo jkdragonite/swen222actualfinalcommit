@@ -20,11 +20,11 @@ public class ImmovableItem extends Item {
 		this.character = 'I';
 	}
 	
-	public ArrayList<Location> getLocations(){
+	public ArrayList<Location> getLocationsCovered(){
 		return this.locationsCovered;
 	}
 	
-	public void addToLocations(Location location){
+	public void addToLocationsCovered(Location location){
 		locationsCovered.add(location);
 	}
 	

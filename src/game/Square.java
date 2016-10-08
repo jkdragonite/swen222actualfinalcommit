@@ -96,7 +96,8 @@ public abstract class Square {
 	}
 	
 	public Boolean isEmpty(){
-		if (this.playerOnSquare == null && this.movableItem == null && this.immovableItem == null){
+		if (this.playerOnSquare == null && this.movableItem == null && this.immovableItem == null 
+				&& this.container == null && renderFlag == true){
 			return true;
 		}
 		else {
