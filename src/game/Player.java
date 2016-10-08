@@ -12,12 +12,13 @@ public class Player {
 	private Location location;
 	private int playerNumber;
 	private Room currentRoom;
+	
 	private HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
 	private HashMap<MovementDirection, Square> pushMoves = new HashMap<MovementDirection, Square>();
 	private HashMap<MovementDirection, Square> pullMoves = new HashMap<MovementDirection, Square>();
 	private HashMap<MovementDirection, Square> itemPickups = new HashMap<MovementDirection, Square>();
 	private HashMap<MovementDirection, Square> searchMoves = new HashMap<MovementDirection, Square>();
-	
+	private HashMap<MovementDirection, Square> useMoves = new HashMap<MovementDirection, Square>();
 	
 	
 	
@@ -88,6 +89,10 @@ public class Player {
 	
 	public void addToSearchMoves(MovementDirection direction, Square square){
 		this.searchMoves.put(direction, square);
+	}
+	
+	public void addToUseMoves(MovementDirection direction, Square square){
+		this.useMoves.put(direction, square);
 	}
 	
 	public void resetMoves(){

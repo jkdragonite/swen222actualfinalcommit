@@ -49,28 +49,7 @@ public abstract class Room {
 		this.board.grid[doorLocation.getY()][doorLocation.getX()] = door;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	/**
-//	 * 
-//	 * Updates a board location to remove the current player
-//	 * 
-//	 * @param player
-//	 * @param location
-//	 */
-//	public void movePlayer(Player player, Location location){
-//		this.board.grid[player.getLocation().getY()][player.getLocation().getX()].removePlayer();
-//		this.board.grid[location.getY()][location.getX()].addPlayer(player);
-//		player.updateLocation(location);
-//	}
-	
+
 	
 	/**
 	 * 
@@ -117,19 +96,10 @@ public abstract class Room {
 			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
-		}	
-				
-		// when player takes an action
-		
-		
-		// hashmap of neighbours
-		
-		// check hashmap for empty squares
-		
-		// check hashmap for pickup items
-		
-		// check hashmap for movable items		
-				
+			else if (board.getSquare(player.getLocation()) instanceof Door){
+				player.addToUseMoves(direction, board.getSquare(player.getLocation()));
+			}
+		}		
 	}
 	
 	
@@ -170,6 +140,10 @@ public abstract class Room {
 		return pull;
 	}
 	
+	
+	public void useItem(Player player){
+		// unfinished
+	}
 	
 	
 	/**
