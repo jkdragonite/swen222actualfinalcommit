@@ -9,7 +9,7 @@ together the two digit code is used to pull the gamesprite from the hashmap
 of spritecodes - values so there is no contains() or something along those
 lines - using a java hashmap means that sprite retrieval operates on approx.
 constant time. the sprites arent exactly masterpieces - the character sprites 
-come from a base insprited by the webcomic Homestuck - but i am not much of 
+come from a base inspired by the webcomic Homestuck - but i am not much of 
 an artist so i suppose that's about the best you can get with this kind of 
 timeline.
 
