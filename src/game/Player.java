@@ -47,6 +47,10 @@ public class Player {
 		this.playerInventory.add(item);	
 	}
 	
+	public ArrayList<InventoryItem> getInventory(){
+		return this.playerInventory;
+	}
+	
 	public void removeItem(InventoryItem item){
 		playerInventory.remove(item);
 	}

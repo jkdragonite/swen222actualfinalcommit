@@ -141,8 +141,10 @@ public abstract class Room {
 	}
 	
 	
-	public void useItem(Player player){
-		// unfinished
+	public void useItem(Player player, Door door){
+		for (InventoryItem item : player.getInventory()){
+			door.testItem(player, item);
+		}
 	}
 	
 	
