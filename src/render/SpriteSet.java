@@ -23,7 +23,7 @@ public class SpriteSet {
 	 */
 	private void loadImage() {
 		try{
-			spriteFile = new File("images/spritesheet.bmp");
+			spriteFile = new File("images/spritesheet.png");
 			System.out.println("File created.");
 			spritesheet = ImageIO.read(spriteFile);
 		}catch(IOException e){
