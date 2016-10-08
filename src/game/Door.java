@@ -3,15 +3,14 @@ package game;
 import java.util.ArrayList;
 
 public class Door extends Square{
+	
 	private Room destinationRoom;
 	private Location location;
 	private Boolean unlocked;
 	private char character;
-	// reward item?
 	
-	public Door(Location location, Room destination) {
+	public Door(Location location) {
 		super(location);
-		this.destinationRoom = destination;
 		this.unlocked = false;
 		this.character = 'D';
 	}
@@ -19,11 +18,6 @@ public class Door extends Square{
 	private ArrayList<Item> solution;
 	
 	private ArrayList<Item> keyHole;
-	
-	
-	// method for add to solution
-	
-	
 	
 	public void testItem(Player player, InventoryItem item){
 		if (solution.contains(item)){
@@ -41,13 +35,17 @@ public class Door extends Square{
 	
 	public void goThroughDoor(Player player){
 		player.updateRoom(this.destinationRoom);
-		// update player location
 	}
 	
 	public char getCharacter(){
 		return this.character;
 	}
 
+	public void addToSolution(InventoryItem item){
+		this.solution.add(item);
+	}
 	
-	
+	public void setDestination(Room room){
+		this.destinationRoom = room;
+	}
 }
