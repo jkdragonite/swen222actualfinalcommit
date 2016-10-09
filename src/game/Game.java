@@ -136,7 +136,7 @@ public class Game {
 	public ArrayList<Door> getDoors(){
 		ArrayList<Door> doors = new ArrayList<Door>();
 		for (Room room : this.rooms){
-			doors.add(room.getDoor());
+			doors.add(room.door);
 		}
 		return doors;
 	}
@@ -157,7 +157,9 @@ public class Game {
 		int count = 1;
 		for (Room room : this.rooms){
 			if (room instanceof PuzzleRoom){
-				room.getDoor().setDestination(this.rooms.get(count));	
+				if (count < this.rooms.size()){
+					room.door.setDestination(this.rooms.get(count));
+				}					
 			}
 			count++;
 		}

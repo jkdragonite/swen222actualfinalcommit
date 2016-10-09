@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public abstract class Room {
 	// arraylist of players
-	private Door door;
+	public Door door;
 	protected ArrayList<Location> playerSpawnPoints; 
 	public Board board;
 	/**
@@ -47,10 +47,20 @@ public abstract class Room {
 	 */
 	public void addDoor(Door door){
 		this.door = door;
+//		System.out.println(this.door);
+//		System.out.println(getDoor());
+//		System.out.println(this.door);
+//		System.out.println(door.getCharacter());
+//		System.out.println(door.getLocation());
 		Location doorLocation = door.getLocation();
+//		System.out.println(door.getLocation().toString());
 		this.board.grid[doorLocation.getY()][doorLocation.getX()] = door;
 	}
 
+	
+//	public Door getDoor(){
+//		return this.door;
+//	}
 
 	
 	/**
@@ -401,8 +411,10 @@ public abstract class Room {
 		updatePlayerMoves(player);
 	}
 	
-	public Door getDoor(){
-		return this.door;
+
+	
+	public void unlockDoor(){
+		this.door.setUnlocked(true);
 	}
 	
 	public void addPSP(Location loc){
