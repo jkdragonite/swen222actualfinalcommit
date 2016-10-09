@@ -92,8 +92,29 @@ public class GameLogicTests {
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
 		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
-		
-		
+	}
+	
+	@Test
+	public void testMultiplePlayerItems(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.players.add(new Player(201, testGame.rooms.get(0)));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK));
+		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
+		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.BOOK));
+		assert(testGame.players.get(0).getInventory().size() == 2);
+	}
+	
+	@Test
+	public void itemPlacementTet(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		Player player201 = new Player(201, testGame.rooms.get(0));
+		testGame.players.add(player201);
+//		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(item);
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK));
 	}
 	
 	
