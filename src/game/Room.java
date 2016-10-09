@@ -87,7 +87,7 @@ public abstract class Room {
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
 				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
 			}
-			else if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
+			if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
 				if (neighbouringSquareHashMap.get(direction).getMovableItem() != null){
 					if (testPush(direction, neighbouringSquareHashMap.get(direction)) == true){
 						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));

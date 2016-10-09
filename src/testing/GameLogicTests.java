@@ -143,6 +143,25 @@ public class GameLogicTests {
 	}
 	
 	@Test
+	public void playerItemPickupItem(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setInventory(keyInventoryItem);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+//		testGame.rooms.get(0).updatePlayerMoves(testGame.getPlayer(201));
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getInventory());
+		System.out.println("Item pickups " + testGame.getPlayer(201).itemPickups);
+		assertEquals(1, testGame.getPlayer(201).itemPickups.size());
+		assertEquals(true,testGame.getPlayer(201).itemPickups.keySet().contains(MovementDirection.LEFT));
+		testGame.rooms.get(0).pickupItem(testGame.getPlayer(201), testGame.getPlayer(201).itemPickups.get(MovementDirection.LEFT));
+		System.out.println(testGame.getPlayer(201).getInventory());
+		assertEquals(keyInventoryItem, testGame.getPlayer(201).getInventory().get(0));
+	}
+	
+	@Test
 	public void getNeighboursLength(){
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
