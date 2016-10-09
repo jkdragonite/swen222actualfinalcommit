@@ -32,5 +32,12 @@ public class Location {
 		}
 		return false;
 	}
+	
+	public String toString(){
+		String string = new String();
+		string += "X Coordinate " + this.xcoordinate;
+		string += "\nY Coordinate " + this.ycoordinate;
+		return string;
+	}
 
 }

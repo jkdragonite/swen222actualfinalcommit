@@ -97,9 +97,8 @@ public class Game {
 		this.rooms.get(roomNumber).setImmovableItem(item, item.getLocation());
 	}
 	
-	public void addPlayer(){
-		int currentSize = players.size();
-		this.players.add(new Player(currentSize, this.rooms.get(0)));
+	public void addPlayer(int uid){
+		this.players.add(new Player(uid, this.rooms.get(0)));
 		
 	}
 		
