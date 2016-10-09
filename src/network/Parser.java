@@ -93,7 +93,6 @@ public class Parser {
 				Location loc = new Location(sc.nextInt(), sc.nextInt());
 				int itemID;
 				itemType type;
-				Item item;
 				
 				switch(id){
 					case 'D':
@@ -103,39 +102,44 @@ public class Parser {
 					case 'C':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						item = new Container(type, loc);
-						//containers.add(item);
-						//room.setImmovableItem(item, loc);
+						Container cont = new Container(type, loc);
+						containers.add(cont);
+						room.setImmovableItem(cont, loc);
 						break;
 					case 'Q':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						item = new InventoryItem(type);
-						item.setLocation(loc);
+						InventoryItem invItem = new InventoryItem(type);
+						invItem.setLocation(loc);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
-								//c.addItem(item);
+								c.addItem(invItem);
 							}
 						}
 						//add item to room
-						//room.setInventoryItem(item, loc);
+						room.setInventoryItem(invItem, loc);
 						break;
 					case 'I':
 						//process type
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
+						ImmovableItem immItem = new ImmovableItem(type, loc);
 						
-						//process additional locations it covers based on changes
-						Location secondary = new Location(sc.nextInt(), sc.nextInt());
-						if(type == Game.itemType.TABLE){
-							Location tertiary = new Location(sc.nextInt(), sc.nextInt());
-							item = new ImmovableItem(type, loc);
+						if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
+								|| type != Game.itemType.CHAIR){
+							//process additional locations it covers, as most immovables cover two locations
+							Location secondary = new Location(sc.nextInt(), sc.nextInt());
+							immItem.addToLocationsCovered(secondary);
 							
+							if(type == Game.itemType.TABLE){
+								//table has three locations covered, so process additional one
+								Location tertiary = new Location(sc.nextInt(), sc.nextInt());
+								immItem.addToLocationsCovered(tertiary);
+								
+							}
 						}
-						else{
-							
-						}
+						room.setImmovableItem(immItem, loc);
 						break;
 					case 'P':
 						room.addPSP(loc);
