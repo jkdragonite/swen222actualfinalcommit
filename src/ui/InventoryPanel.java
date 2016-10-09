@@ -20,21 +20,21 @@ import game.InventoryItem;
 
 public class InventoryPanel extends JPanel implements ActionListener {
 
-	//images for the differnt items
+	// images for the differnt items
 	private static Image questIcon;
 	private static Image bookIcon;
 	private static Image boxIcon;
-	
-	//inventory slots
-	private InventoryItem slot1=null;
-	private InventoryItem slot2=null;
-	private InventoryItem slot3=null;
-	private InventoryItem slot4=null;
-	
-	//the game
+	private static Image keyIcon;
+
+	// inventory slots
+	private InventoryItem slot1 = null;
+	private InventoryItem slot2 = null;
+	private InventoryItem slot3 = null;
+	private InventoryItem slot4 = null;
+
+	// the game
 	private Game theGame;
-	
-	
+
 	// buttons
 	private JButton item1;
 	private JButton item2;
@@ -56,24 +56,24 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 * Constructor for InventoryPanel
 	 */
 	public InventoryPanel(Game g) {
-		
-		
-		//player(playerID).getItem[0] = slot1;
-		//player(playerID).getItem[1] = slot2;
-		//player(playerID).getItem[2] = slot3;
-		//player(playerID).getItem[3] = slot4;
-		
+
+		// player(playerID).getItem[0] = slot1;
+		// player(playerID).getItem[1] = slot2;
+		// player(playerID).getItem[2] = slot3;
+		// player(playerID).getItem[3] = slot4;
+		slot4 = new InventoryItem(Game.itemType.BOOK,"A book for nerds");// testing
+
 		theGame = g;
-		
-		
+
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
-		
-		try{
+
+		try {
 			questIcon = ImageIO.read(new File("../existential-dread/images/QuestItemIcon.png"));
 			boxIcon = ImageIO.read(new File("../existential-dread/images/BoxIcon.png"));
 			bookIcon = ImageIO.read(new File("../existential-dread/images/BookIcon.png"));
-		}catch (IOException e) {
+			keyIcon = ImageIO.read(new File("../existential-dread/images/KeyIcon.png"));
+		} catch (IOException e) {
 			System.out.println("file error loading images from inventoy panel" + e.getMessage());
 		}
 
@@ -158,7 +158,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(true);
 			selected = 1;
-			itemInfo.setText( "lance of fire - used to burn things");//string will be item.getString
+			if (slot1 != null) {
+				itemInfo.setText(slot1.getType().toString());
+			}
 			repaint();
 		}
 		if (src == item2) {
@@ -169,17 +171,22 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(true);
 			selected = 2;
-			itemInfo.setText( "lance of Ice - used to freeze things");
+			if (slot2 != null) {
+				itemInfo.setText(slot2.getType().toString());
+			}
 			repaint();
 		}
 		if (src == item3) {
+			slot3 = new InventoryItem(Game.itemType.KEY,"The KeyBalde"); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(true);
 			item3.setEnabled(false);
 			item4.setEnabled(true);
-			itemInfo.setText(slot3.toString());
+			if (slot3 != null) {
+				itemInfo.setText(slot3.getType().toString());
+			}
 			selected = 3;
 			repaint();
 
@@ -192,7 +199,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(true);
 			item4.setEnabled(false);
 			selected = 4;
-			itemInfo.setText("A box - just a box");
+			if (slot4 != null) {
+				itemInfo.setText(slot4.getType().toString());
+			}
 			repaint();
 
 		}
@@ -234,43 +243,58 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		int imageSize = 180;
 		int imageY = 10;
 		super.paintComponent(gr);
-		
 
-		
-		// itemInfo.update(gr);
-		if (selected == 1) { // if there is an item in slot 1
+		// used to do the yellow square around the selected item.
+		if (selected == 1) {
 			gr.setColor(Color.yellow);
 			gr.fillRect(25, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.drawImage(questIcon,30, imageY, null, null);
-			// draw item image
 		}
-		if (selected == 2) { // if there is an item in slot 1
+		if (selected == 2) {
 			gr.setColor(Color.yellow);
 			gr.fillRect(265, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.drawImage(bookIcon,270, imageY, null, null);
-			// draw item image
 		}
-		if (selected == 3) { // if there is an item in slot 1
+		if (selected == 3) {
 			gr.setColor(Color.yellow);
 			gr.fillRect(505, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.drawImage(boxIcon,510, imageY, null, null);
-			// draw item image
 		}
 		if (selected == 4) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
 			gr.fillRect(745, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
-			gr.drawImage(boxIcon,750, imageY, null, null);
-			// draw item image
 		}
-		if(1==1){
-		gr.fillRect(30, imageY, imageSize, imageSize);
+		
+		
+		if (slot1 == null) {
+			gr.fillRect(30, imageY, imageSize, imageSize);
+		} else if (slot1.getType() == Game.itemType.KEY) {
+			gr.drawImage(bookIcon, 30, imageY, null, null);
+		} else {
+			gr.drawImage(bookIcon, 30, imageY, null, null);
 		}
-		gr.fillRect(270, imageY, imageSize, imageSize);
-		gr.fillRect(510, imageY, imageSize, imageSize);
-		gr.fillRect(750, imageY, imageSize, imageSize);
+
+		if (slot2 == null) {
+			gr.fillRect(270, imageY, imageSize, imageSize);
+		} else if (slot2.getType() == Game.itemType.KEY) {
+			gr.drawImage(keyIcon, 270, imageY, null, null);
+		} else {
+			gr.drawImage(bookIcon, 270, imageY, null, null);
+		}
+		if (slot3 == null) {
+			gr.fillRect(510, imageY, imageSize, imageSize);
+		} else if (slot3.getType() == Game.itemType.KEY) {
+			gr.drawImage(keyIcon, 510, imageY, null, null);
+		} else {
+			gr.drawImage(bookIcon, 510, imageY, null, null);
+		}
+		if (slot4 == null) {
+			gr.fillRect(750, imageY, imageSize, imageSize);
+		} else if (slot4.getType() == Game.itemType.KEY) {
+			gr.drawImage(keyIcon, 750, imageY, null, null);
+		} else {
+			gr.drawImage(bookIcon, 750, imageY, null, null);
+		}
 	}
 }
