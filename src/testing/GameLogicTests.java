@@ -112,10 +112,22 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		Player player201 = new Player(201, testGame.rooms.get(0));
 		testGame.players.add(player201);
-//		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(item);
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK));
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY);
+		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(keyInventoryItem);
+		assert(testGame.rooms.get(0).board.getSquare(player201.getLocation()).getItem().equals(keyInventoryItem)); 
 	}
+	
+	@Test
+	public void playerItemPickupMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		Player player201 = new Player(201, testGame.rooms.get(0));
+		testGame.players.add(player201);
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY);
+		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(keyInventoryItem);
+		assert(testGame.rooms.get(0).board.getSquare(player201.getLocation()).getItem().equals(keyInventoryItem)); 
+	}
+	
 	
 	
 	
