@@ -1,5 +1,7 @@
 package game;
 
+import game.Game.itemType;
+
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,24 +98,30 @@ public abstract class Room {
 					}
 				}
 			}
-			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
+			
+		
+//			System.out.println(neighbouringSquareHashMap.get(direction).getInventory());
+			
+			if (neighbouringSquareHashMap.get(direction).getInventory() != null){
+				System.out.println("Item here");
 				if(player.getInventory().size() < 5){
 					player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
 				}
 			}
 			
-			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
+			if (neighbouringSquareHashMap.get(direction).getContainer() != null){
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
-			else if (board.getSquare(player.getLocation()) instanceof Door){
+			
+			if (board.getSquare(player.getLocation()) instanceof Door){
 				player.addToUseMoves(direction, board.getSquare(player.getLocation()));
 			}
-			else if (board.getSquare(player.getLocation()) instanceof Door){
+			if (board.getSquare(player.getLocation()) instanceof Door){
 				if (((Door) board.getSquare(player.getLocation())).isUnlocked() == true){
 					player.canGoThroughDoor = true;
 				}
 			}
-			else if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
+			if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
 				player.canDropItem = true;
 			}
 		}	

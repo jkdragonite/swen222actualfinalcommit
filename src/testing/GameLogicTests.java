@@ -132,12 +132,14 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
 		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
-		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setInventory(keyInventoryItem);
 		Location currentLocation = testGame.getPlayer(201).getLocation();
 		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
-		testGame.rooms.get(0).updatePlayerMoves(testGame.getPlayer(201));
-//		System.out.println(testGame.getPlayer(201).moves);
-		 
+//		testGame.rooms.get(0).updatePlayerMoves(testGame.getPlayer(201));
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getInventory());
+		System.out.println("Item pickups " + testGame.getPlayer(201).itemPickups);
+		assertEquals(1, testGame.getPlayer(201).itemPickups.size());
+		assertEquals(true,testGame.getPlayer(201).itemPickups.keySet().contains(MovementDirection.LEFT));		
 	}
 	
 	@Test
@@ -165,6 +167,8 @@ public class GameLogicTests {
 		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.RIGHT));
 		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.DOWN));
 	}
+	
+	
 //	
 //	@Test
 //	public void test
