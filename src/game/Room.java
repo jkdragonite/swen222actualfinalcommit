@@ -93,7 +93,9 @@ public abstract class Room {
 				}
 			}
 			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
-				player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
+				if(player.getInventory().size() < 5){
+					player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
+				}
 			}
 			
 			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
@@ -106,6 +108,9 @@ public abstract class Room {
 				if (((Door) board.getSquare(player.getLocation())).isUnlocked() == true){
 					player.canGoThroughDoor = true;
 				}
+			}
+			else if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
+				player.canDropItem = true;
 			}
 		}		
 	}
@@ -161,6 +166,19 @@ public abstract class Room {
 		}
 		player.resetMoves();
 		updatePlayerMoves(player);
+	}
+	
+	
+	
+	/**
+	 * 
+	 * Drops the first item in the player's inventory
+	 * 
+	 * @param player
+	 */
+	public void dropItem(Player player){
+		board.getSquare(player.getLocation()).setItem(player.getItem(0));
+		player.removeItem(player.getItem(0));
 	}
 	
 	

@@ -16,7 +16,9 @@ import game.Door;
 import game.FinalRoom;
 import game.Game;
 import game.Game.itemType;
+import game.ImmovableItem;
 import game.InventoryItem;
+import game.Item;
 import game.Location;
 import game.PuzzleRoom;
 import game.Room;
@@ -45,15 +47,15 @@ public class Parser {
 		this.game = game;
 	}
 	
-	/**
-	 * Reads a file from the game folder containing the initial game 
-	 * state and converts it into an array of bytes which can then be 
-	 * read by the client at the receiving end and converted back into
-	 * game state data. 
-	 *  
-	 * @param file
-	 * @return
-	 */
+/**
+ * Reads in a single room instance from a file and adds it to the game object. 
+ * Used during game initialization. 
+ * 
+ * @param game
+ * @param file
+ * @return
+ * @throws IOException
+ */
 	public static Room roomFromFile(Game game, File file)throws IOException{
 		//create the file readers ready for parsing
 		FileReader fr = new FileReader(file);
@@ -107,21 +109,40 @@ public class Parser {
 					case 'Q':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						InventoryItem item = new InventoryItem(type);
-						item.setLocation(loc);
+						String name = sc.nextLine();
+						InventoryItem invItem = new InventoryItem(type, name);
+						invItem.setLocation(loc);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
-								c.addItem(item);
+								c.addItem(invItem);
 							}
 						}
 						//add item to room
-						room.setInventoryItem(item, loc);
+						room.setInventoryItem(invItem, loc);
 						break;
 					case 'I':
-						//process additional locations it covers
+						//process type
+						itemID = sc.nextInt();
+						type = game.itemCodes.get(itemID);
+						ImmovableItem immItem = new ImmovableItem(type, loc);
+						
+						if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
+								|| type != Game.itemType.CHAIR){
+							//process additional locations it covers, as most immovables cover two locations
+							Location secondary = new Location(sc.nextInt(), sc.nextInt());
+							immItem.addToLocationsCovered(secondary);
+							
+							if(type == Game.itemType.TABLE){
+								//table has three locations covered, so process additional one
+								Location tertiary = new Location(sc.nextInt(), sc.nextInt());
+								immItem.addToLocationsCovered(tertiary);
+								
+							}
+						}
+						room.setImmovableItem(immItem, loc);
 						break;
-					case 'P':
+					case 'S':
 						room.addPSP(loc);
 						break;						
 				}
