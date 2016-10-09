@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import game.Game;
 import game.InventoryItem;
 import game.Player;
+import game.Room.MovementDirection;
 
 public class InventoryPanel extends JPanel implements ActionListener {
 
@@ -223,8 +224,23 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == push) {
 			System.out.println("push ");
 			// push method
-			if(theGame.getPlayer(playerID).pushMoves.keySet().size()>0){
-			//	theGame.getPlayer(playerID).getRoom().pushItem(theGame.getPlayer(playerID), theGame.getPlayer(playerID).pushMoves.keySet().toArray()[0], theGame.getPlayer(playerID).pushMoves.keySet().toArray()[0]);
+			Player currentPlayer = theGame.getPlayer(playerID);
+			// takes a keyset in player move and checks for each direction in order of
+			// preference, executes action using the direction found if applicable, 
+			// no action occurs if the keyset is 0
+			if(currentPlayer.pushMoves.keySet().size()>0){
+				if (currentPlayer.pushMoves.keySet().contains(MovementDirection.UP)){
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.UP, currentPlayer.pushMoves.get(MovementDirection.UP));
+				}
+				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.DOWN)){
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.DOWN, currentPlayer.pushMoves.get(MovementDirection.DOWN));
+				}
+				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.LEFT)){
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.LEFT, currentPlayer.pushMoves.get(MovementDirection.LEFT));
+				}
+				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.RIGHT)){
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.RIGHT, currentPlayer.pushMoves.get(MovementDirection.RIGHT));
+				}
 			}
 
 		}
