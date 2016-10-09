@@ -1,6 +1,7 @@
 package testing;
 
 import static org.junit.Assert.*;
+import game.Container;
 import game.Game;
 import game.InventoryItem;
 import game.Location;
@@ -186,6 +187,24 @@ public class GameLogicTests {
 		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.RIGHT));
 		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.DOWN));
 	}
+	
+	@Test
+	public void playerSearchMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		Location containerLocation = new Location(2, 0);
+		Container container = new Container(Game.itemType.BOX, containerLocation);
+		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(containerLocation).setContainer(container);;
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getContainer());
+		System.out.println("Item search " + testGame.getPlayer(201).searchMoves);
+		assertEquals(1, testGame.getPlayer(201).searchMoves.size());
+		assertEquals(true,testGame.getPlayer(201).searchMoves.keySet().contains(MovementDirection.RIGHT));		
+	}	
 	
 	
 //	
