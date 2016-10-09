@@ -5,19 +5,19 @@ import game.Game.itemType;
 public class InventoryItem extends Item{
 	private Player owner = null;
 	private Location location;
-	private char character;
+	private String itemName;
+	private final char character = 'Q';
 	
 	
-	public InventoryItem(itemType type){
+	public InventoryItem(itemType type, String name){
 		super(type);
-		this.character = 'Q';
+		this.itemName = name;
 	}
 	
 	public void setLocation(Location location){
 		this.location = location;
 	}
-	
-	
+		
 	/**
 	 * An item which can be added to a player's inventory, an owner can be set so that
 	 * the item can remain in a room's list of items, 
@@ -28,6 +28,9 @@ public class InventoryItem extends Item{
 		this.location = null;
 	}
 	
+	public String getItemName(){
+		return itemName;
+	}
 	
 	@Override
 	public void pickupItem(Player player){
@@ -35,10 +38,6 @@ public class InventoryItem extends Item{
 		player.addItem(this);
 		
 		// display picked up item sprite?
-	}
-	
-	public void setCharacter(char character){
-		this.character = character;
 	}
 	
 	public char getCharacter(){

@@ -47,15 +47,15 @@ public class Parser {
 		this.game = game;
 	}
 	
-	/**
-	 * Reads a file from the game folder containing the initial game 
-	 * state and converts it into an array of bytes which can then be 
-	 * read by the client at the receiving end and converted back into
-	 * game state data. 
-	 *  
-	 * @param file
-	 * @return
-	 */
+/**
+ * Reads in a single room instance from a file and adds it to the game object. 
+ * Used during game initialization. 
+ * 
+ * @param game
+ * @param file
+ * @return
+ * @throws IOException
+ */
 	public static Room roomFromFile(Game game, File file)throws IOException{
 		//create the file readers ready for parsing
 		FileReader fr = new FileReader(file);
@@ -109,7 +109,8 @@ public class Parser {
 					case 'Q':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						InventoryItem invItem = new InventoryItem(type);
+						String name = sc.nextLine();
+						InventoryItem invItem = new InventoryItem(type, name);
 						invItem.setLocation(loc);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
@@ -141,7 +142,7 @@ public class Parser {
 						}
 						room.setImmovableItem(immItem, loc);
 						break;
-					case 'P':
+					case 'S':
 						room.addPSP(loc);
 						break;						
 				}

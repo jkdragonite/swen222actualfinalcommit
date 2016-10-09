@@ -7,12 +7,11 @@ public class Door extends Square{
 	private Room destinationRoom;
 	private Location location;
 	private Boolean unlocked;
-	private char character;
+	private char character = 'D';
 	
 	public Door(Location location) {
 		super(location);
 		this.unlocked = false;
-		this.character = 'D';
 	}
 
 	private ArrayList<Item> solution;
