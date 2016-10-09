@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 
 import game.Game;
 import game.InventoryItem;
+import game.Player;
 
 public class InventoryPanel extends JPanel implements ActionListener {
 
@@ -37,6 +38,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	
 	// the players ID
 	private final int playerID;
+	
+	//the player
+	private final Player thePlayer;
 
 	// buttons
 	private JButton item1;
@@ -48,7 +52,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton pickup;
 	private JButton push;
 	private JButton pull;
-	private JButton trade;
+	private JButton useDoor;
 
 	//text area 
 	private JTextArea itemInfo;
@@ -69,6 +73,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		theGame = g;
 		playerID = userId;
+		thePlayer = theGame.getPlayer(playerID);
 
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
@@ -141,10 +146,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		drop.setBounds(970, 180, untiButtonWidth, utilButtonHeight);
 		add(drop);
 
-		trade = new JButton("trade???");
-		trade.addActionListener(this);
-		trade.setBounds(970, 210, untiButtonWidth, utilButtonHeight);
-		add(trade);
+		useDoor = new JButton("trade???");
+		useDoor.addActionListener(this);
+		useDoor.setBounds(970, 210, untiButtonWidth, utilButtonHeight);
+		add(useDoor);
 
 	}
 
@@ -218,6 +223,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == push) {
 			System.out.println("push ");
 			// push method
+			if(theGame.getPlayer(playerID).pushMoves.keySet().size()>0){
+			//	theGame.getPlayer(playerID).getRoom().pushItem(theGame.getPlayer(playerID), theGame.getPlayer(playerID).pushMoves.keySet().toArray()[0], theGame.getPlayer(playerID).pushMoves.keySet().toArray()[0]);
+			}
 
 		}
 		if (src == pull) {
@@ -233,9 +241,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			System.out.println("pick up the thing");
 			// pickup method
 		}
-		if (src == trade) {
+		if (src == useDoor) {
 			System.out.println("try to trade....maybe.....if you are lucky");
 			// drop method
+			
 
 		}
 	}
