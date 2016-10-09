@@ -100,6 +100,7 @@ public class NetworkTesting {
 			//Add a new connection for the number of clients requested
 			ServerSocket ss = new ServerSocket(port);
 			System.out.println(ss.getInetAddress());
+			System.out.println("SERVER HOST INET ADDRESS" + ss.getInetAddress().getLocalHost().getHostAddress());
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);

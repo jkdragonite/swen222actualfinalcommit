@@ -153,11 +153,36 @@ public class Parser {
 		return room;
 	}
 	
-	public static byte[] stateToBytes() throws IOException{
+	public static byte[] stateToBytes(Game game) throws IOException{
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(bout);
-
-		//dout.writeByte(game.getState());
+		
+		dout.writeByte(game.getState());
+		int numRooms = 1;
+		for(Room r : game.rooms){
+			//write room id (i.e.R 1/R 3 or F)
+			if(r instanceof PuzzleRoom){
+				dout.writeChar('R');
+				dout.writeInt(numRooms);
+				numRooms++;
+			}
+			else if(r instanceof FinalRoom){
+				dout.writeChar('F');
+				dout.writeInt(numRooms);	//don't increment numRooms as this should be last chronologically
+			}
+			
+			//write door information
+			Door door = r.getDoor();
+			dout.writeChar(door.getCharacter());
+			//write 01 for lock state?
+			dout.writeInt(door.getLocation().getX());
+			dout.writeInt(door.getLocation().getY());
+			//update the keyhole items
+			//write 0 is no items in keyhole, 1 for items
+			
+			
+			//write the pickupable items/containers around the room to the array
+		}
 		
 		//first write the door updates
 		return bout.toByteArray();
