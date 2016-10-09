@@ -6,7 +6,7 @@ public abstract class Square {
 	private MovableItem movableItem = null;
 	private ImmovableItem immovableItem = null;
 	private Container container = null;
-	private Boolean renderFlag = false;
+	private Boolean renderFlag = true;
 	private Location location;
 	
 	public Square(Location location) {

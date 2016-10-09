@@ -54,27 +54,31 @@ public class Board {
 		int xValue = location.getX();
 		int yValue = location.getY();
 		
-		if (xValue - 1 > 0 && xValue -1 > this.gridSize){
-			if (yValue > 0 && yValue > this.gridSize){
+		if (xValue - 1 > -1 && xValue -1 < this.gridSize){
+//			System.out.println("Left");
+			if (yValue > -1 && yValue < this.gridSize){
 			neighBours.put(MovementDirection.LEFT, this.grid[yValue][xValue -1]);
 			}
 		}
 		
-		if (xValue +1 > 0 && xValue +1 > this.gridSize){
-			if (yValue > 0 && yValue > this.gridSize){
+		if (xValue +1 > -1 && xValue +1 < this.gridSize){
+//			System.out.println("Right");
+			if (yValue > -1 && yValue < this.gridSize){
 				neighBours.put(MovementDirection.RIGHT, this.grid[yValue][xValue +1]);
 			}
 		}
 		
-		if (xValue > 0 && xValue > this.gridSize){
-			if (yValue -1 > 0 && yValue -1 > this.gridSize){
-				neighBours.put(MovementDirection.DOWN, this.grid[yValue -1][xValue]);
+		if (xValue > -1 && xValue < this.gridSize){
+//			System.out.println("DOWN");
+			if (yValue +1 > -1 && yValue +1 < this.gridSize){
+				neighBours.put(MovementDirection.DOWN, this.grid[yValue +1][xValue]);
 			}
 		}
 		
-		if (xValue > 0 && xValue > this.gridSize){
-			if (yValue +1 > 0 && yValue +1 > this.gridSize){
-				neighBours.put(MovementDirection.UP, this.grid[yValue +1][xValue]);
+		if (xValue > -1 && xValue < this.gridSize){
+//			System.out.println("UP");
+			if (yValue -1 > -1 && yValue -1 < this.gridSize){
+				neighBours.put(MovementDirection.UP, this.grid[yValue -1][xValue]);
 			}
 		}
 		return neighBours;
