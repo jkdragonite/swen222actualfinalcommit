@@ -29,8 +29,8 @@ lookup for the item codes
 08 : bed - front 
 09 : computer - front
 0a : box 
-0b : tallbox 
-0c : key
+0b : gift/key 
+0c : books
 
 	EASTFACING
 14 : bookshelf - side A 
@@ -39,6 +39,8 @@ lookup for the item codes
 17 : table - side
 18 : bed - side A
 19 : computer - side A 
+1b : gift/key
+1c : books
 
 	SOUTHFACING
 24 : bookshelf - back
@@ -47,6 +49,8 @@ lookup for the item codes
 27 : table - back
 28 : bed - back
 29 : computer - back
+2b : gift/key
+2c : books
 
 	WESTFACING	
 34 : bookshelf - side B
@@ -55,6 +59,8 @@ lookup for the item codes
 37 : table - side B
 38 : bed - side B
 39 : computer - side B
+3b : gift/key
+3c : books
 
 //----------------------------------------------------------------//
 
