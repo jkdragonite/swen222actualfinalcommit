@@ -58,13 +58,25 @@ public class Main {
 			}
 		}
 		
-		InetAddress address;
-		try {
-			address = InetAddress.getByName(DEFAULT_HOST);
-			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		if(server){
+			InetAddress address;
+			try {
+				address = InetAddress.getByName(DEFAULT_HOST);
+				runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
 		}
+		else if(url != null){
+			try{
+				runClient(InetAddress.getByName(url), port);
+			}
+			catch(IOException ioe){
+				System.out.println("Error parsing game file" + ioe.getMessage());
+				System.exit(1);
+			}
+		}
+		
 	}
 	
 	/************************************************

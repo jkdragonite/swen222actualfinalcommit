@@ -119,6 +119,21 @@ public class Game {
 		return view;
 	}
 	
+	/**
+	 * Gets the current state of the game based on the integer constants.
+	 * @return 
+	 */
+	public int getState(){
+		return state;
+	}
+	
+	/**
+	 * Sets the current game state to the specified integer.
+	 * @param state
+	 */
+	public void setState(int state){
+		this.state = state;
+	}
 //	/**
 //	 * returns current room the player is in for use by the renderer
 //	 * 
