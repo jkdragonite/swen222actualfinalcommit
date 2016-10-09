@@ -1,10 +1,12 @@
 package testing;
 
 import static org.junit.Assert.*;
+import javafx.scene.shape.MoveTo;
 import game.Container;
 import game.Game;
 import game.InventoryItem;
 import game.Location;
+import game.MovableItem;
 import game.Player;
 import game.PuzzleRoom;
 import game.Room.MovementDirection;
@@ -205,6 +207,68 @@ public class GameLogicTests {
 		assertEquals(1, testGame.getPlayer(201).searchMoves.size());
 		assertEquals(true,testGame.getPlayer(201).searchMoves.keySet().contains(MovementDirection.RIGHT));		
 	}	
+	
+	
+	
+	@Test
+	public void playerPushMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX);
+		Location boxLocation = new Location(2, 0);
+//		Container container = new Container(Game.itemType.BOX, containerLocation);
+//		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getContainer());
+		System.out.println("Item search " + testGame.getPlayer(201).pushMoves);
+		assertEquals(1, testGame.getPlayer(201).pushMoves.size());
+		assertEquals(true,testGame.getPlayer(201).pushMoves.keySet().contains(MovementDirection.RIGHT));		
+	}
+	
+	@Test
+	public void playerPullMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX);
+		Location boxLocation = new Location(2, 0);
+//		Container container = new Container(Game.itemType.BOX, containerLocation);
+//		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getMovableItem());
+		System.out.println("Item search " + testGame.getPlayer(201).pullMoves);
+		assertEquals(1, testGame.getPlayer(201).pullMoves.size());
+		assertEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.RIGHT));		
+	}
+	
+	
+	@Test
+	public void testPullMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX);
+		Location boxLocation = new Location(2, 0);
+//		Container container = new Container(Game.itemType.BOX, containerLocation);
+//		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getMovableItem());
+		System.out.println("Item search " + testGame.getPlayer(201).pullMoves);
+		testGame.rooms.get(0).pullItem(testGame.getPlayer(201), MovementDirection.RIGHT, testGame.rooms.get(0).board.getSquare(boxLocation));
+		assertNotEquals(1, testGame.getPlayer(201).pullMoves.size());
+		assertNotEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.RIGHT));		
+	}
+	
+	
+	
+	
 	
 	
 //	
