@@ -57,7 +57,7 @@ public class Board {
 		if (xValue - 1 > -1 && xValue -1 < this.gridSize){
 //			System.out.println("Left");
 			if (yValue > -1 && yValue < this.gridSize){
-			neighBours.put(MovementDirection.LEFT, this.grid[yValue][xValue -1]);
+				neighBours.put(MovementDirection.LEFT, this.grid[yValue][xValue -1]);
 			}
 		}
 		
@@ -83,11 +83,6 @@ public class Board {
 		}
 		return neighBours;
 	}
-	
-	
-	
-	// check moves - empty square
-	// check for item
 
 	
 	

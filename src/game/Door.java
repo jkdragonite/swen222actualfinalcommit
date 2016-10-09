@@ -53,6 +53,10 @@ public class Door extends Square{
 		this.location = location;
 	}
 	
+	public void setUnlocked(Boolean unlocked){
+		this.unlocked = unlocked;
+	}
+	
 	public Location getLocation(){
 		return this.location;
 	}

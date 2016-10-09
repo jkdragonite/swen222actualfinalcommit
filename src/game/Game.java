@@ -12,7 +12,12 @@ public class Game {
 
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
-	
+		
+	private int state;		//indicates the current state of the game
+	public static final int WAITING = 0;
+	public static final int READY = 1;
+	public static final int PLAYING = 2;
+	public static final int GAMEWON = 3;
 	
 	/**
 	 * indicates the players current view direction, i.e the
@@ -53,6 +58,8 @@ public class Game {
 		this.view = viewDirection.NORTH;	
 //		this.currentRoom = renderRoom.ROOM1;
 		initializeItemsCodes();
+		
+		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
 		players.add(new Player(201, rooms.get(0)));
 	}
@@ -112,6 +119,21 @@ public class Game {
 		return view;
 	}
 	
+	/**
+	 * Gets the current state of the game based on the integer constants.
+	 * @return 
+	 */
+	public int getState(){
+		return state;
+	}
+	
+	/**
+	 * Sets the current game state to the specified integer.
+	 * @param state
+	 */
+	public void setState(int state){
+		this.state = state;
+	}
 //	/**
 //	 * returns current room the player is in for use by the renderer
 //	 * 

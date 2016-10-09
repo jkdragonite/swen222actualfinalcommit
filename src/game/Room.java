@@ -1,5 +1,7 @@
 package game;
 
+import game.Game.itemType;
+
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,6 +76,14 @@ public abstract class Room {
 		}
 	}
 	
+	/**
+	 * 
+	 * Uses a player's location to generate a hashmap of neighbouring squares and their direction, iterates through 
+	 * this hashmap to check if the player can carry out any of the possible actions. Adds possible moves to hashmaps
+	 * within the player class for use by the ui and networking packages.
+	 * 
+	 * @param player
+	 */
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
 //		System.out.println("Update player moves");
@@ -85,7 +95,7 @@ public abstract class Room {
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
 				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
 			}
-			else if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
+			if (neighbouringSquareHashMap.get(direction).isEmpty() == false){
 				if (neighbouringSquareHashMap.get(direction).getMovableItem() != null){
 					if (testPush(direction, neighbouringSquareHashMap.get(direction)) == true){
 						player.addToPushMoves(direction, neighbouringSquareHashMap.get(direction));
@@ -96,24 +106,30 @@ public abstract class Room {
 					}
 				}
 			}
-			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
+			
+		
+//			System.out.println(neighbouringSquareHashMap.get(direction).getInventory());
+			
+			if (neighbouringSquareHashMap.get(direction).getInventory() != null){
+				System.out.println("Item here");
 				if(player.getInventory().size() < 5){
 					player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
 				}
 			}
 			
-			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
+			if (neighbouringSquareHashMap.get(direction).getContainer() != null){
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));
 			}
-			else if (board.getSquare(player.getLocation()) instanceof Door){
+			
+			if (board.getSquare(player.getLocation()) instanceof Door){
 				player.addToUseMoves(direction, board.getSquare(player.getLocation()));
 			}
-			else if (board.getSquare(player.getLocation()) instanceof Door){
+			if (board.getSquare(player.getLocation()) instanceof Door){
 				if (((Door) board.getSquare(player.getLocation())).isUnlocked() == true){
 					player.canGoThroughDoor = true;
 				}
 			}
-			else if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
+			if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
 				player.canDropItem = true;
 			}
 		}	
@@ -121,6 +137,15 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * 
+	 * Takes a direction and a square, returns true if the next square across in the given
+	 * direction is empty (i.e a box can be pushed to it)
+	 * 
+	 * @param direction
+	 * @param square
+	 * @return boolean 
+	 */
 	public boolean testPush(MovementDirection direction, Square square){
 		boolean push = false;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
@@ -131,6 +156,16 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * 
+	 * Takes a square and a direction, checks the squares in the opposite direction
+	 * and returns true if a box can be pushed there
+	 * 
+	 * 
+	 * @param direction
+	 * @param square
+	 * @return boolean
+	 */
 	public boolean testPull(MovementDirection direction, Square square){
 		boolean pull = false;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
@@ -254,13 +289,17 @@ public abstract class Room {
 		if (direction == MovementDirection.UP){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
-			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
+			Location newLocation = new Location(squareX, squareY-1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
+			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.UP);
 		}
 		if (direction == MovementDirection.DOWN){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY+1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.DOWN);
@@ -269,6 +308,8 @@ public abstract class Room {
 		if (direction == MovementDirection.LEFT){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX-1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.LEFT);
@@ -276,6 +317,8 @@ public abstract class Room {
 		if (direction == MovementDirection.RIGHT){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX+1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.RIGHT);
@@ -296,6 +339,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.DOWN);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY+1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 		}
@@ -304,6 +349,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.UP);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY-1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 
@@ -313,6 +360,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.RIGHT);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX+1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
 		}
@@ -321,15 +370,30 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.LEFT);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX-1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
 		}
 	}
 	
+	/**
+	 * Transitions player to new room
+	 * 
+	 * @param player
+	 */
 	public void goThroughDoor(Player player){
 		player.updateRoom(this.door.getDestinationRoom());
 	}
 	
+	
+	/**
+	 * Takes a square with an item on it, adds this to player inventory and then updates the given
+	 * square to reflect its absence on the board
+	 * 
+	 * @param player
+	 * @param square
+	 */
 	public void pickupItem(Player player, Square square){
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
