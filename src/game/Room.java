@@ -93,7 +93,9 @@ public abstract class Room {
 				}
 			}
 			else if (neighbouringSquareHashMap.get(direction).getInventory() != null){
-				player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
+				if(player.getInventory().size() < 5){
+					player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
+				}
 			}
 			
 			else if (neighbouringSquareHashMap.get(direction).getContainer() != null){
