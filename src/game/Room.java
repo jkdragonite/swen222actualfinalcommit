@@ -262,13 +262,17 @@ public abstract class Room {
 		if (direction == MovementDirection.UP){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
-			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
+			Location newLocation = new Location(squareX, squareY-1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
+			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.UP);
 		}
 		if (direction == MovementDirection.DOWN){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY+1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.DOWN);
@@ -277,6 +281,8 @@ public abstract class Room {
 		if (direction == MovementDirection.LEFT){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX-1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.LEFT);
@@ -284,6 +290,8 @@ public abstract class Room {
 		if (direction == MovementDirection.RIGHT){
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX+1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 			MovePlayer(player, MovementDirection.RIGHT);
@@ -304,6 +312,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.DOWN);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY+1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 		}
@@ -312,6 +322,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.UP);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX, squareY-1);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
 
@@ -321,6 +333,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.RIGHT);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX+1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
 		}
@@ -329,6 +343,8 @@ public abstract class Room {
 			MovePlayer(player, MovementDirection.LEFT);
 			int squareX = square.getLocation().getX();
 			int squareY = square.getLocation().getY();
+			Location newLocation = new Location(squareX-1, squareY);
+			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
 		}
