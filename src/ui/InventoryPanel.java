@@ -229,7 +229,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		}
 		if (src == pull) {
-			System.out.println("pull");
+			System.out.println("pull ");
 			// pull method
 
 		}
