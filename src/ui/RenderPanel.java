@@ -26,7 +26,7 @@ public class RenderPanel extends JPanel implements ActionListener {
 	public RenderPanel(Game g) {
 
 		theGame = g;
-		Dimension size = new Dimension(1200, 430);
+		Dimension size = new Dimension(1200, 400);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
 		gam = new GameRenderer(g);
@@ -34,12 +34,12 @@ public class RenderPanel extends JPanel implements ActionListener {
 		setLayout(null);
 
 		rotateL = new JButton("Rotate Left");
-		rotateL.setBounds(605, 400, 600, 25);
+		rotateL.setBounds(605, 382, 600, 25);
 		rotateL.addActionListener(this);
 		add(rotateL);
 
 		rotateR = new JButton("Rotate Right");
-		rotateR.setBounds(5, 400, 595, 25);
+		rotateR.setBounds(5, 382, 595, 25);
 		rotateR.addActionListener(this);
 		add(rotateR);
 	}
