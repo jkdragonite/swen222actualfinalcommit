@@ -20,6 +20,7 @@ public class GameLogicTests {
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
 		assertTrue(testGame.players.get(0).getLocation().getX() == 0);
 		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
 	}
 
 	@Test
@@ -28,7 +29,9 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
 		System.out.println("Player Size " + testGame.players.size());
-		assertTrue(testGame.players.size() == 1);
+//		System.out.println(testGame.players);
+		// we added a temporary player and room to constructor
+		assertTrue(testGame.players.size() == 2);
 	}
 	
 	@Test
@@ -96,7 +99,7 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, "Key"));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
 	}
 	
@@ -105,8 +108,8 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, "Key"));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK, "Book"));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.BOOK));
 		assertTrue(testGame.players.get(0).getInventory().size() == 2);
@@ -118,7 +121,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		Player player201 = new Player(201, testGame.rooms.get(0));
 		testGame.players.add(player201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY);
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
 		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(keyInventoryItem);
 		assertTrue(testGame.rooms.get(0).board.getSquare(player201.getLocation()).getItem().equals(keyInventoryItem)); 
 	}
@@ -127,14 +130,13 @@ public class GameLogicTests {
 	public void playerItemPickupMove(){
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
-		Player player201 = new Player(201, testGame.rooms.get(0));
-		testGame.players.add(player201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY);
-		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(keyInventoryItem);
-		Location currentLocation = player201.getLocation();
-		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
-		testGame.rooms.get(0).updatePlayerMoves(player201);
-		assertFalse(testGame.rooms.get(0).board.getSquare(player201.getLocation()).getItem().equals(keyInventoryItem));
+		testGame.addPlayer(201);
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setItem(keyInventoryItem);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.getPlayer(201));
+//		System.out.println(testGame.getPlayer(201).moves);
 		 
 	}
 	
@@ -145,11 +147,28 @@ public class GameLogicTests {
 		Player player201 = new Player(201, testGame.rooms.get(0));
 		testGame.players.add(player201);
 		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.DOWN);
-		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.DOWN);
-		System.out.println(player201.getLocation().toString());
+		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
+//		System.out.println(testGame.rooms.get(0).board.getNeighbours(player201.getLocation()));
+//		System.out.println(player201.getLocation().toString());
+		assertEquals(4, testGame.rooms.get(0).board.getNeighbours(player201.getLocation()).size());
 	}
 	
 	
+	@Test
+	public void testAvailablePlayerMoves(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.players.add(new Player(201, testGame.rooms.get(0)));
+		assertTrue(testGame.players.get(0).getLocation().getX() == 0);
+		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
+		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.RIGHT));
+		assertEquals(true, testGame.players.get(0).moves.keySet().contains(MovementDirection.DOWN));
+	}
+//	
+//	@Test
+//	public void test
+//	
 	
 	
 }

@@ -76,8 +76,12 @@ public abstract class Room {
 	
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
-		
+//		System.out.println("Update player moves");
+//		System.out.println(neighbouringSquareHashMap.size());
 		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
+			System.out.println("Begin loop");
+			System.out.println(direction);
+			System.out.println(neighbouringSquareHashMap.get(direction).isEmpty());
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
 				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
 			}
@@ -112,7 +116,8 @@ public abstract class Room {
 			else if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
 				player.canDropItem = true;
 			}
-		}		
+		}	
+		System.out.println(player.moves);
 	}
 	
 	

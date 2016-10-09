@@ -86,6 +86,7 @@ public class Player {
 	
 	public void addToMovement(MovementDirection direction, Square square){
 		this.moves.put(direction, square);
+		System.out.println(moves);
 	}
 	
 	public void addToPushMoves(MovementDirection direction, Square square){
