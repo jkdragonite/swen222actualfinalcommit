@@ -3,12 +3,14 @@ package testing;
 import static org.junit.Assert.*;
 import javafx.scene.shape.MoveTo;
 import game.Container;
+import game.Door;
 import game.Game;
 import game.InventoryItem;
 import game.Location;
 import game.MovableItem;
 import game.Player;
 import game.PuzzleRoom;
+import game.Room;
 import game.Room.MovementDirection;
 
 import org.junit.Test;
@@ -292,6 +294,20 @@ public class GameLogicTests {
 	
 	@Test
 	public void doorTransition(){
+		
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.players.add(new Player(201, testGame.rooms.get(0)));
+		assertTrue(testGame.players.get(0).getLocation().getX() == 0);
+		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
+		testGame.rooms.get(0).addDoor(new Door(new Location(0, 1)));
+		testGame.rooms.get(0).getDoor().setUnlocked(true);
+		testGame.setDestinationRooms();
+		Room currentRoom = testGame.getPlayer(201).getRoom();
+		testGame.rooms.get(0).goThroughDoor(testGame.getPlayer(201));;
+		Room newRoom = testGame.getPlayer(201).getRoom();
+		assertNotEquals(currentRoom, newRoom);
 		
 	}
 	

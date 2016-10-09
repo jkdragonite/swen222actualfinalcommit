@@ -76,6 +76,14 @@ public abstract class Room {
 		}
 	}
 	
+	/**
+	 * 
+	 * Uses a player's location to generate a hashmap of neighbouring squares and their direction, iterates through 
+	 * this hashmap to check if the player can carry out any of the possible actions. Adds possible moves to hashmaps
+	 * within the player class for use by the ui and networking packages.
+	 * 
+	 * @param player
+	 */
 	public void updatePlayerMoves(Player player){
 		HashMap<MovementDirection, Square> neighbouringSquareHashMap = this.board.getNeighbours(player.getLocation());
 //		System.out.println("Update player moves");
@@ -129,6 +137,15 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * 
+	 * Takes a direction and a square, returns true if the next square across in the given
+	 * direction is empty (i.e a box can be pushed to it)
+	 * 
+	 * @param direction
+	 * @param square
+	 * @return boolean 
+	 */
 	public boolean testPush(MovementDirection direction, Square square){
 		boolean push = false;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
@@ -139,6 +156,16 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * 
+	 * Takes a square and a direction, checks the squares in the opposite direction
+	 * and returns true if a box can be pushed there
+	 * 
+	 * 
+	 * @param direction
+	 * @param square
+	 * @return boolean
+	 */
 	public boolean testPull(MovementDirection direction, Square square){
 		boolean pull = false;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
@@ -350,10 +377,23 @@ public abstract class Room {
 		}
 	}
 	
+	/**
+	 * Transitions player to new room
+	 * 
+	 * @param player
+	 */
 	public void goThroughDoor(Player player){
 		player.updateRoom(this.door.getDestinationRoom());
 	}
 	
+	
+	/**
+	 * Takes a square with an item on it, adds this to player inventory and then updates the given
+	 * square to reflect its absence on the board
+	 * 
+	 * @param player
+	 * @param square
+	 */
 	public void pickupItem(Player player, Square square){
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
