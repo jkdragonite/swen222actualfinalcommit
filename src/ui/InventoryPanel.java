@@ -34,6 +34,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 	// the game
 	private Game theGame;
+	
+	// the players ID
+	private final int playerID;
 
 	// buttons
 	private JButton item1;
@@ -47,6 +50,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton pull;
 	private JButton trade;
 
+	//text area 
 	private JTextArea itemInfo;
 	private String itemText = "Item info";
 
@@ -55,7 +59,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	/**
 	 * Constructor for InventoryPanel
 	 */
-	public InventoryPanel(Game g) {
+	public InventoryPanel(Game g,int userId) {
 
 		// player(playerID).getItem[0] = slot1;
 		// player(playerID).getItem[1] = slot2;
@@ -64,6 +68,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		slot4 = new InventoryItem(Game.itemType.BOOK,"A book for nerds");// testing
 
 		theGame = g;
+		playerID = userId;
 
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
@@ -275,7 +280,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.drawImage(bookIcon, 30, imageY, null, null);
 		}
 
-		if (slot2 == null) {
+		if(slot2==null){
+		//if (theGame.getPlayer(playerID).getInventory().get(0) == null) {//needs more logic
 			gr.fillRect(270, imageY, imageSize, imageSize);
 		} else if (slot2.getType() == Game.itemType.KEY) {
 			gr.drawImage(keyIcon, 270, imageY, null, null);

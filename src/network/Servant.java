@@ -41,7 +41,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			uid = input.readInt();					
 			System.out.println("CLIENT UID: " + uid);
 			
-			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, this, game);
+			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, this, game,uid);
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");

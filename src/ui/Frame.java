@@ -39,9 +39,10 @@ public class Frame extends JFrame implements  ActionListener {
    
 	
 	
-    public Frame(String title, KeyListener kl,Game g) {
+    public Frame(String title, KeyListener kl,Game g,int UID) {
     	super(title);
     	theGame = g;
+    	playerID = UID;
     	
     	//playerID = theGame.getPlayerID
     	
@@ -84,7 +85,7 @@ public class Frame extends JFrame implements  ActionListener {
 		
 
 
-		ip = new InventoryPanel(theGame);
+		ip = new InventoryPanel(theGame,playerID);
 		add(ip, BorderLayout.SOUTH);
 		
 		rp = new RenderPanel(theGame);
