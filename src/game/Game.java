@@ -80,6 +80,11 @@ public class Game {
 //		this.currentRoom = room;
 //	}
 	
+	public Player getPlayer(int uid){
+		return this.players.get(uid - 200);
+	}
+	
+	
 	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
 		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
 	}
