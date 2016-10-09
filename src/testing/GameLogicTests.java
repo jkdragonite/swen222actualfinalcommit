@@ -262,8 +262,37 @@ public class GameLogicTests {
 		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getMovableItem());
 		System.out.println("Item search " + testGame.getPlayer(201).pullMoves);
 		testGame.rooms.get(0).pullItem(testGame.getPlayer(201), MovementDirection.RIGHT, testGame.rooms.get(0).board.getSquare(boxLocation));
+		System.out.println(box1.getLocation().getX());
+		assertEquals(1, testGame.rooms.get(0).board.getSquare(box1.getLocation()).getLocation().getX());
 		assertNotEquals(1, testGame.getPlayer(201).pullMoves.size());
 		assertNotEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.RIGHT));		
+	}
+	
+	
+	@Test
+	public void testPushMove(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX);
+		Location boxLocation = new Location(2, 0);
+//		Container container = new Container(Game.itemType.BOX, containerLocation);
+//		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getMovableItem());
+		System.out.println("Item search " + testGame.getPlayer(201).pullMoves);
+		testGame.rooms.get(0).pullItem(testGame.getPlayer(201), MovementDirection.RIGHT, testGame.rooms.get(0).board.getSquare(boxLocation));
+		System.out.println(box1.getLocation().getX());
+		assertEquals(1, testGame.rooms.get(0).board.getSquare(box1.getLocation()).getLocation().getX());
+		assertNotEquals(1, testGame.getPlayer(201).pullMoves.size());
+		assertNotEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.RIGHT));		
+	}
+	
+	@Test
+	public void doorTransition(){
+		
 	}
 	
 	

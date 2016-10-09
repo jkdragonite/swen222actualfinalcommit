@@ -27,7 +27,7 @@ public class NetworkTesting {
 		/**************************************************
 		 * 			Process command line arguments
 		 * ************************************************/
-		/*boolean server = false;
+		boolean server = false;
 		int nclients = 1;
 		String url = null; 
 		int broadcastClock = DEFAULT_BROADCAST_CLK_PERIOD;
@@ -45,13 +45,12 @@ public class NetworkTesting {
 					port = Integer.parseInt(args[++i]);
 				}
 			}
-		}*/
+		}
 		
 		InetAddress address;
 		try {
 			address = InetAddress.getByName(DEFAULT_HOST);
 			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
-			//runClient(address, DEFAULT_PORT);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +98,8 @@ public class NetworkTesting {
 		try {
 			Master[] connections = new Master[nclients];
 			//Add a new connection for the number of clients requested
-			ServerSocket ss = new ServerSocket(port);			
+			ServerSocket ss = new ServerSocket(port);
+			System.out.println(ss.getInetAddress());
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);
