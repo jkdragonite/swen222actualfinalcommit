@@ -109,7 +109,7 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, null, "Key"));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, null, "Key", 44));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
 	}
 	
@@ -118,8 +118,8 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, null, "Key"));
-		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK, null, "Book"));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.KEY, null, "Key", 44));
+		testGame.players.get(0).addItem(new InventoryItem(Game.itemType.BOOK, null, "Book", 66));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.KEY));
 		assert(testGame.players.get(0).getInventory().get(0).getType().equals(Game.itemType.BOOK));
 		assertTrue(testGame.players.get(0).getInventory().size() == 2);
@@ -131,7 +131,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		Player player201 = new Player(201, testGame.rooms.get(0));
 		testGame.players.add(player201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		testGame.rooms.get(0).board.getSquare(player201.getLocation()).setItem(keyInventoryItem);
 		assertTrue(testGame.rooms.get(0).board.getSquare(player201.getLocation()).getItem().equals(keyInventoryItem)); 
 	}
@@ -141,7 +141,7 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setInventory(keyInventoryItem);
 		Location currentLocation = testGame.getPlayer(201).getLocation();
 		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
@@ -157,7 +157,7 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		testGame.rooms.get(0).board.getSquare(testGame.getPlayer(201).getLocation()).setInventory(keyInventoryItem);
 		Location currentLocation = testGame.getPlayer(201).getLocation();
 		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
@@ -174,7 +174,7 @@ public class GameLogicTests {
 	@Test
 	public void newOwner() {
 		Game testGame = setupMockGame();
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		Player player201 = testGame.getPlayer(201);
 		keyInventoryItem.setLocation(new Location(0, 0));
 		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
@@ -190,7 +190,7 @@ public class GameLogicTests {
 	@Test
 	public void noOwner(){
 		Game testGame = setupMockGame();
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		Player player201 = testGame.getPlayer(201);
 		keyInventoryItem.setLocation(new Location(0, 0));
 		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
@@ -208,7 +208,7 @@ public class GameLogicTests {
 	@Test
 	public void correctDropItemLocationUpdate(){
 		Game testGame = setupMockGame();
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		Player player201 = testGame.getPlayer(201);
 		keyInventoryItem.setLocation(new Location(0, 0));
 		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
@@ -255,9 +255,9 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key");
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, null, "Key", 44);
 		Location containerLocation = new Location(2, 0);
-		Container container = new Container(Game.itemType.BOX, containerLocation);
+		Container container = new Container(Game.itemType.BOX, containerLocation, 55);
 		container.addItem(keyInventoryItem);
 		testGame.rooms.get(0).board.getSquare(containerLocation).setContainer(container);;
 		Location currentLocation = testGame.getPlayer(201).getLocation();
@@ -276,7 +276,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
 		Location boxLocation = new Location(2, 0);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation, 88);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
@@ -295,7 +295,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
 		Location boxLocation = new Location(2, 0);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation, 88);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
@@ -315,7 +315,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
 		Location boxLocation = new Location(2, 0);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation, 88);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
@@ -338,7 +338,7 @@ public class GameLogicTests {
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
 		Location boxLocation = new Location(2, 0);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation, 88);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
@@ -392,7 +392,7 @@ public class GameLogicTests {
 	public void playerMoveLogic(){
 		Game testGame = setupMockGame();
 		Location boxLocation = new Location(2, 0);
-		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation);
+		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation, 88);
 //		Player player1 = testGame.getPlayer(200);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
@@ -412,7 +412,7 @@ public class GameLogicTests {
 	public void testPlayerMoveThroughPlayer(){
 		Game testGame = setupMockGame();
 		Location boxLocation = new Location(2, 0);
-		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation);
+		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation, 88);
 		Location down = new Location(0, 1);
 		Location right = new Location(1, 0);
 		
@@ -445,7 +445,7 @@ public class GameLogicTests {
 		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
 		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
 		Door doorAdd = new Door(new Location(4, 4));
-		InventoryItem superKeyInventoryItem = new InventoryItem(Game.itemType.KEY, new Location(1, 1), "Nie");
+		InventoryItem superKeyInventoryItem = new InventoryItem(Game.itemType.KEY, new Location(1, 1), "Nie", 88);
 		doorAdd.addToSolution(superKeyInventoryItem);
 		assertEquals(doorAdd.getSolution().size(), 1);
 		assertEquals(doorAdd.getSolution().get(0), superKeyInventoryItem);

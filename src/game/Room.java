@@ -286,20 +286,8 @@ public abstract class Room {
 	 */
 	public void MovePlayer(Player player, MovementDirection direction){
 		Location currentLocation = player.getLocation();
-		Location newLocation = null;
 		if (direction == MovementDirection.UP){
-			if (player.getView() == viewDirection.NORTH){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);	
-			}
-			else if (player.getView() == viewDirection.EAST){
-				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
-			}
-			else if (player.getView() == viewDirection.SOUTH){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
-			}
-			else if (player.getView() == viewDirection.WEST){
-				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
-			}
+			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);	
 			System.out.println(player.getLocation().toString());
 			System.out.println(newLocation.toString());
 			player.updateLocation(newLocation);
@@ -309,19 +297,7 @@ public abstract class Room {
 			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.DOWN){
-			
-			if (player.getView() == viewDirection.NORTH){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);	
-			}
-			else if (player.getView() == viewDirection.EAST){
-				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
-			}
-			else if (player.getView() == viewDirection.SOUTH){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
-			}
-			else if (player.getView() == viewDirection.WEST){
-				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
-			}
+			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);	
 			System.out.println(player.getLocation().toString());
 			System.out.println(newLocation.toString());
 			System.out.println(this.board.toString());
@@ -331,18 +307,7 @@ public abstract class Room {
 			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.LEFT){
-			if (player.getView() == viewDirection.NORTH){
-				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());	
-			}
-			else if (player.getView() == viewDirection.EAST){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
-			}
-			else if (player.getView() == viewDirection.SOUTH){
-				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY()-1);
-			}
-			else if (player.getView() == viewDirection.WEST){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
-			}
+			Location newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());	
 			System.out.println(player.getLocation().toString());
 			System.out.println(newLocation.toString());
 			System.out.println(this.board.toString());
@@ -352,18 +317,7 @@ public abstract class Room {
 			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.RIGHT){
-			if (player.getView() == viewDirection.NORTH){
-				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());	
-			}
-			else if (player.getView() == viewDirection.EAST){
-				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
-			}
-			else if (player.getView() == viewDirection.SOUTH){
-				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
-			}
-			else if (player.getView() == viewDirection.WEST){
-				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
-			}
+			Location newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());	
 			System.out.println(player.getLocation().toString());
 			System.out.println(newLocation.toString());
 			System.out.println(this.board.toString());

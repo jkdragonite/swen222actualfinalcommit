@@ -21,6 +21,7 @@ import game.Game;
 import game.InventoryItem;
 import game.Location;
 import game.Player;
+import game.Game.viewDirection;
 import game.Room.MovementDirection;
 
 public class InventoryPanel extends JPanel implements ActionListener ,KeyListener{
@@ -271,48 +272,156 @@ public class InventoryPanel extends JPanel implements ActionListener ,KeyListene
 			System.out.println("UP");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
-				render.repaint();
-			} else {
-				handyInfo.setText("Move up failed");
+			if (currentPlayer.getView() == viewDirection.NORTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
 			}
-			
-
+			if (currentPlayer.getView() == viewDirection.SOUTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
+			}
+			if (currentPlayer.getView() == viewDirection.EAST){
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
+			}
+			if (currentPlayer.getView() == viewDirection.WEST){
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
+			}
 		}
 		else if (src == left) {
 			System.out.println("LEFT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
-				render.repaint();
-			} else {
-				handyInfo.setText("Move left failed");
+			if (currentPlayer.getView() == viewDirection.NORTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move left failed");
+				}
+				repaint();
 			}
-			repaint();
+			if (currentPlayer.getView() == viewDirection.SOUTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move left failed");
+				}
+				repaint();
+			}
+			if (currentPlayer.getView() == viewDirection.EAST){
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move left failed");
+				}
+				repaint();
+			}
+			if (currentPlayer.getView() == viewDirection.WEST){
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move left failed");
+				}
+				repaint();
+			}
 		}
 		else if (src == right) {
 			System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
-				render.repaint();
-			} else {
-				handyInfo.setText("Move right failed");
+			if (currentPlayer.getView() == viewDirection.NORTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move right failed");
+				}
+				repaint();
 			}
-			repaint();
+			if (currentPlayer.getView() == viewDirection.SOUTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move right failed");
+				}
+				repaint();
+			}
+			if (currentPlayer.getView() == viewDirection.EAST){
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move right failed");
+				}
+				repaint();
+			}
+			if (currentPlayer.getView() == viewDirection.WEST){
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+					render.repaint();
+				} else {
+					handyInfo.setText("Move right failed");
+				}
+				repaint();
+			}
 		}
 		else if (src == down) {
 			System.out.println("DOWN");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
-				render.repaint();
-			} else {
-				handyInfo.setText("Move down  failed");
+			if (currentPlayer.getView() == viewDirection.NORTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move down failed");
+				}
+			}
+			if (currentPlayer.getView() == viewDirection.SOUTH){
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
+			}
+			if (currentPlayer.getView() == viewDirection.EAST){
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
+			}
+			if (currentPlayer.getView() == viewDirection.WEST){
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+						currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+						render.repaint();
+					} else {
+						handyInfo.setText("Move up failed");
+				}
 			}
 
 		}
