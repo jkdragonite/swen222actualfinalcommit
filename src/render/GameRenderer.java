@@ -176,7 +176,7 @@ public class GameRenderer extends Canvas{
 		}
 	}
 	
-	private void rerender(){
+	public void rerender(){
 		render(gra);
 	}
 	
