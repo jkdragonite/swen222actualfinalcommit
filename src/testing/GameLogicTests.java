@@ -385,6 +385,7 @@ public class GameLogicTests {
 		testGame.addPlayer(201);
 		Location boxLocation = new Location(2, 0);
 		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation);
+//		Player player1 = testGame.getPlayer(200);
 		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
