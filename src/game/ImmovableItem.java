@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ImmovableItem extends Item {
 	// array of locations
-	private ArrayList<Location> locationsCovered;
+	private ArrayList<Location> locationsCovered = new ArrayList<Location>();
 	
 	public ImmovableItem(game.Game.itemType type, Location leftmost) {
 		super(type, 'I', leftmost);
