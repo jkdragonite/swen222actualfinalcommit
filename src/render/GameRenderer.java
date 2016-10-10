@@ -42,6 +42,7 @@ public class GameRenderer extends Canvas{
 
 		game = new Game();
 		Room room = game.rooms.get(0);
+		Room bestRoom = game.getPlayer(uid).getRoom();
 		Board board = room.board;
 		stage = board.grid;
 
