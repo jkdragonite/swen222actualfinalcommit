@@ -51,16 +51,16 @@ public class RenderPanel extends JPanel implements ActionListener {
 		Object src = evt.getSource();
 		if (src == rotateL) {
 			System.out.println("Rotate left");
-			if (theGame.getDirection() == Game.viewDirection.NORTH){
+			if (theGame.getDirection(playerID) == Game.viewDirection.NORTH){
 				theGame.shiftView(viewDirection.WEST, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.WEST){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.WEST){
 				theGame.shiftView(viewDirection.SOUTH, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.SOUTH){
 				theGame.shiftView(viewDirection.EAST, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.EAST){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.EAST){
 				theGame.shiftView(viewDirection.NORTH, playerID);
 			}
 			gam.rotateCW();
@@ -71,16 +71,16 @@ public class RenderPanel extends JPanel implements ActionListener {
 		}
 		if (src == rotateR) {
 			System.out.println("Rotate right");
-			if (theGame.getDirection() == Game.viewDirection.NORTH){
+			if (theGame.getDirection(playerID) == Game.viewDirection.NORTH){
 				theGame.shiftView(viewDirection.EAST, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.EAST){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.EAST){
 				theGame.shiftView(viewDirection.SOUTH, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.SOUTH){
 				theGame.shiftView(viewDirection.WEST, playerID);
 			}
-			else if (theGame.getDirection() == Game.viewDirection.WEST){
+			else if (theGame.getDirection(playerID) == Game.viewDirection.WEST){
 				theGame.shiftView(viewDirection.NORTH, playerID);
 			}
 			gam.rotateCW();
