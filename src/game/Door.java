@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class Door extends Square{
 	
 	private Room destinationRoom;
@@ -42,6 +44,10 @@ public class Door extends Square{
 	
 	public void setDestination(Room room){
 		this.destinationRoom = room;
+	}
+	
+	public ArrayList<Item> getKeyHole(){
+		return this.keyHole;
 	}
 	
 	public Boolean isUnlocked(){
