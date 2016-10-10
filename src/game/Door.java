@@ -15,9 +15,9 @@ public class Door extends Square{
 		this.unlocked = false;
 	}
 
-	private ArrayList<Item> solution;
+	private ArrayList<Item> solution = new ArrayList<Item>();
 	
-	private ArrayList<Item> keyHole;
+	private ArrayList<Item> keyHole = new ArrayList<Item>();
 	
 	public void testItem(Player player, InventoryItem item){
 		if (solution.contains(item)){
@@ -30,6 +30,11 @@ public class Door extends Square{
 		}		
 	}
 	
+	/**
+	 * Transitions player through door 
+	 * 
+	 * @param player
+	 */
 	public void goThroughDoor(Player player){
 		player.updateRoom(this.destinationRoom);
 	}
@@ -38,6 +43,11 @@ public class Door extends Square{
 		return this.character;
 	}
 
+	/**
+	 * Adds item to solution which unlocks door
+	 * 
+	 * @param item
+	 */
 	public void addToSolution(InventoryItem item){
 		this.solution.add(item);
 	}
@@ -48,6 +58,10 @@ public class Door extends Square{
 	
 	public ArrayList<Item> getKeyHole(){
 		return this.keyHole;
+	}
+	
+	public ArrayList<Item> getSolution(){
+		return this.solution;
 	}
 	
 	public Boolean isUnlocked(){

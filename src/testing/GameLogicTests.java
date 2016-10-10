@@ -436,15 +436,41 @@ public class GameLogicTests {
 	
 	
 	@Test
-	public void renderTest(){
-		Game testGame = setupMockGame();
-//		Servant newServant = new Servant(null, testGame);
-		NetworkTesting networkTest = new NetworkTesting();
+	public void testAddToSolution(){
 		
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(9));
+		testGame.players.add(new Player(201, testGame.rooms.get(0)));
+		assertTrue(testGame.players.get(0).getLocation().getX() == 0);
+		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
+		Door doorAdd = new Door(new Location(4, 4));
+		InventoryItem superKeyInventoryItem = new InventoryItem(Game.itemType.KEY, new Location(1, 1), "Nie");
+		doorAdd.addToSolution(superKeyInventoryItem);
+		assertEquals(doorAdd.getSolution().size(), 1);
+		assertEquals(doorAdd.getSolution().get(0), superKeyInventoryItem);
+//		System.out.println(doorAdd.getCharacter());
+		testGame.rooms.get(0).addDoor(doorAdd);
+		((PuzzleRoom)testGame.rooms.get(0)).getDoor();
+//		System.out.println(testGame.rooms.get(0).door);
+//		System.out.println(testGame.rooms.get(0).door);
+		testGame.rooms.get(0).unlockDoor();
+		testGame.rooms.get(0).door.setUnlocked(true);
+//		System.out.println("CHaracyer" + testGame.rooms.get(0).door.getCharacter());
+		testGame.setDestinationRooms();
+		Room currentRoom = testGame.getPlayer(201).getRoom();
+		testGame.rooms.get(1).addDoor(new Door(new Location(0, 1)));
+//		System.out.println(testGame.getPlayer(201).getRoom());
+		for (Room room : testGame.rooms){
+			System.out.println(((PuzzleRoom) room).getDoor());
+		}
+		testGame.rooms.get(0).goThroughDoor(testGame.getPlayer(201));;
+		Room newRoom = testGame.getPlayer(201).getRoom();
 		
-//		networkTest.
-//		newServant
 	}
+	
+	
+	
 	
 	
 	
