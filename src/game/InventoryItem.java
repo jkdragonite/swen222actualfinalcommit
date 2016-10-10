@@ -4,24 +4,12 @@ import game.Game.itemType;
 
 public class InventoryItem extends Item{
 	private Player owner = null;
-	private Location location;
 	private String itemName;
-	private final char character = 'Q';
 	
 	
-	public InventoryItem(itemType type, String name){
-		super(type);
+	public InventoryItem(itemType type, Location loc, String name){
+		super(type, 'Q', loc);
 		this.itemName = name;
-	}
-	
-	@Override
-	public void setLocation(Location location){
-		this.location = location;
-	}
-	
-	@Override
-	public Location getLocation(){
-		return this.location;
 	}
 		
 	/**
@@ -47,16 +35,11 @@ public class InventoryItem extends Item{
 		return this.owner;
 	}
 	
-	@Override
 	public void pickupItem(Player player){
 		setOwner(player);
 		player.addItem(this);
 		
 		// display picked up item sprite?
-	}
-	
-	public char getCharacter(){
-		return this.character;
 	}
 	
 	/**

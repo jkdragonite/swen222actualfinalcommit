@@ -21,6 +21,7 @@ import game.InventoryItem;
 import game.Item;
 import game.Location;
 import game.MovableItem;
+import game.Player;
 import game.PuzzleRoom;
 import game.Room;
 
@@ -111,8 +112,7 @@ public class Parser {
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
 						String name = sc.nextLine();
-						InventoryItem invItem = new InventoryItem(type, name);
-						invItem.setLocation(loc);
+						InventoryItem invItem = new InventoryItem(type, loc, name);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
@@ -211,6 +211,14 @@ public class Parser {
 			}
 			
 			//write players to output
+			for(Player p : game.players){
+				if(p.getRoom()== r){
+					dout.writeChar(p.getCharacter());
+					dout.writeInt(p.getLocation().getX());
+					dout.writeInt(p.getLocation().getY());
+					//if(p.hasItems)
+				}
+			}
 			
 			//write inventory items to output
 			for(InventoryItem i : r.inventoryItems){

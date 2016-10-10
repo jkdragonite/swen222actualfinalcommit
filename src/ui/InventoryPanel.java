@@ -17,6 +17,7 @@ import javax.swing.JTextArea;
 
 import game.Game;
 import game.InventoryItem;
+import game.Location;
 import game.Player;
 import game.Room.MovementDirection;
 
@@ -67,7 +68,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	public InventoryPanel(Game g, int userId) {
 
-		slot4 = new InventoryItem(Game.itemType.BOOK, "A book for nerds");// testing
+		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0,0), "A book for nerds");// testing
 
 		theGame = g;
 		playerID = userId;
@@ -189,7 +190,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 		}
 		if (src == item3) {
-			slot3 = new InventoryItem(Game.itemType.KEY, "The KeyBalde"); // testing
+			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4,0), "The KeyBalde"); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);

@@ -216,8 +216,7 @@ public class Main {
 							itemID = sc.nextInt();
 							type = game.itemCodes.get(itemID);
 							String name = sc.nextLine();
-							InventoryItem invItem = new InventoryItem(type, name);
-							invItem.setLocation(loc);
+							InventoryItem invItem = new InventoryItem(type, loc, name);
 							//check whether this inventory item is in the same space as a container
 							for(Container c: containers){
 								if(c.getLocation().equals(loc)){
