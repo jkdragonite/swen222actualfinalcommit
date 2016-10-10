@@ -126,9 +126,9 @@ public abstract class Room {
 //		System.out.println("Update player moves");
 //		System.out.println(neighbouringSquareHashMap.size());
 		for (MovementDirection direction : neighbouringSquareHashMap.keySet()){
-			System.out.println("Begin loop");
-			System.out.println(direction);
-			System.out.println(neighbouringSquareHashMap.get(direction).isEmpty());
+//			System.out.println("Begin loop");
+//			System.out.println(direction);
+//			System.out.println(neighbouringSquareHashMap.get(direction).getLocation().toString());
 			if (neighbouringSquareHashMap.get(direction).isEmpty() == true){
 				player.addToMovement(direction, neighbouringSquareHashMap.get(direction));
 			}
@@ -300,12 +300,16 @@ public abstract class Room {
 			else if (player.getView() == viewDirection.WEST){
 				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
 			}
-			
+			System.out.println(player.getLocation().toString());
+			System.out.println(newLocation.toString());
 			player.updateLocation(newLocation);
+			System.out.println(this.board.toString());
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
+			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.DOWN){
+			
 			if (player.getView() == viewDirection.NORTH){
 				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);	
 			}
@@ -318,9 +322,13 @@ public abstract class Room {
 			else if (player.getView() == viewDirection.WEST){
 				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
 			}
+			System.out.println(player.getLocation().toString());
+			System.out.println(newLocation.toString());
+			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
+			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.LEFT){
 			if (player.getView() == viewDirection.NORTH){
@@ -335,9 +343,13 @@ public abstract class Room {
 			else if (player.getView() == viewDirection.WEST){
 				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
 			}
+			System.out.println(player.getLocation().toString());
+			System.out.println(newLocation.toString());
+			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
+			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.RIGHT){
 			if (player.getView() == viewDirection.NORTH){
@@ -352,9 +364,13 @@ public abstract class Room {
 			else if (player.getView() == viewDirection.WEST){
 				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
 			}
+			System.out.println(player.getLocation().toString());
+			System.out.println(newLocation.toString());
+			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
+			System.out.println(this.board.toString());
 		}
 		
 		player.resetMoves();

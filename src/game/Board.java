@@ -47,6 +47,21 @@ public class Board {
 		return square;
 	}
 	
+	public String toString(){
+		String string = new String();
+		for (int i = 0; i < 10; i++){
+			string += "\n";
+			for (int j = 0; j < 10; j++){
+				if (grid[i][j].getPlayer() != null){
+					string += "P";
+				}
+				else{
+					string += "X";
+				}
+			}
+		}
+		return string;
+	}
 	
 	
 	public HashMap<MovementDirection, Square> getNeighbours(Location location){

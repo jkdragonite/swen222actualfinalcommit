@@ -76,7 +76,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	public InventoryPanel(Game g, int userId,RenderPanel rend) {
 
-		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0, 0), "A book for nerds");// testing
+		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0, 0), "A book for nerds", 66);// testing
 		theGame = g;
 		playerID = userId;
 		render = rend;
@@ -218,7 +218,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 		}
 		if (src == item3) {
-			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4, 0), "The KeyBalde"); // testing
+			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4, 0), "The KeyBalde", 556); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
