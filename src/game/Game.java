@@ -101,7 +101,9 @@ public class Game {
 //	}
 	
 	public Player getPlayer(int uid){
-		return this.players.get(uid - 200);
+//		return this.players.get(uid - 200);
+		System.out.println("KJGjfssfdjkgfsdkjgsdfkjgfsdjgksdkjfjgksdfjgkkgkjg" + uid);
+		return this.players.get(0);
 	}
 	
 	
@@ -134,6 +136,7 @@ public class Game {
 //		System.out.println(playerToAdd.getLocation().toString());
 //		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()));
 		this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).addPlayer(playerToAdd);
+		this.rooms.get(0).addPlayer(playerToAdd);
 //		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).getPlayer().getLocation().toString());
 		
 	}
@@ -145,7 +148,7 @@ public class Game {
 	 * @return enum viewdirection
 	 */
 	public viewDirection getDirection(int uid){
-		return this.getPlayer(uid).getView();
+		return this.getPlayer(200).getView();
 	}
 	
 	/**

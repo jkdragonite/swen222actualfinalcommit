@@ -15,6 +15,8 @@ public abstract class Room {
 	public ArrayList<MovableItem> movableItems = new ArrayList<MovableItem>();
 	public ArrayList<ImmovableItem> immovableItems = new ArrayList<ImmovableItem>();
 	public ArrayList<Container> containers = new ArrayList<Container>();
+	public ArrayList<Player> playersInRoom = new ArrayList<Player>();
+	
 	public Board board;
 	/**
 	 * 
@@ -31,6 +33,14 @@ public abstract class Room {
 		this.board = new Board(size);
 	}
 	
+	
+	public void addPlayer(Player player){
+		this.playersInRoom.add(player);
+	}
+	
+	public void removePlayer(Player player){
+		this.playersInRoom.remove(player);
+	}
 	
 	/**
 	 * Places an instance of a player class at a given location
@@ -402,10 +412,14 @@ public abstract class Room {
 		player.updateRoom(this.door.getDestinationRoom());
 		Room newRoom = this.door.getDestinationRoom();
 		if (newRoom instanceof PuzzleRoom){
+			this.door.getDestinationRoom().addPlayer(player);
 			this.door.getDestinationRoom().placePlayer(player, new Location(0, 0));
+			removePlayer(player);
 		}
 		else {
+			this.door.getDestinationRoom().addPlayer(player);
 			this.door.getDestinationRoom().placePlayer(player, new Location(5, 5));
+			removePlayer(player);
 		}
 	}
 	
