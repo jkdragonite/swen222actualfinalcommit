@@ -59,6 +59,10 @@ public class InventoryItem extends Item{
 		return this.character;
 	}
 	
+	/**
+	 * Returns whether this item has an owning player or not.
+	 * @return
+	 */
 	public boolean hasOwner(){
 		return owner != null;
 	}
