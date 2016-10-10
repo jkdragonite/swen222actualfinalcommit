@@ -16,7 +16,7 @@ import ui.Frame;
  *
  */
 public final class Servant extends Thread implements KeyListener, MouseListener{
-	Game game;
+	Game game = new Game();
 	/** The socket user to communicate with it's assigned Master*/
 	private final Socket socket;
 	private DataOutputStream output;

@@ -212,7 +212,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(false);
 			selected = 4;
 			if (slot4 != null) {
-				itemInfo.setText(slot4.getType().toString());
+				itemInfo.setText(slot4.getType().toString()+"-"+slot4.getItemName());
 			}
 			repaint();
 
@@ -278,6 +278,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == drop) {
 			System.out.println("drop");
 			// drop method
+			System.out.println(playerID+"meh");
 			Player currentPlayer = theGame.getPlayer(playerID);
 			currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 		}
@@ -323,6 +324,24 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	
+	public void updateItemSlots(){
+		Player currentPlayer = theGame.getPlayer(playerID);
+		if(currentPlayer.getInventory().get(0)!=null){
+			slot1 = currentPlayer.getInventory().get(0);
+		}
+		if(currentPlayer.getInventory().get(1)!=null){
+			slot1 = currentPlayer.getInventory().get(1);
+		}
+		if(currentPlayer.getInventory().get(2)!=null){
+			slot1 = currentPlayer.getInventory().get(2);
+		}
+		if(currentPlayer.getInventory().get(3)!=null){
+			slot1 = currentPlayer.getInventory().get(3);
+		}
+	}
+	
+	
 	/**
 	 * the draw method for drawing the items in the players inventory
 	 */
