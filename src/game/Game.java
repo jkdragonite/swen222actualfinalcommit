@@ -62,7 +62,7 @@ public class Game {
 		
 		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
-		players.add(new Player(201, rooms.get(0)));
+		players.add(new Player(200, rooms.get(0)));
 	}
 	
 	public void initializeItemsCodes(){
