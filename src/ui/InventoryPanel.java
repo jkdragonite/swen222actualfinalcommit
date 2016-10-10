@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import com.sun.javafx.scene.traversal.Direction;
+
 import game.Game;
 import game.InventoryItem;
 import game.Location;
@@ -55,6 +57,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton push;
 	private JButton pull;
 	private JButton useDoor;
+	private JButton up;
+	private JButton down;
+	private JButton left;
+	private JButton right;
+	
 
 	// text area
 	private JTextArea itemInfo;
@@ -75,7 +82,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		// thePlayer = theGame.getPlayer(playerID);
 
 		int utilButtonHeight = 30;
-		int untiButtonWidth = 240;
+		int untiButtonWidth = 220;
 
 		try {
 			questIcon = ImageIO.read(new File("../existential-dread/images/QuestItemIcon.png"));
@@ -94,10 +101,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		itemInfo = new JTextArea();
 		itemInfo.setText(itemText);
-		itemInfo.setBounds(970, 5, 240, 25);
+		itemInfo.setBounds(980, 10, 240, 20);
 		handyInfo = new JTextArea();
 		handyInfo.setText("Handy dandy Information");
-		handyInfo.setBounds(970, 210, 240, 30);
+		handyInfo.setBounds(980, 210, 240, 20);
 
 		this.add(itemInfo);
 		this.add(handyInfo);
@@ -106,53 +113,73 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		item1 = new JButton("Item 1");
 		item1.addActionListener(this);
-		item1.setBounds(30, 200, 180, 25);
+		item1.setBounds(10, 200, 180, 25);
 		add(item1);
 
 		item2 = new JButton("Item 2");
 		item2.addActionListener(this);
-		item2.setBounds(270, 200, 180, 30);
+		item2.setBounds(200, 200, 180, 30);
 		this.add(item2);
 
 		item3 = new JButton("Item 3");
 		item3.addActionListener(this);
-		item3.setBounds(510, 200, 180, 30);
+		item3.setBounds(390, 200, 180, 30);
 		add(item3);
 
 		item4 = new JButton("Item 4");
 		item4.addActionListener(this);
-		item4.setBounds(750, 200, 180, 30);
+		item4.setBounds(580, 200, 180, 30);
 		add(item4);
 
 		pickup = new JButton("Pickup");
 		pickup.addActionListener(this);
-		pickup.setBounds(970, 30, untiButtonWidth, utilButtonHeight);
+		pickup.setBounds(980, 30, untiButtonWidth, utilButtonHeight);
 		add(pickup);
 
 		use = new JButton("Use");
 		use.addActionListener(this);
-		use.setBounds(970, 60, untiButtonWidth, utilButtonHeight);
+		use.setBounds(980, 60, untiButtonWidth, utilButtonHeight);
 		add(use);
 
 		push = new JButton("Push");
 		push.addActionListener(this);
-		push.setBounds(970, 90, untiButtonWidth, utilButtonHeight);
+		push.setBounds(980, 90, untiButtonWidth, utilButtonHeight);
 		add(push);
 
 		pull = new JButton("Pull");
 		pull.addActionListener(this);
-		pull.setBounds(970, 120, untiButtonWidth, utilButtonHeight);
+		pull.setBounds(980, 120, untiButtonWidth, utilButtonHeight);
 		add(pull);
 
 		drop = new JButton("Drop Item");
 		drop.addActionListener(this);
-		drop.setBounds(970, 150, untiButtonWidth, utilButtonHeight);
+		drop.setBounds(980, 150, untiButtonWidth, utilButtonHeight);
 		add(drop);
 
 		useDoor = new JButton("Use Door");
 		useDoor.addActionListener(this);
-		useDoor.setBounds(970, 180, untiButtonWidth, utilButtonHeight);
+		useDoor.setBounds(980, 180, untiButtonWidth, utilButtonHeight);
 		add(useDoor);
+		
+		up = new JButton("Move up");
+		up.addActionListener(this);
+		up.setBounds(770, 10, 200, 70);
+		add(up);
+		
+		left = new JButton("Move left");
+		left.addActionListener(this);
+		left.setBounds(770, 80, 100, 80);
+		add(left);
+		
+		right = new JButton("Move right");
+		right.addActionListener(this);
+		right.setBounds(870, 80, 100, 80);
+		add(right);
+		
+		down = new JButton("Move down");
+		down.addActionListener(this);
+		down.setBounds(770, 160, 200, 70);
+		add(down);
 
 	}
 
@@ -218,11 +245,41 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 
 		}
+		
+		
 		if (src == use) {
 			System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			currentPlayer.getRoom().useItem(currentPlayer);
+		}
+		if (src == up) {
+			System.out.println("UP");
+			// use method
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+			repaint();
+		}
+		if (src == left) {
+			System.out.println("LEFT");
+			// use method
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+			repaint();
+		}
+		if (src == right) {
+			System.out.println("RIGHT");
+			// use method
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+			repaint();
+		}
+		if (src == down) {
+			System.out.println("DOWN");
+			// use method
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+			repaint();
 		}
 		if (src == push) {
 			System.out.println("push ");
@@ -280,7 +337,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.getRoom().inventoryItems.size() != 0) {
+			if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
 				if (currentPlayer.getRoom().inventoryItems.get(selected - 1) != null) {
 					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 					handyInfo.setText("Item dropped");
@@ -363,55 +420,55 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		// used to do the yellow square around the selected item.
 		if (selected == 1) {
 			gr.setColor(Color.yellow);
-			gr.fillRect(25, imageY - 5, imageSize + 10, imageSize + 10);
+			gr.fillRect(5, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
 		}
 		if (selected == 2) {
 			gr.setColor(Color.yellow);
-			gr.fillRect(265, imageY - 5, imageSize + 10, imageSize + 10);
+			gr.fillRect(195, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
 		}
 		if (selected == 3) {
 			gr.setColor(Color.yellow);
-			gr.fillRect(505, imageY - 5, imageSize + 10, imageSize + 10);
+			gr.fillRect(385, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
 		}
 		if (selected == 4) { // if there is an item in slot 1
 			gr.setColor(Color.yellow);
-			gr.fillRect(745, imageY - 5, imageSize + 10, imageSize + 10);
+			gr.fillRect(575, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
 		}
 
 		if (slot1 == null) {
-			gr.fillRect(30, imageY, imageSize, imageSize);
+			gr.fillRect(10, imageY, imageSize, imageSize);
 		} else if (slot1.getType() == Game.itemType.KEY) {
-			gr.drawImage(bookIcon, 30, imageY, null, null);
+			gr.drawImage(bookIcon, 10, imageY, null, null);
 		} else {
-			gr.drawImage(bookIcon, 30, imageY, null, null);
+			gr.drawImage(bookIcon, 10, imageY, null, null);
 		}
 
 		if (slot2 == null) {
 			// if (theGame.getPlayer(playerID).getInventory().get(0) == null)
 			// {//needs more logic
-			gr.fillRect(270, imageY, imageSize, imageSize);
+			gr.fillRect(200, imageY, imageSize, imageSize);
 		} else if (slot2.getType() == Game.itemType.KEY) {
-			gr.drawImage(keyIcon, 270, imageY, null, null);
+			gr.drawImage(keyIcon, 200, imageY, null, null);
 		} else {
-			gr.drawImage(bookIcon, 270, imageY, null, null);
+			gr.drawImage(bookIcon, 200, imageY, null, null);
 		}
 		if (slot3 == null) {
-			gr.fillRect(510, imageY, imageSize, imageSize);
+			gr.fillRect(390, imageY, imageSize, imageSize);
 		} else if (slot3.getType() == Game.itemType.KEY) {
-			gr.drawImage(keyIcon, 510, imageY, null, null);
+			gr.drawImage(keyIcon, 390, imageY, null, null);
 		} else {
-			gr.drawImage(bookIcon, 510, imageY, null, null);
+			gr.drawImage(bookIcon, 390, imageY, null, null);
 		}
 		if (slot4 == null) {
-			gr.fillRect(750, imageY, imageSize, imageSize);
+			gr.fillRect(580, imageY, imageSize, imageSize);
 		} else if (slot4.getType() == Game.itemType.KEY) {
-			gr.drawImage(keyIcon, 750, imageY, null, null);
+			gr.drawImage(keyIcon, 580, imageY, null, null);
 		} else {
-			gr.drawImage(bookIcon, 750, imageY, null, null);
+			gr.drawImage(bookIcon, 580, imageY, null, null);
 		}
 	}
 }
