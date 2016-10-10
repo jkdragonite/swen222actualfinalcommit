@@ -167,6 +167,59 @@ public class GameLogicTests {
 	}
 	
 	@Test
+	public void newOwner() {
+		Game testGame = setupMockGame();
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		Player player201 = testGame.getPlayer(201);
+		keyInventoryItem.setLocation(new Location(0, 0));
+		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
+		System.out.println(player201.getLocation().toString());
+		System.out.println(keyInventoryItem.getLocation().toString());
+		testGame.addInventoryItemToGame(keyInventoryItem, 0);
+
+		assertEquals(keyInventoryItem.getOwner(), null);
+		testGame.rooms.get(0).pickupItem(player201, testGame.rooms.get(0).board.getSquare(keyInventoryItem.getLocation()));
+		assertEquals(keyInventoryItem.getOwner(), player201);
+	}
+	
+	@Test
+	public void noOwner(){
+		Game testGame = setupMockGame();
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		Player player201 = testGame.getPlayer(201);
+		keyInventoryItem.setLocation(new Location(0, 0));
+		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
+		System.out.println(player201.getLocation().toString());
+		System.out.println(keyInventoryItem.getLocation().toString());
+		testGame.addInventoryItemToGame(keyInventoryItem, 0);
+
+		assertEquals(keyInventoryItem.getOwner(), null);
+		testGame.rooms.get(0).pickupItem(player201, testGame.rooms.get(0).board.getSquare(keyInventoryItem.getLocation()));
+		assertEquals(keyInventoryItem.getOwner(), player201);
+		testGame.rooms.get(0).dropItem(player201, 0);
+		assertEquals(keyInventoryItem.getOwner(), null);
+	}
+	
+	@Test
+	public void correctDropItemLocationUpdate(){
+		Game testGame = setupMockGame();
+		InventoryItem keyInventoryItem = new InventoryItem(Game.itemType.KEY, "Key");
+		Player player201 = testGame.getPlayer(201);
+		keyInventoryItem.setLocation(new Location(0, 0));
+		testGame.rooms.get(0).MovePlayer(player201, MovementDirection.RIGHT);
+		System.out.println(player201.getLocation().toString());
+		System.out.println(keyInventoryItem.getLocation().toString());
+		testGame.addInventoryItemToGame(keyInventoryItem, 0);
+
+		assertEquals(keyInventoryItem.getOwner(), null);
+		testGame.rooms.get(0).pickupItem(player201, testGame.rooms.get(0).board.getSquare(keyInventoryItem.getLocation()));
+		assertEquals(keyInventoryItem.getLocation(), null);
+		testGame.rooms.get(0).dropItem(player201, 0);
+		assertEquals(keyInventoryItem.getLocation().getY(), player201.getLocation().getY());
+		assertEquals(keyInventoryItem.getLocation().getX(), player201.getLocation().getX());
+	}
+	
+	@Test
 	public void getNeighboursLength(){
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
@@ -317,6 +370,17 @@ public class GameLogicTests {
 		Room newRoom = testGame.getPlayer(201).getRoom();
 //		System.out.println(testGame.getPlayer(201).getRoom());
 		assertNotEquals(currentRoom, newRoom);	
+	}
+	
+	
+	
+	public Game setupMockGame(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+//		testGame.players.add(new Player(201, testGame.rooms.get(0)));
+		testGame.addPlayer(201);
+		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
+		return testGame;
 	}
 	
 	
