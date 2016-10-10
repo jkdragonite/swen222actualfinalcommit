@@ -66,6 +66,7 @@ public class GameRenderer extends Canvas{
 				ret[c][M-1-r] = mat[r][c];
 			}
 		}
+		
 		this.x = N;
 		this.y = M;
 		this.stage = ret;
@@ -112,9 +113,6 @@ public class GameRenderer extends Canvas{
 	public void render(Graphics g){		
 		Game.viewDirection newDir = game.getDirection();
 		//get our new direction
-		while (viewDir != newDir){
-			rotateCW();
-		}
 		int topLeft = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
 		int topWall = (int)(BASE - 150 - (stage.length*VERT_DISP));
 		int topRight = LEFT + 820;
@@ -141,17 +139,27 @@ public class GameRenderer extends Canvas{
 		int floorX[] = {LEFT, topLeft, topRight, right};
 		int floorY[] = {BASE, topWall+90, topWall+90, BASE};
 		g.fillPolygon(floorX, floorY, 4);
+		
+//		Image box = spriteSet.getSprite("24");
 
 		//render the tiles
-		for (int y = stage.length -1; y >= 0; y--){
+		for (int y = 0; y < stage.length; y++){
 			for (int x = 0; x < stage.length; x++){
+				
+//				if(x < 9){
+//					drawScaledImage(box, g, x, y);
+//				}
+				
 				//if the square is a door
 				if (stage[x][y] instanceof Door){
+					//System.out.println("doordoordoordoordoor");
 					Image doorImg = spriteSet.getSprite("0d");
 					drawScaledImage(doorImg, g, x, y);
 				}
 				//if the square has a player
 				if(stage[x][y].getPlayer() != null){
+					System.out.println("player.");
+					System.out.println("stage: " + x + ", " + y);
 					Image pImg = getPlayerImage(stage[x][y]);
 					drawScaledImage(pImg, g, x, y);
 				}
@@ -166,17 +174,19 @@ public class GameRenderer extends Canvas{
 	
 	private void drawScaledImage(Image img, Graphics g, int x, int y){
 		//generate scaled values for the new dimensions
-		int scaleX = (int)(img.getWidth(null)*(1-(y*SCALE_FAC)));
-		int scaleY = (int)(img.getHeight(null)*(1-(y*SCALE_FAC)));
+		int scaleX = (int)(img.getWidth(null)*(1-((stage.length - y)*SCALE_FAC)));
+		int scaleY = (int)(img.getHeight(null)*(1-((stage.length - y)*SCALE_FAC)));
 		
 		//use the new measurements to create a new, scaled image that is 
 		//seperate to the base image.
 		Image newImg = getScaledImage(img, scaleX, scaleY);
 		
+		int lineX = (int)(SIZE*(1-((stage.length - y)*SCALE_FAC)));
+		
 		//get the scaled top left/right to make sure we are drawing in the 
 		//right scale and place
-		int imgX = (LEFT+y*(HORZ_DISP) + x*scaleX);
-		int imgY = (BASE - y*VERT_DISP);
+		int imgX = (LEFT+(stage.length - y)*(HORZ_DISP) + x*lineX);
+		int imgY = (BASE - (stage.length - y)*VERT_DISP);
 		
 		//finally, draw the rendered object
 		this.renderObject(newImg, imgX, imgY, g);
@@ -202,8 +212,6 @@ public class GameRenderer extends Canvas{
 	 * @return the required image
 	 */
 	public Image getImage(Square square){
-		
-		
 		int dir = 0;
 		//get an item on a square by creating the code to retrieve from
 		//the spriteset hashmap
