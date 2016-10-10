@@ -88,9 +88,7 @@ public class Game {
 		this.itemCodes.put(617, itemType.DARKNESS);
 		this.itemCodes.put(618, itemType.DESK);
 		this.itemCodes.put(619, itemType.KEY);
-		this.itemCodes.put(620, itemType.TABLE);
-		
-		
+		this.itemCodes.put(620, itemType.TABLE);	
 	}
 	
 	public void shiftView(viewDirection direction){

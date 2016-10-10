@@ -161,15 +161,14 @@ public class Parser {
 	}
 	
 	/**
-	 * Used to send the current state of the board as an update to each client. 
-	 * As this is an update we only send information on doors (for lock state),
-	 * players (for movement) and pickupable/movable items (for movement/new ownership)
-	 * 
+	 * Captures the data ready for sending across the connection for the 
+	 * first time. 
+	 * The main difference between this and stateUpdateToBytes is that
 	 * @param game
 	 * @return
-	 * @throws IOException
+	 * @throws IOException 
 	 */
-	public static byte[] stateUpdateToBytes(Game game) throws IOException{
+	public static byte[] initGameToBytes(Game game) throws IOException{
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(bout);
 		
@@ -188,52 +187,140 @@ public class Parser {
 			}
 			
 			//write door information
-			Door door = r.door;
-			dout.writeChar(door.getCharacter());
-			if (door.isUnlocked()) {dout.writeInt(0);}
-			else {dout.writeInt(1);}
-
+			doorToOutput(dout, r);
+			//write the immovable/static items to the output
+			immovablesToOutput(dout, r, game);
 			//write the containers around the room to output
-			for(Container c : r.containers){
-				dout.writeChar(c.getCharacter());
-				dout.writeInt(c.getLocation().getX());
-				dout.writeInt(c.getLocation().getY());
-				
-				if (c.hasItem()) {dout.writeInt(1);}
-				else {dout.writeInt(0);}
-			}
-			
+			containersToOutput(dout, r);
 			//write movable items to output
-			for(MovableItem mi : r.movableItems){
-				dout.writeChar(mi.getCharacter());
-				dout.writeInt(mi.getLocation().getX());
-				dout.writeInt(mi.getLocation().getY());
-			}
-			
+			movablesToOutput(dout, r);
 			//write players to output
-			for(Player p : game.players){
-				if(p.getRoom()== r){
-					dout.writeChar(p.getCharacter());
-					dout.writeInt(p.getLocation().getX());
-					dout.writeInt(p.getLocation().getY());
-					//if(p.hasItems)
-				}
+			playersToOutput(dout, game, r);
+			//write inventory items to output
+			inventoryToOutput(dout, r);
+		}
+		return bout.toByteArray();
+	}
+	
+	/**
+	 * Used to send the current state of the board as an update to each client. 
+	 * As this is an update we only send information on doors (for lock state),
+	 * players (for movement) and pickupable/movable items (for movement/new ownership)
+	 * 
+	 * @param game
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] stateUpdateToBytes(Game game) throws IOException{
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		DataOutputStream dout = new DataOutputStream(bout);
+		
+		dout.writeByte(game.getState());
+		int numRooms = 1;
+		for(Room r : game.rooms){
+			if(r instanceof PuzzleRoom){
+				dout.writeChar('R');
+				dout.writeInt(numRooms);
+				numRooms++;
+			}
+			else if(r instanceof FinalRoom){
+				dout.writeChar('F');
+				dout.writeInt(numRooms);
 			}
 			
-			//write inventory items to output
-			for(InventoryItem i : r.inventoryItems){
-				dout.writeChar(i.getCharacter());
-				dout.writeInt(i.getLocation().getX());
-				dout.writeInt(i.getLocation().getY());
-				if(i.hasOwner()){
-					dout.writeInt(1);
-					dout.writeInt(i.getOwnerID());
-				}
-				else{dout.writeInt(0);}
-			}
+			doorToOutput(dout, r);
+			containersToOutput(dout, r);
+			movablesToOutput(dout, r);
+			playersToOutput(dout, game, r);
+			inventoryToOutput(dout, r);
 		}
 		
 		return bout.toByteArray();
+	}
+	
+	private static void doorToOutput(DataOutputStream dout, Room r) throws IOException{
+		Door door = r.door;
+		dout.writeChar(door.getCharacter());
+		if (door.isUnlocked()) {dout.writeInt(0);}
+		else {dout.writeInt(1);}
+	}
+	
+	private static void containersToOutput(DataOutputStream dout, Room r) throws IOException{
+		for(Container c : r.containers){
+			c.toOutputStream(dout);
+			
+			if (c.hasItem()) {dout.writeInt(1);}
+			else {dout.writeInt(0);}
+		}
+	}
+	
+	private static void immovablesToOutput(DataOutputStream dout, Room r, Game game) throws IOException{
+		for(ImmovableItem im : r.immovableItems){
+			im.toOutputStream(dout);
+			itemType type = im.getType();
+			if(type == Game.itemType.BED){
+				dout.writeInt(614);
+				Location loc = im.getLocationsCovered().get(0);
+				dout.writeInt(loc.getX());
+				dout.writeInt(loc.getY());
+			}
+			else if(type == Game.itemType.BOOKSHELF){
+				dout.writeInt(611);
+				Location loc = im.getLocationsCovered().get(0);
+				dout.writeInt(loc.getX());
+				dout.writeInt(loc.getY());
+			}
+			else if(type == Game.itemType.DESK){
+				dout.writeInt(618);
+				Location loc = im.getLocationsCovered().get(0);
+				dout.writeInt(loc.getX());
+				dout.writeInt(loc.getY());
+			}
+			else if(type == Game.itemType.TABLE){
+				dout.writeInt(620);
+				Location loc = im.getLocationsCovered().get(0);
+				dout.writeInt(loc.getX());
+				dout.writeInt(loc.getY());
+				
+				loc = im.getLocationsCovered().get(1);
+				dout.writeInt(loc.getX());
+				dout.writeInt(loc.getY());
+			}
+		}
+	}
+	
+ 	private static void movablesToOutput(DataOutputStream dout, Room r) throws IOException{
+		for(MovableItem mi : r.movableItems){
+			mi.toOutputStream(dout);
+		}
+	}
+	
+	private static void playersToOutput(DataOutputStream dout, Game game, Room r) throws IOException{
+		for(Player p : game.players){
+			if(p.getRoom().equals(r)){
+				dout.writeChar(p.getCharacter());
+				dout.writeInt(p.getLocation().getX());
+				dout.writeInt(p.getLocation().getY());
+				ArrayList<InventoryItem> inventory = p.getInventory();
+				if(inventory.isEmpty()){
+					dout.writeInt(0);
+				}
+				else{
+					dout.writeInt(1);
+				}
+			}
+		}
+	}
+	
+	private static void inventoryToOutput(DataOutputStream dout, Room r) throws IOException{
+		for(InventoryItem i : r.inventoryItems){
+			i.toOutputStream(dout);
+			if(i.hasOwner()){
+				dout.writeInt(1);
+				dout.writeInt(i.getOwnerID());
+			}
+			else{dout.writeInt(0);}
+		}
 	}
 	
 	public synchronized void fromByteArray(byte[] bytes) throws IOException{

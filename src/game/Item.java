@@ -2,19 +2,23 @@ package game;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import game.Game.itemType;
 
 public abstract class Item {
-	private char character;
+	protected char character;
 	protected Location location;
 	private itemType itemType;
 	
+	private Map<Game.itemType, Integer> types;
 	
 	public Item(itemType type, char character, Location loc){
 		this.character = character;
 		this.itemType = type; 
 		this.location = loc;
+		initializeItemCodes();
 	}
 	
 	public void setLocation(Location location){
@@ -43,5 +47,23 @@ public abstract class Item {
 		dout.writeChar(character);
 		dout.writeInt(location.getX());
 		dout.writeInt(location.getY());
+	}
+	
+	private int getTypeInt(Game.itemType type){
+		return types.get(type);
+	}
+	
+	private void initializeItemCodes(){
+		types = new HashMap<Game.itemType, Integer>();
+		this.types.put(itemType.BOX, 610);
+		this.types.put(itemType.BOOKSHELF, 611);
+		this.types.put(itemType.BOOK, 612);
+		this.types.put(itemType.BED, 614);
+		this.types.put(itemType.CHAIR, 615);
+		this.types.put(itemType.COMPUTER, 616);
+		this.types.put(itemType.DARKNESS, 617);
+		this.types.put(itemType.DESK, 618);
+		this.types.put(itemType.KEY, 619);
+		this.types.put(itemType.TABLE, 620);	
 	}
 }
