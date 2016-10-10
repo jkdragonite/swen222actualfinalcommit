@@ -27,10 +27,10 @@ import game.*;
 @SuppressWarnings("serial")
 public class GameRenderer extends Canvas{
 
-	//public enum Direction {NORTH, SOUTH, EAST, WEST, TOP}
-	Game.viewDirection viewDir = Game.viewDirection.SOUTH;
+	Game.viewDirection viewDir;
 	Square[][] stage;
 	SpriteSet spriteSet = new SpriteSet();
+	Room renderRoom;
 	List<Image> sprites = (List<Image>) spriteSet.getSprites();
 	Game game;
 	int x, y;
@@ -39,10 +39,13 @@ public class GameRenderer extends Canvas{
 	public static final int floor = 450;
 
 	public GameRenderer(Game parent, int uid){
+		
+		Player refPlayer = game.getPlayer(uid);
 
 		game = new Game();
-		Room room = game.rooms.get(0);
-		Board board = room.board;
+		renderRoom = refPlayer.getRoom();
+		viewDir = game.getDirection();
+		Board board = renderRoom.board;
 		stage = board.grid;
 
 		if(board.grid[0][0] == null){
@@ -58,8 +61,7 @@ public class GameRenderer extends Canvas{
 	 * 
 	 */
 	private void updateGrid(){
-		Room room = game.rooms.get(0);
-		stage = room.board.grid;
+		stage = renderRoom.board.grid;
 	}
 
 	/**
@@ -112,9 +114,7 @@ public class GameRenderer extends Canvas{
 	 * @param g
 	 */
 	public void render(Graphics g){		
-		Game.viewDirection newDir = game.getDirection();
-		
-		//get our new direction
+
 		int topLeft = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
 		int topWall = (int)(BASE - 150 - (stage.length*VERT_DISP));
 		int topRight = LEFT + 820;
