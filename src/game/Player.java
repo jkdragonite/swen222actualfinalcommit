@@ -1,5 +1,6 @@
 package game;
 
+import game.Game.viewDirection;
 import game.Room.MovementDirection;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Player {
 	private Location location;
 	private int playerNumber;
 	private Room currentRoom;
+	private viewDirection view;
 	
 	public HashMap<MovementDirection, Square> moves = new HashMap<MovementDirection, Square>();
 	// Based on key press, up = UP etc, if in keyset, this is a valid move
@@ -38,10 +40,15 @@ public class Player {
 	public Boolean canDropItem = false;
 	
 	public Player(int number, Room room){
+		this.view = Game.viewDirection.NORTH;
 		this.playerInventory = new ArrayList<InventoryItem>();
 		this.location = new Location(0, 0);
 		this.playerNumber = number;
 		this.currentRoom = room;
+	}
+	
+	public void shiftView(viewDirection direction){
+		this.view = direction;
 	}
 	
 	public Room getRoom(){

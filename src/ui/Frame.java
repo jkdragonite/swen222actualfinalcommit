@@ -86,7 +86,7 @@ public class Frame extends JFrame implements  ActionListener {
 		ip = new InventoryPanel(theGame,playerID);
 		add(ip, BorderLayout.SOUTH);
 		
-		rp = new RenderPanel(theGame);
+		rp = new RenderPanel(theGame, playerID);
 		add(rp, BorderLayout.CENTER);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

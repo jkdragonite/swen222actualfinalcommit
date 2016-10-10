@@ -64,7 +64,7 @@ public class Game {
 		
 		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
-		Location itemLocation = new Location(1, 1);
+		Location itemLocation = new Location(0, 1);
 		Location movableItemLocation = new Location(9, 9);
 		Location immovableItemLocation = new Location(4, 4);
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
@@ -91,8 +91,9 @@ public class Game {
 		this.itemCodes.put(620, itemType.TABLE);	
 	}
 	
-	public void shiftView(viewDirection direction){
-		this.view = direction;
+	public void shiftView(viewDirection direction, int uid){
+		getPlayer(uid).shiftView(direction);
+//		this.view = direction;
 	}
 	
 //	public void changeRoom(renderRoom room){

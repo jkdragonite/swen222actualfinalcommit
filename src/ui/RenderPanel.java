@@ -23,14 +23,15 @@ public class RenderPanel extends JPanel implements ActionListener {
 
 	private Game theGame;
 	private GameRenderer gam;
+	private int playerID;
 
-	public RenderPanel(Game g) {
+	public RenderPanel(Game g, int uid) {
 
 		theGame = g;
 		Dimension size = new Dimension(1200, 400);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
-		gam = new GameRenderer(g);
+		gam = new GameRenderer(g,uid);
 
 		setLayout(null);
 
@@ -51,16 +52,16 @@ public class RenderPanel extends JPanel implements ActionListener {
 		if (src == rotateL) {
 			System.out.println("Rotate left");
 			if (theGame.getDirection() == Game.viewDirection.NORTH){
-				theGame.shiftView(viewDirection.WEST);
+				theGame.shiftView(viewDirection.WEST, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.WEST){
-				theGame.shiftView(viewDirection.SOUTH);
+				theGame.shiftView(viewDirection.SOUTH, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
-				theGame.shiftView(viewDirection.EAST);
+				theGame.shiftView(viewDirection.EAST, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.EAST){
-				theGame.shiftView(viewDirection.NORTH);
+				theGame.shiftView(viewDirection.NORTH, playerID);
 			}
 			gam.rotateCW();
 			gam.rotateCW();
@@ -71,16 +72,16 @@ public class RenderPanel extends JPanel implements ActionListener {
 		if (src == rotateR) {
 			System.out.println("Rotate right");
 			if (theGame.getDirection() == Game.viewDirection.NORTH){
-				theGame.shiftView(viewDirection.EAST);
+				theGame.shiftView(viewDirection.EAST, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.EAST){
-				theGame.shiftView(viewDirection.SOUTH);
+				theGame.shiftView(viewDirection.SOUTH, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
-				theGame.shiftView(viewDirection.WEST);
+				theGame.shiftView(viewDirection.WEST, playerID);
 			}
 			else if (theGame.getDirection() == Game.viewDirection.WEST){
-				theGame.shiftView(viewDirection.NORTH);
+				theGame.shiftView(viewDirection.NORTH, playerID);
 			}
 			gam.rotateCW();
 
