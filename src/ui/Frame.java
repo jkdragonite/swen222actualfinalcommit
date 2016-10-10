@@ -24,7 +24,6 @@ public class Frame extends JFrame implements  ActionListener {
 	public static int playerID;
 	
 	// panel fields
-	
 	public InventoryPanel ip;
 	public RenderPanel rp;
 
@@ -37,9 +36,7 @@ public class Frame extends JFrame implements  ActionListener {
 	// the game
 	private Game theGame;
    
-	
-	
-    public Frame(String title, KeyListener kl,Game g,int UID) {
+	   public Frame(String title, KeyListener kl,Game g,int UID) {
     	super(title);
     	theGame = g;
     	playerID = UID;
@@ -83,11 +80,14 @@ public class Frame extends JFrame implements  ActionListener {
 		
 
 
-		ip = new InventoryPanel(theGame,playerID);
-		add(ip, BorderLayout.SOUTH);
+		
 		
 		rp = new RenderPanel(theGame, playerID);
 		add(rp, BorderLayout.CENTER);
+		
+		ip = new InventoryPanel(theGame,playerID,rp);
+		add(ip, BorderLayout.SOUTH);
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
