@@ -40,8 +40,8 @@ public class GameRenderer extends Canvas{
 
 	public GameRenderer(Game parent, int uid){
 		
-		Player refPlayer = game.getPlayer(uid);
 		game = parent;
+		Player refPlayer = game.getPlayer(uid);
 		renderRoom = refPlayer.getRoom();
 		viewDir = game.getDirection(uid);
 		Board board = renderRoom.board;
