@@ -38,7 +38,7 @@ public class GameRenderer extends Canvas{
 
 	public static final int floor = 450;
 
-	public GameRenderer(Game parent){
+	public GameRenderer(Game parent, int uid){
 
 		game = new Game();
 		Room room = game.rooms.get(0);
@@ -52,10 +52,19 @@ public class GameRenderer extends Canvas{
 		if (stage[0][0] == null){
 			System.out.println("null titles");
 		}
-
-
+	}
+	
+	/**
+	 * 
+	 */
+	private void updateGrid(){
+		Room room = game.rooms.get(0);
+		stage = room.board.grid;
 	}
 
+	/**
+	 * 
+	 */
 	public void rotateCW() {
 		Square[][] mat = stage;
 		final int M = mat.length;
@@ -90,12 +99,6 @@ public class GameRenderer extends Canvas{
 
 	}
 
-	public void paint(Graphics g){
-		System.out.println("painting...");
-		render(g);
-	}
-
-
 	//coordinates of the floor
 	private static final int BASE = 375;
 	private static final int LEFT = 100;
@@ -104,14 +107,13 @@ public class GameRenderer extends Canvas{
 	private static final int HORZ_DISP = 20;
 	private static final double SCALE_FAC = 0.04;
 
-
-
 	/**
 	 * This handles the actual process of rendering the scene.
 	 * @param g
 	 */
 	public void render(Graphics g){		
 		Game.viewDirection newDir = game.getDirection();
+		
 		//get our new direction
 		int topLeft = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
 		int topWall = (int)(BASE - 150 - (stage.length*VERT_DISP));
@@ -120,7 +122,7 @@ public class GameRenderer extends Canvas{
 
 		//render the wall
 		g.setColor(Color.GRAY);
-		g.fillRect(topLeft, topWall-60, 640, 150);
+		g.fillRect(topLeft, topWall-60, 640, (BASE-100) - (topWall-60));
 
 		//left wall
 		g.setColor(Color.lightGray);
@@ -134,10 +136,10 @@ public class GameRenderer extends Canvas{
 		g.fillPolygon(rightX, rightY, 4);
 		
 		//render the floor
+		//int offset = LEFT * (stage.length*HORZ_DISP);
 		g.setColor(Color.darkGray);
-		g.fillRect(LEFT, BASE, SIZE*10, 3);
 		int floorX[] = {LEFT, topLeft, topRight, right};
-		int floorY[] = {BASE, topWall+90, topWall+90, BASE};
+		int floorY[] = {BASE, BASE-100, BASE-100, BASE};
 		g.fillPolygon(floorX, floorY, 4);
 		
 //		Image box = spriteSet.getSprite("24");
