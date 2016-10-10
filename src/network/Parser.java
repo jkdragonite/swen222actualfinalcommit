@@ -330,6 +330,10 @@ public class Parser {
 					}
 					else{
 						dout.writeInt(1);
+						dout.writeInt(inventory.size());
+						for(InventoryItem i: inventory){
+							dout.writeInt(i.getUoid());
+						}
 					}
 				}
 			}
@@ -423,12 +427,36 @@ public class Parser {
 					}
 					break;
 				case 'M':
-					//movableItem object: parse location
+					int muoid = din.readInt();
+					//get potentially new x/y
 					int mX = din.readInt();
 					int mY = din.readInt();
-
+					
+					//find item in room, check location against the new one, move if different
+					MovableItem mi = (MovableItem) room.itemsHashMap.get(muoid);
+					if(mi.getLocation().getX() != mX || mi.getLocation().getY() != mY){
+						room.setMovableItem(mi, new Location(mX, mY));
+						//need to remove it from previous position--updateMovableItem?
+					}
 					break;
 				case 'p':
+					int puid = din.readInt();
+					//read location, check against local copy, change if necessary
+					int pX = din.readInt();
+					int pY = din.readInt();
+					//read in has inventory boolean
+					boolean hasInv = (din.readInt() == 0) ? false : true;
+					if(hasInv){
+						//read in inventory items, check against local copy
+						int numItems = din.readInt();
+						Player player = game.getPlayer(puid);
+						for(int i = 0; i < numItems; i++){
+							int iid = din.readInt();
+							//create method in player which checks inventory for an item given a code?
+						}
+						
+					}
+					
 					break;
 				case 'Q':
 					break;
