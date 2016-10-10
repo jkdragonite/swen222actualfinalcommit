@@ -104,7 +104,7 @@ public class Parser {
 					case 'C':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						Container cont = new Container(type, loc);
+						Container cont = new Container(type, loc, CONTAINER_UOID++);
 						containers.add(cont);
 						room.setImmovableItem(cont, loc);
 						break;
@@ -112,7 +112,7 @@ public class Parser {
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
 						String name = sc.nextLine();
-						InventoryItem invItem = new InventoryItem(type, loc, name);
+						InventoryItem invItem = new InventoryItem(type, loc, name, INVENTORY_UOID++);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
@@ -126,7 +126,7 @@ public class Parser {
 						//process type
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						ImmovableItem immItem = new ImmovableItem(type, loc);
+						ImmovableItem immItem = new ImmovableItem(type, loc, IMMOVABLE_UOID++);
 						
 						if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
 								|| type != Game.itemType.CHAIR){
@@ -146,7 +146,7 @@ public class Parser {
 					case 'M':
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
-						MovableItem movItem = new MovableItem(type, loc);
+						MovableItem movItem = new MovableItem(type, loc, MOVABLE_UOID++);
 						room.setMovableItem(movItem, loc);
 						break;
 					case 'S':
@@ -262,7 +262,13 @@ public class Parser {
 			for(Container c : r.containers){
 				c.toOutputStream(dout);
 				
-				if (c.hasItem()) {dout.writeInt(1);}
+				if (c.hasItems()) {
+					dout.writeInt(1);
+					//write in the unique id of the item stored there
+					for(InventoryItem i: c.getItems()){
+						dout.writeInt(i.getUoid());
+					}
+				}
 				else {dout.writeInt(0);}
 			}
 		}
@@ -358,17 +364,16 @@ public class Parser {
 		//fields for storing game objects while checking consistency
 		Room room;
 		Door door;
+		
+		//Lists to store items which have changes flagged
 		ArrayList<Container> containers = new ArrayList<Container>();
 		ArrayList<MovableItem> movable = new ArrayList<MovableItem>();
 		ArrayList<Player> players = new ArrayList<Player>();
-		ArrayList<InventoryItem> moved = new ArrayList<InventoryItem>();
+		ArrayList<InventoryItem> inventory = new ArrayList<InventoryItem>();
 		
 		game.setState(din.readInt());
 
 		boolean reading = true;
-		boolean checkLock= false;
-		boolean checkContainers = true;
-		boolean checkPlayers = false;
 		
 		while(reading){
 			//read in the room type and room number
@@ -391,21 +396,38 @@ public class Parser {
 					}
 					break;
 				case 'C':
-					//container object: parse location
+					//container object: parse uoid
+					int cuoid = din.readInt();
+					//parse location
 					int cX = din.readInt();
 					int cY = din.readInt();
 					boolean hasItems = (din.readInt() == 0) ? false : true;
-					//find the container in the room based on that
-					Container cont = (Container) room.getItemOnSquare(new Location(cX,cY));
-					containers.add(cont);
-
-					if(!hasItems && !cont.hasItems()){checkContainers = false;}
+					Container c = (Container) room.itemsHashMap.get(cuoid);
+					int suoid;
+					
+					if(hasItems && c.hasItems()){
+						//check it's the same item?
+						suoid = din.readInt();
+						for(InventoryItem i: c.getItems()){
+							i.getUoid();
+						}
+					}
+					else if(!hasItems && c.hasItems()){
+						//remove item from container, put in inventory arraylist temporarily
+						
+					}
+					else if(hasItems && !c.hasItems()){
+						//add the item to the container
+						suoid = din.readInt();
+						room.itemsHashMap.get(suoid);
+					}
+					
 					break;
 				case 'M':
 					//movableItem object: parse location
 					int mX = din.readInt();
 					int mY = din.readInt();
-					room.movableItems.
+
 					break;
 				case 'p':
 					break;

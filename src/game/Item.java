@@ -45,12 +45,13 @@ public abstract class Item {
 	
 	/**
 	 * Writes basic item information to a given output stream.
-	 * Basic data consists of it's unique character and x/y 
-	 * location co-ordinates.
+	 * Basic data consists of it's unique character, unique identifier
+	 * and x/y location co-ordinates.
 	 * @param dout
 	 */
 	public void toOutputStream(DataOutputStream dout) throws IOException{
 		dout.writeChar(character);
+		dout.writeInt(uoid);
 		dout.writeInt(location.getX());
 		dout.writeInt(location.getY());
 		dout.writeInt(getTypeInt(itemType));

@@ -18,6 +18,7 @@ import game.Game;
 import game.ImmovableItem;
 import game.InventoryItem;
 import game.Location;
+import game.MovableItem;
 import game.PuzzleRoom;
 import game.Room;
 import game.Game.itemType;
@@ -25,7 +26,12 @@ import game.Game.itemType;
 public class Main {
 	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;
 	
+	//static ints for generating unique object ids
 	private static int PLAYER_UID = 200;
+	private static int CONTAINER_UOID = 300;
+	private static int MOVABLE_UOID = 400;
+	private static int INVENTORY_UOID = 500;
+	private static int IMMOVABLE_UOID = 900;
 	
 	private static final String DEFAULT_HOST = "localhost";
 	private static final int DEFAULT_PORT = 32768;
@@ -163,99 +169,105 @@ public class Main {
 	 * @throws IOException
 	 */
 	private static Room roomFromFile(Game game, File file)throws IOException{
-			//create the file readers ready for parsing
-			FileReader fr = new FileReader(file);
-			BufferedReader in = new BufferedReader(fr);
+		//create the file readers ready for parsing
+				FileReader fr = new FileReader(file);
+				BufferedReader in = new BufferedReader(fr);
 
-			Room room = new PuzzleRoom(10);
-			ArrayList<Container> containers = new ArrayList<Container>();
-			
-			ArrayList<String> lines = new ArrayList<String>();	//all lines in file
-			String line; //current line in file
-			int lineCount  = 0;
-			
-			//while the file has lines, process them
-			while((line = in.readLine()) != null){
-				lines.add(line);
-				Scanner sc = new Scanner(line);
+				Room room = new PuzzleRoom(10);
+				ArrayList<Container> containers = new ArrayList<Container>();
 				
-				//first line we need to process is line 12, for the room size
-				if(lineCount == 11){
-					char id = line.charAt(0);
-					sc.next(); //skip char
+				ArrayList<String> lines = new ArrayList<String>();	//all lines in file
+				String line; //current line in file
+				int lineCount  = 0;
+				
+				//while the file has lines, process them
+				while((line = in.readLine()) != null){
+					lines.add(line);
+					Scanner sc = new Scanner(line);
 					
-					if(id == 'R'){
-						room = new PuzzleRoom(sc.nextInt());
+					//first line we need to process is line 12, for the room size
+					if(lineCount == 11){
+						char id = line.charAt(0);
+						sc.next(); //skip char
+						
+						if(id == 'R'){
+							room = new PuzzleRoom(sc.nextInt());
+						}
+						else if(id == 'F'){
+							room = new FinalRoom(sc.nextInt());
+						}
 					}
-					else if(id == 'F'){
-						room = new FinalRoom(sc.nextInt());
-					}
-				}
-				//process the items in the room
-				else if(lineCount > 11){
-					char id = line.charAt(0);
-					sc.next(); //skip char
-					//get one location as all items have at least one
-					Location loc = new Location(sc.nextInt(), sc.nextInt());
-					int itemID;
-					itemType type;
-					
-					switch(id){
-						case 'D':
-							Door door = new Door(loc);
-							room.addDoor(door);
-							break;
-						case 'C':
-							itemID = sc.nextInt();
-							type = game.itemCodes.get(itemID);
-							Container cont = new Container(type, loc);
-							containers.add(cont);
-							room.setImmovableItem(cont, loc);
-							break;
-						case 'Q':
-							itemID = sc.nextInt();
-							type = game.itemCodes.get(itemID);
-							String name = sc.nextLine();
-							InventoryItem invItem = new InventoryItem(type, loc, name);
-							//check whether this inventory item is in the same space as a container
-							for(Container c: containers){
-								if(c.getLocation().equals(loc)){
-									c.addItem(invItem);
+					//process the items in the room
+					else if(lineCount > 11){
+						char id = line.charAt(0);
+						sc.next(); //skip char
+						//get one location as all items have at least one
+						Location loc = new Location(sc.nextInt(), sc.nextInt());
+						int itemID;
+						itemType type;
+						
+						switch(id){
+							case 'D':
+								Door door = new Door(loc);
+								room.addDoor(door);
+								break;
+							case 'C':
+								itemID = sc.nextInt();
+								type = game.itemCodes.get(itemID);
+								Container cont = new Container(type, loc, CONTAINER_UOID++);
+								containers.add(cont);
+								room.setImmovableItem(cont, loc);
+								break;
+							case 'Q':
+								itemID = sc.nextInt();
+								type = game.itemCodes.get(itemID);
+								String name = sc.nextLine();
+								InventoryItem invItem = new InventoryItem(type, loc, name, INVENTORY_UOID++);
+								//check whether this inventory item is in the same space as a container
+								for(Container c: containers){
+									if(c.getLocation().equals(loc)){
+										c.addItem(invItem);
+									}
 								}
-							}
-							//add item to room
-							room.setInventoryItem(invItem, loc);
-							break;
-						case 'I':
-							//process type
-							itemID = sc.nextInt();
-							type = game.itemCodes.get(itemID);
-							ImmovableItem immItem = new ImmovableItem(type, loc);
-							
-							if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
-									|| type != Game.itemType.CHAIR){
-								//process additional locations it covers, as most immovables cover two locations
-								Location secondary = new Location(sc.nextInt(), sc.nextInt());
-								immItem.addToLocationsCovered(secondary);
+								//add item to room
+								room.setInventoryItem(invItem, loc);
+								break;
+							case 'I':
+								//process type
+								itemID = sc.nextInt();
+								type = game.itemCodes.get(itemID);
+								ImmovableItem immItem = new ImmovableItem(type, loc, IMMOVABLE_UOID++);
 								
-								if(type == Game.itemType.TABLE){
-									//table has three locations covered, so process additional one
-									Location tertiary = new Location(sc.nextInt(), sc.nextInt());
-									immItem.addToLocationsCovered(tertiary);
+								if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
+										|| type != Game.itemType.CHAIR){
+									//process additional locations it covers, as most immovables cover two locations
+									Location secondary = new Location(sc.nextInt(), sc.nextInt());
+									immItem.addToLocationsCovered(secondary);
 									
+									if(type == Game.itemType.TABLE){
+										//table has three locations covered, so process additional one
+										Location tertiary = new Location(sc.nextInt(), sc.nextInt());
+										immItem.addToLocationsCovered(tertiary);
+										
+									}
 								}
-							}
-							room.setImmovableItem(immItem, loc);
-							break;
-						case 'S':
-							room.addPSP(loc);
-							break;						
+								room.setImmovableItem(immItem, loc);
+								break;
+							case 'M':
+								itemID = sc.nextInt();
+								type = game.itemCodes.get(itemID);
+								MovableItem movItem = new MovableItem(type, loc, MOVABLE_UOID++);
+								room.setMovableItem(movItem, loc);
+								break;
+							case 'S':
+								room.addPSP(loc);
+								break;						
+						}
 					}
+					lineCount++;
 				}
-				lineCount++;
-			}
-			
-			return room;
+				
+				return room;
 		}
 
 	private static void runGame(Master...connections) throws IOException{
