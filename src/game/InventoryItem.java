@@ -14,8 +14,14 @@ public class InventoryItem extends Item{
 		this.itemName = name;
 	}
 	
+	@Override
 	public void setLocation(Location location){
 		this.location = location;
+	}
+	
+	@Override
+	public Location getLocation(){
+		return this.location;
 	}
 		
 	/**
@@ -35,6 +41,10 @@ public class InventoryItem extends Item{
 	
 	public String getItemName(){
 		return itemName;
+	}
+	
+	public Player getOwner(){
+		return this.owner;
 	}
 	
 	@Override

@@ -36,11 +36,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 	// the game
 	private Game theGame;
-	
+
 	// the players ID
 	private final int playerID;
-	
-	//the player
+
+	// the player
 	private final Player thePlayer;
 
 	// buttons
@@ -55,7 +55,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton pull;
 	private JButton useDoor;
 
-	//text area 
+	// text area
 	private JTextArea itemInfo;
 	private String itemText = "Item info";
 
@@ -64,13 +64,13 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	/**
 	 * Constructor for InventoryPanel
 	 */
-	public InventoryPanel(Game g,int userId) {
+	public InventoryPanel(Game g, int userId) {
 
 		// player(playerID).getItem[0] = slot1;
 		// player(playerID).getItem[1] = slot2;
 		// player(playerID).getItem[2] = slot3;
 		// player(playerID).getItem[3] = slot4;
-		slot4 = new InventoryItem(Game.itemType.BOOK,"A book for nerds");// testing
+		slot4 = new InventoryItem(Game.itemType.BOOK, "A book for nerds");// testing
 
 		theGame = g;
 		playerID = userId;
@@ -188,7 +188,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 		}
 		if (src == item3) {
-			slot3 = new InventoryItem(Game.itemType.KEY,"The KeyBalde"); // testing
+			slot3 = new InventoryItem(Game.itemType.KEY, "The KeyBalde"); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
@@ -225,43 +225,98 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			System.out.println("push ");
 			// push method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			// takes a keyset in player move and checks for each direction in order of
-			// preference, executes action using the direction found if applicable, 
+			// takes a keyset in player move and checks for each direction in
+			// order of
+			// preference, executes action using the direction found if
+			// applicable,
 			// no action occurs if the keyset is 0
-			if(currentPlayer.pushMoves.keySet().size()>0){
-				if (currentPlayer.pushMoves.keySet().contains(MovementDirection.UP)){
-					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.UP, currentPlayer.pushMoves.get(MovementDirection.UP));
-				}
-				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.DOWN)){
-					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.DOWN, currentPlayer.pushMoves.get(MovementDirection.DOWN));
-				}
-				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.LEFT)){
-					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.LEFT, currentPlayer.pushMoves.get(MovementDirection.LEFT));
-				}
-				else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.RIGHT)){
-					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.RIGHT, currentPlayer.pushMoves.get(MovementDirection.RIGHT));
+			if (currentPlayer.pushMoves.keySet().size() > 0) {
+				if (currentPlayer.pushMoves.keySet().contains(MovementDirection.UP)) {
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.UP,
+							currentPlayer.pushMoves.get(MovementDirection.UP));
+				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.DOWN,
+							currentPlayer.pushMoves.get(MovementDirection.DOWN));
+				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.LEFT,
+							currentPlayer.pushMoves.get(MovementDirection.LEFT));
+				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.RIGHT,
+							currentPlayer.pushMoves.get(MovementDirection.RIGHT));
 				}
 			}
 
 		}
 		if (src == pull) {
 			System.out.println("pull ");
+			Player currentPlayer = theGame.getPlayer(playerID);
 			// pull method
+			// takes a keyset in player move and checks for each direction in
+			// order of
+			// preference, executes action using the direction found if
+			// applicable,
+			// no action occurs if the keyset is 0
+			if (currentPlayer.pullMoves.keySet().size() > 0) {
+				if (currentPlayer.pullMoves.keySet().contains(MovementDirection.UP)) {
+					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.UP,
+							currentPlayer.pullMoves.get(MovementDirection.UP));
+				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.DOWN,
+							currentPlayer.pullMoves.get(MovementDirection.DOWN));
+				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.LEFT,
+							currentPlayer.pullMoves.get(MovementDirection.LEFT));
+				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.RIGHT,
+							currentPlayer.pullMoves.get(MovementDirection.RIGHT));
+				}
+			}
 
 		}
 		if (src == drop) {
 			System.out.println("drop");
 			// drop method
+			
 		}
 		if (src == pickup) {
 			System.out.println("pick up the thing");
 			// pickup method
+			// takes a keyset in player move and checks for each direction in
+			// order of
+			// preference, executes action using the direction found if
+			// applicable,
+			// no action occurs if the keyset is 0
+
+			Player currentPlayer = theGame.getPlayer(playerID);
+
+			if (currentPlayer.itemPickups.keySet().size() > 0) {
+				if (currentPlayer.itemPickups.keySet().contains(MovementDirection.UP)) {
+					currentPlayer.getRoom().pickupItem(currentPlayer,
+							currentPlayer.itemPickups.get(MovementDirection.UP));
+				}
+				if (currentPlayer.itemPickups.keySet().contains(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().pickupItem(currentPlayer,
+							currentPlayer.itemPickups.get(MovementDirection.DOWN));
+				}
+				if (currentPlayer.itemPickups.keySet().contains(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().pickupItem(currentPlayer,
+							currentPlayer.itemPickups.get(MovementDirection.LEFT));
+				}
+				if (currentPlayer.itemPickups.keySet().contains(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().pickupItem(currentPlayer,
+							currentPlayer.itemPickups.get(MovementDirection.RIGHT));
+				}
+				if (currentPlayer.itemPickups.keySet().contains(currentPlayer.getLocation())) {
+					currentPlayer.getRoom().pickupItem(currentPlayer,
+							currentPlayer.itemPickups.get(currentPlayer.getLocation()));
+				}
+			}
 		}
 		if (src == useDoor) {
-			System.out.println("try to trade....maybe.....if you are lucky");
+			System.out.println("Use the door,or atleast try");
 			// drop method
-			
-
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().goThroughDoor(currentPlayer);
 		}
 	}
 
@@ -295,8 +350,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.fillRect(745, imageY - 5, imageSize + 10, imageSize + 10);
 			gr.setColor(Color.black);
 		}
-		
-		
+
 		if (slot1 == null) {
 			gr.fillRect(30, imageY, imageSize, imageSize);
 		} else if (slot1.getType() == Game.itemType.KEY) {
@@ -305,8 +359,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.drawImage(bookIcon, 30, imageY, null, null);
 		}
 
-		if(slot2==null){
-		//if (theGame.getPlayer(playerID).getInventory().get(0) == null) {//needs more logic
+		if (slot2 == null) {
+			// if (theGame.getPlayer(playerID).getInventory().get(0) == null)
+			// {//needs more logic
 			gr.fillRect(270, imageY, imageSize, imageSize);
 		} else if (slot2.getType() == Game.itemType.KEY) {
 			gr.drawImage(keyIcon, 270, imageY, null, null);
