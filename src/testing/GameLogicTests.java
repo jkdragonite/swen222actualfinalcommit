@@ -5,6 +5,7 @@ import javafx.scene.shape.MoveTo;
 import game.Container;
 import game.Door;
 import game.Game;
+import game.ImmovableItem;
 import game.InventoryItem;
 import game.Location;
 import game.MovableItem;
@@ -374,6 +375,27 @@ public class GameLogicTests {
 		Room newRoom = testGame.getPlayer(201).getRoom();
 //		System.out.println(testGame.getPlayer(201).getRoom());
 		assertNotEquals(currentRoom, newRoom);	
+	}
+	
+	
+	@Test
+	public void playerMoveLogic(){
+		Game testGame = new Game();
+		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.addPlayer(201);
+		Location boxLocation = new Location(2, 0);
+		ImmovableItem box1 = new ImmovableItem(Game.itemType.BOX, boxLocation);
+		
+//		Container container = new Container(Game.itemType.BOX, containerLocation);
+//		container.addItem(keyInventoryItem);
+		testGame.rooms.get(0).board.getSquare(boxLocation).setImmovableItem(box1);
+		Location currentLocation = testGame.getPlayer(201).getLocation();
+		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
+//		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getContainer());
+//		System.out.println("Item search " + testGame.getPlayer(201).pushMoves);
+		assertEquals(0, testGame.getPlayer(201).pushMoves.size());
+		assertEquals(false,testGame.getPlayer(201).moves.keySet().contains(MovementDirection.RIGHT));
+	
 	}
 	
 	
