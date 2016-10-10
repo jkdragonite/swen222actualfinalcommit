@@ -68,7 +68,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	public InventoryPanel(Game g, int userId) {
 
-		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0,0), "A book for nerds");// testing
+		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0, 0), "A book for nerds");// testing
 
 		theGame = g;
 		playerID = userId;
@@ -190,7 +190,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 		}
 		if (src == item3) {
-			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4,0), "The KeyBalde"); // testing
+			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4, 0), "The KeyBalde"); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
@@ -327,7 +327,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			System.out.println("Use the door,or atleast try");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().goThroughDoor(currentPlayer);
+			if (currentPlayer.canGoThroughDoor) {
+				currentPlayer.getRoom().goThroughDoor(currentPlayer);
+			} else {
+				handyInfo.setText("Door failed");
+			}
 		}
 	}
 
