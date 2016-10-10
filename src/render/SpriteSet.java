@@ -32,6 +32,10 @@ public class SpriteSet {
 		}
 		loadSprites();
 	}
+	
+	public Image getSprite(String key){
+		return spriteList.get(key);
+	}
 
 	/**
 	 * This method uses the BufferedImage getSubImage() method to
