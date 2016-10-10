@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import game.Game;
+import game.Game.viewDirection;
 import render.GameRenderer;
 
 public class RenderPanel extends JPanel implements ActionListener {
@@ -49,15 +50,40 @@ public class RenderPanel extends JPanel implements ActionListener {
 		Object src = evt.getSource();
 		if (src == rotateL) {
 			System.out.println("Rotate left");
+			if (theGame.getDirection() == Game.viewDirection.NORTH){
+				theGame.shiftView(viewDirection.WEST);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.WEST){
+				theGame.shiftView(viewDirection.SOUTH);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
+				theGame.shiftView(viewDirection.EAST);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.EAST){
+				theGame.shiftView(viewDirection.NORTH);
+			}
+			gam.rotateCW();
+			gam.rotateCW();
 			gam.rotateCW();
 			repaint();
 
 		}
 		if (src == rotateR) {
 			System.out.println("Rotate right");
+			if (theGame.getDirection() == Game.viewDirection.NORTH){
+				theGame.shiftView(viewDirection.EAST);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.EAST){
+				theGame.shiftView(viewDirection.SOUTH);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.SOUTH){
+				theGame.shiftView(viewDirection.WEST);
+			}
+			else if (theGame.getDirection() == Game.viewDirection.WEST){
+				theGame.shiftView(viewDirection.NORTH);
+			}
 			gam.rotateCW();
-			gam.rotateCW();
-			gam.rotateCW();
+
 			repaint();
 
 		}

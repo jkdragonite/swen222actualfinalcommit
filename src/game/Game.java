@@ -4,6 +4,8 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sun.org.apache.bcel.internal.generic.INEG;
+
 public class Game {
 	private viewDirection view;
 //	private renderRoom currentRoom;
@@ -62,6 +64,16 @@ public class Game {
 		
 		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
+		Location itemLocation = new Location(1, 1);
+		Location movableItemLocation = new Location(9, 9);
+		Location immovableItemLocation = new Location(4, 4);
+//		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
+		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key"), 0);
+		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation);
+		bookShelf.addToLocationsCovered(new Location(5, 5));
+		addImmovableItemToGame(bookShelf, 0);
+//		rooms.get(0).board.getSquare(immovableItemLocation).setImmovableItem(new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation));
+		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation));
 		addPlayer(200);
 //		players.add(new Player(200, rooms.get(0)));
 	}
@@ -120,9 +132,10 @@ public class Game {
 	public void addPlayer(int uid){
 		Player playerToAdd = new Player(uid, this.rooms.get(0));
 		this.players.add(playerToAdd);
-		System.out.println(playerToAdd.getLocation().toString());
-		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()));
+//		System.out.println(playerToAdd.getLocation().toString());
+//		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()));
 		this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).addPlayer(playerToAdd);
+//		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).getPlayer().getLocation().toString());
 		
 	}
 		

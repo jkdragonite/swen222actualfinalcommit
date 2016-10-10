@@ -76,7 +76,19 @@ public abstract class Square {
 	}
 	
 	public Item getItem(){
-		return this.inventoryItem;
+		if ( this.inventoryItem != null){
+			return inventoryItem;
+		}
+		if ( this.movableItem != null){
+			return movableItem;
+		}
+		if ( this.immovableItem != null){
+			return immovableItem;
+		}
+		if ( this.container != null){
+			return container;
+		}
+		return null;
 	}
 	
 	public Player getPlayer(){
