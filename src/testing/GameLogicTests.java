@@ -366,6 +366,7 @@ public class GameLogicTests {
 		Door doorAdd = new Door(new Location(4, 4));
 //		System.out.println(doorAdd.getCharacter());
 		testGame.rooms.get(0).addDoor(doorAdd);
+		((PuzzleRoom)testGame.rooms.get(0)).getDoor();
 //		System.out.println(testGame.rooms.get(0).door);
 //		System.out.println(testGame.rooms.get(0).door);
 		testGame.rooms.get(0).unlockDoor();
@@ -375,10 +376,15 @@ public class GameLogicTests {
 		Room currentRoom = testGame.getPlayer(201).getRoom();
 		testGame.rooms.get(1).addDoor(new Door(new Location(0, 1)));
 //		System.out.println(testGame.getPlayer(201).getRoom());
+		for (Room room : testGame.rooms){
+			System.out.println(((PuzzleRoom) room).getDoor());
+		}
 		testGame.rooms.get(0).goThroughDoor(testGame.getPlayer(201));;
 		Room newRoom = testGame.getPlayer(201).getRoom();
 //		System.out.println(testGame.getPlayer(201).getRoom());
 		assertNotEquals(currentRoom, newRoom);	
+		assertEquals(testGame.rooms.get(1),testGame.getPlayer(201).getRoom());
+		assertEquals(testGame.rooms.get(1).board.getSquare(new Location(0, 0)).getPlayer(), testGame.getPlayer(201));
 	}
 	
 	

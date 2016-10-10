@@ -63,9 +63,9 @@ public abstract class Room {
 	}
 
 	
-//	public Door getDoor(){
-//		return this.door;
-//	}
+	public Door getDoor(){
+		return this.door;
+	}
 
 	
 	/**
@@ -402,7 +402,7 @@ public abstract class Room {
 		player.updateRoom(this.door.getDestinationRoom());
 		Room newRoom = this.door.getDestinationRoom();
 		if (newRoom instanceof PuzzleRoom){
-			this.door.getDestinationRoom().placePlayer(player, ((PuzzleRoom)newRoom).getDoor().getLocation());
+			this.door.getDestinationRoom().placePlayer(player, new Location(0, 0));
 		}
 		else {
 			this.door.getDestinationRoom().placePlayer(player, new Location(5, 5));
