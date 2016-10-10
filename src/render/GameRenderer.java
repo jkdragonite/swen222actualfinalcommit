@@ -34,6 +34,7 @@ public class GameRenderer{
 	List<Image> sprites = (List<Image>) spriteSet.getSprites();
 	Game game;
 	int x, y;
+	boolean sqPlayer = false;
 
 	public static final int floor = 450;
 
@@ -144,22 +145,58 @@ public class GameRenderer{
 		//render the tiles
 		for (int y = stage.length -1; y >= 0; y--){
 			for (int x = 0; x < stage.length; x++){
+				if(stage[x][y].getPlayer() != null){
+					Image pImg = getPlayerImage(stage[x][y]);
+					drawScaledImage(pImg, g, x, y);
+				}
 				Image img = getImage(stage[x][y]);
 
 				if (img != null){
-					//scale the image
-					int scaleX = (int)(img.getWidth(null)*(1-(y*SCALE_FAC)));
-					int scaleY = (int)(img.getHeight(null)*(1-(y*SCALE_FAC)));
-					Image newImg = getScaledImage(img, scaleX, scaleY);
-					int imgX = (LEFT+y*(HORZ_DISP) + x*scaleX);
-					int imgY = (BASE - y*VERT_DISP)+100 - img.getHeight(null);
-					this.renderObject(newImg, imgX, imgY, g);
+					drawScaledImage(img, g, x, y);
 				}
 			}
 		}
 	}
+	
+	private void drawScaledImage(Image img, Graphics g, int x, int y){
+		//generate scaled values for the new dimensions
+		int scaleX = (int)(img.getWidth(null)*(1-(y*SCALE_FAC)));
+		int scaleY = (int)(img.getHeight(null)*(1-(y*SCALE_FAC)));
+		
+		//use the new measurements to create a new, scaled image that is 
+		//seperate to the base image.
+		Image newImg = getScaledImage(img, scaleX, scaleY);
+		
+		//get the scaled top left/right to make sure we are drawing in the 
+		//right scale and place
+		int imgX = (LEFT+y*(HORZ_DISP) + x*scaleX);
+		int imgY = (BASE - y*VERT_DISP);
+		
+		//finally, draw the rendered object
+		this.renderObject(newImg, imgX, imgY, g);
+	}
+	
+	/**
+	 * Render object windows - in this case all objects are boxes.
+	 * @param x
+	 * @param y
+	 * @param g
+	 */
+	public void renderObject(Image img, int x, int y, Graphics g){
+		g.drawImage(img, x, y-(img.getHeight(null)), null);
+	}
+	
+	//-------------------------------------------------------------------------------//
+	
 
+	/**
+	 * 
+	 * @author Brooke
+	 * @param square
+	 * @return the required image
+	 */
 	public Image getImage(Square square){
+		
 		int dir = 0;
 		//get an item on a square by creating the code to retrieve from
 		//the spriteset hashmap
@@ -210,23 +247,34 @@ public class GameRenderer{
 	}
 
 
-
 	/**
-	 * Render object windows - in this case all objects are boxes.
-	 * @param x
-	 * @param y
-	 * @param g
+	 * 
+	 * @author Brooke
+	 * @param square
+	 * @return the desired sprite - player model
+	 * @throws RuntimeException
 	 */
-	public void renderObject(Image img, int x, int y, Graphics g){
-		//note: x and y are the bottom left things.
-		//System.out.println("box get");
-		g.drawImage(img, x, y-100, null);
+	private Image getPlayerImage(Square square) throws RuntimeException {
+		switch(square.getPlayer().getPlayerNumber()){
+		case 200: 
+			return spriteSet.getSprite("00");
+		case 201:
+			return spriteSet.getSprite("01");
+		case 202: 
+			return spriteSet.getSprite("02");
+		case 203:
+			return spriteSet.getSprite("03");
+		default:
+			System.out.println("Invalid player code");
+			throw new RuntimeException();
+		}
 	}
 
 	/**
 	 * This method will scale the image so that things further away
 	 * from the 'camera' are rendered as smaller and distant.
 	 * 
+	 * @author Brooke
 	 * @return the scaled image
 	 */
 	private BufferedImage getScaledImage(Image srcImg, int w, int h){
@@ -236,10 +284,5 @@ public class GameRenderer{
 		g2.drawImage(srcImg, 0, 0, w, h, null);
 		g2.dispose();
 		return resizedImg;
-	}
-
-	public static void main(String[] args){
-		new GameRenderer(new Game());
-		System.out.println("bleh.");
 	}
 }
