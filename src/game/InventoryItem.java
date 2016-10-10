@@ -49,4 +49,17 @@ public class InventoryItem extends Item{
 		return this.character;
 	}
 	
+	public boolean hasOwner(){
+		return owner != null;
+	}
+	
+	/**
+	 * Gets the unique player id of this items owner. Should only be called
+	 * after the item has had hasOwner() called on it and is confirmed not null.
+	 * @return unique player ID of owning player
+	 */
+	public int getOwnerID(){
+		return owner.getPlayerNumber();
+	}
+	
 }

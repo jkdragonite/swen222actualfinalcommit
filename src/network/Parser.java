@@ -20,6 +20,7 @@ import game.ImmovableItem;
 import game.InventoryItem;
 import game.Item;
 import game.Location;
+import game.MovableItem;
 import game.PuzzleRoom;
 import game.Room;
 
@@ -142,6 +143,12 @@ public class Parser {
 						}
 						room.setImmovableItem(immItem, loc);
 						break;
+					case 'M':
+						itemID = sc.nextInt();
+						type = game.itemCodes.get(itemID);
+						MovableItem movItem = new MovableItem(type, loc);
+						room.setMovableItem(movItem, loc);
+						break;
 					case 'S':
 						room.addPSP(loc);
 						break;						
@@ -153,7 +160,16 @@ public class Parser {
 		return room;
 	}
 	
-	public static byte[] stateToBytes(Game game) throws IOException{
+	/**
+	 * Used to send the current state of the board as an update to each client. 
+	 * As this is an update we only send information on doors (for lock state),
+	 * players (for movement) and pickupable/movable items (for movement/new ownership)
+	 * 
+	 * @param game
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] stateUpdateToBytes(Game game) throws IOException{
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(bout);
 		
@@ -174,17 +190,41 @@ public class Parser {
 			//write door information
 			Door door = r.door;
 			dout.writeChar(door.getCharacter());
-			//write 01 for lock state?
-			dout.writeInt(door.getLocation().getX());
-			dout.writeInt(door.getLocation().getY());
-			//update the keyhole items
-			//write 0 is no items in keyhole, 1 for items
+			if (door.isUnlocked()) {dout.writeInt(0);}
+			else {dout.writeInt(1);}
+
+			//write the containers around the room to output
+			for(Container c : r.containers){
+				dout.writeChar(c.getCharacter());
+				dout.writeInt(c.getLocation().getX());
+				dout.writeInt(c.getLocation().getY());
+				
+				if (c.hasItem()) {dout.writeInt(1);}
+				else {dout.writeInt(0);}
+			}
 			
+			//write movable items to output
+			for(MovableItem mi : r.movableItems){
+				dout.writeChar(mi.getCharacter());
+				dout.writeInt(mi.getLocation().getX());
+				dout.writeInt(mi.getLocation().getY());
+			}
 			
-			//write the pickupable items/containers around the room to the array
+			//write players to output
+			
+			//write inventory items to output
+			for(InventoryItem i : r.inventoryItems){
+				dout.writeChar(i.getCharacter());
+				dout.writeInt(i.getLocation().getX());
+				dout.writeInt(i.getLocation().getY());
+				if(i.hasOwner()){
+					dout.writeInt(1);
+					dout.writeInt(i.getOwnerID());
+				}
+				else{dout.writeInt(0);}
+			}
 		}
 		
-		//first write the door updates
 		return bout.toByteArray();
 	}
 	
