@@ -60,7 +60,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private String itemText = "Item info";
 	private JTextArea handyInfo;
 
-	private int selected;
+	private int selected = 1;
 
 	/**
 	 * Constructor for InventoryPanel
@@ -100,7 +100,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		this.add(itemInfo);
 		this.add(handyInfo);
-		
+
 		// setting the dimension used for the buttons
 
 		item1 = new JButton("Item 1");
@@ -212,7 +212,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(false);
 			selected = 4;
 			if (slot4 != null) {
-				itemInfo.setText(slot4.getType().toString()+"-"+slot4.getItemName());
+				itemInfo.setText(slot4.getType().toString() + "-" + slot4.getItemName());
 			}
 			repaint();
 
@@ -278,9 +278,15 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == drop) {
 			System.out.println("drop");
 			// drop method
-			System.out.println(playerID+"meh");
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
+			if (currentPlayer.getRoom().inventoryItems.size() != 0) {
+				if (currentPlayer.getRoom().inventoryItems.get(selected - 1) != null) {
+					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
+					handyInfo.setText("Item dropped");
+				}
+			} else {
+				handyInfo.setText("Drop failed");
+			}
 		}
 		if (src == pickup) {
 			System.out.println("pick up the thing");
@@ -324,24 +330,22 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	
-	public void updateItemSlots(){
+	public void updateItemSlots() {
 		Player currentPlayer = theGame.getPlayer(playerID);
-		if(currentPlayer.getInventory().get(0)!=null){
+		if (currentPlayer.getInventory().get(0) != null) {
 			slot1 = currentPlayer.getInventory().get(0);
 		}
-		if(currentPlayer.getInventory().get(1)!=null){
+		if (currentPlayer.getInventory().get(1) != null) {
 			slot1 = currentPlayer.getInventory().get(1);
 		}
-		if(currentPlayer.getInventory().get(2)!=null){
+		if (currentPlayer.getInventory().get(2) != null) {
 			slot1 = currentPlayer.getInventory().get(2);
 		}
-		if(currentPlayer.getInventory().get(3)!=null){
+		if (currentPlayer.getInventory().get(3) != null) {
 			slot1 = currentPlayer.getInventory().get(3);
 		}
 	}
-	
-	
+
 	/**
 	 * the draw method for drawing the items in the players inventory
 	 */
