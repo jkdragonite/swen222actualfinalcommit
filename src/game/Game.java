@@ -70,12 +70,12 @@ public class Game {
 		Location movableItemLocation = new Location(9, 9);
 		Location immovableItemLocation = new Location(4, 4);
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
-		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key"), 0);
-		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation);
+		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
+		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation, 902);
 		bookShelf.addToLocationsCovered(new Location(5, 5));
 		addImmovableItemToGame(bookShelf, 0);
 //		rooms.get(0).board.getSquare(immovableItemLocation).setImmovableItem(new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation));
-		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation));
+		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
 //		players.add(new Player(200, rooms.get(0)));
@@ -110,19 +110,23 @@ public class Game {
 	
 	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
 		this.rooms.get(roomNumber).inventoryItems.add(item);
+		this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
 	}
 	
 	public void addMovableItemToGame(MovableItem item, int roomNumber){
 		this.rooms.get(roomNumber).movableItems.add(item);
+		this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 		this.rooms.get(roomNumber).setMovableItem(item, item.getLocation());
 	}
 	
 	public void addImmovableItemToGame(ImmovableItem item, int roomNumber){
 		if (item instanceof Container){
+			this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 			this.rooms.get(roomNumber).containers.add((Container) item);
 		}
 		else{
+			this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 			this.rooms.get(roomNumber).immovableItems.add(item);
 		}
 		

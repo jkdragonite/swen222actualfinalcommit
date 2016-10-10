@@ -6,8 +6,8 @@ public class ImmovableItem extends Item {
 	// array of locations
 	private ArrayList<Location> locationsCovered = new ArrayList<Location>();
 	
-	public ImmovableItem(game.Game.itemType type, Location leftmost) {
-		super(type, 'I', leftmost);
+	public ImmovableItem(game.Game.itemType type, Location leftmost, int uoid) {
+		super(type, 'I', leftmost, uoid);
 	}
 	
 	public ArrayList<Location> getLocationsCovered(){

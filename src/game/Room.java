@@ -16,6 +16,7 @@ public abstract class Room {
 	public ArrayList<MovableItem> movableItems = new ArrayList<MovableItem>();
 	public ArrayList<ImmovableItem> immovableItems = new ArrayList<ImmovableItem>();
 	public ArrayList<Container> containers = new ArrayList<Container>();
+	public HashMap<Integer, Item> itemsHashMap = new HashMap<Integer, Item>();
 	public ArrayList<Player> playersInRoom = new ArrayList<Player>();
 	
 	public Board board;

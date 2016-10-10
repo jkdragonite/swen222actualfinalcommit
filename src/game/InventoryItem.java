@@ -7,8 +7,8 @@ public class InventoryItem extends Item{
 	private String itemName;
 	
 	
-	public InventoryItem(itemType type, Location loc, String name){
-		super(type, 'Q', loc);
+	public InventoryItem(itemType type, Location loc, String name, int uoid){
+		super(type, 'Q', loc, uoid);
 		this.itemName = name;
 	}
 		

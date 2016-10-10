@@ -11,14 +11,20 @@ public abstract class Item {
 	protected char character;
 	protected Location location;
 	private itemType itemType;
+	private int uoid;
 	
 	private Map<Game.itemType, Integer> types;
 	
-	public Item(itemType type, char character, Location loc){
+	public Item(itemType type, char character, Location loc, int uoid){
 		this.character = character;
 		this.itemType = type; 
 		this.location = loc;
+		this.uoid = uoid;
 		initializeItemCodes();
+	}
+	
+	public int getUoid(){
+		return this.uoid;
 	}
 	
 	public void setLocation(Location location){
@@ -47,6 +53,7 @@ public abstract class Item {
 		dout.writeChar(character);
 		dout.writeInt(location.getX());
 		dout.writeInt(location.getY());
+		dout.writeInt(getTypeInt(itemType));
 	}
 	
 	private int getTypeInt(Game.itemType type){
