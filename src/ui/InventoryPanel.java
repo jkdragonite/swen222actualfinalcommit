@@ -41,7 +41,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private final int playerID;
 
 	// the player
-	private final Player thePlayer;
+	// private final Player thePlayer;
 
 	// buttons
 	private JButton item1;
@@ -58,6 +58,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	// text area
 	private JTextArea itemInfo;
 	private String itemText = "Item info";
+	private JTextArea handyInfo;
 
 	private int selected;
 
@@ -66,15 +67,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	public InventoryPanel(Game g, int userId) {
 
-		// player(playerID).getItem[0] = slot1;
-		// player(playerID).getItem[1] = slot2;
-		// player(playerID).getItem[2] = slot3;
-		// player(playerID).getItem[3] = slot4;
 		slot4 = new InventoryItem(Game.itemType.BOOK, "A book for nerds");// testing
 
 		theGame = g;
 		playerID = userId;
-		thePlayer = theGame.getPlayer(playerID);
+		// thePlayer = theGame.getPlayer(playerID);
 
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 240;
@@ -96,15 +93,19 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		itemInfo = new JTextArea();
 		itemInfo.setText(itemText);
-		itemInfo.setBounds(970, 10, 240, 40);
+		itemInfo.setBounds(970, 5, 240, 25);
+		handyInfo = new JTextArea();
+		handyInfo.setText("Handy dandy Information");
+		handyInfo.setBounds(970, 210, 240, 30);
 
 		this.add(itemInfo);
-
+		this.add(handyInfo);
+		
 		// setting the dimension used for the buttons
 
 		item1 = new JButton("Item 1");
 		item1.addActionListener(this);
-		item1.setBounds(30, 200, 180, 30);
+		item1.setBounds(30, 200, 180, 25);
 		add(item1);
 
 		item2 = new JButton("Item 2");
@@ -122,34 +123,34 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		item4.setBounds(750, 200, 180, 30);
 		add(item4);
 
-		pickup = new JButton("pickup");
+		pickup = new JButton("Pickup");
 		pickup.addActionListener(this);
-		pickup.setBounds(970, 60, untiButtonWidth, utilButtonHeight);
+		pickup.setBounds(970, 30, untiButtonWidth, utilButtonHeight);
 		add(pickup);
 
 		use = new JButton("Use");
 		use.addActionListener(this);
-		use.setBounds(970, 90, untiButtonWidth, utilButtonHeight);
+		use.setBounds(970, 60, untiButtonWidth, utilButtonHeight);
 		add(use);
 
-		push = new JButton("push");
+		push = new JButton("Push");
 		push.addActionListener(this);
-		push.setBounds(970, 120, untiButtonWidth, utilButtonHeight);
+		push.setBounds(970, 90, untiButtonWidth, utilButtonHeight);
 		add(push);
 
-		pull = new JButton("pull");
+		pull = new JButton("Pull");
 		pull.addActionListener(this);
-		pull.setBounds(970, 150, untiButtonWidth, utilButtonHeight);
+		pull.setBounds(970, 120, untiButtonWidth, utilButtonHeight);
 		add(pull);
 
-		drop = new JButton("drop");
+		drop = new JButton("Drop Item");
 		drop.addActionListener(this);
-		drop.setBounds(970, 180, untiButtonWidth, utilButtonHeight);
+		drop.setBounds(970, 150, untiButtonWidth, utilButtonHeight);
 		add(drop);
 
-		useDoor = new JButton("trade???");
+		useDoor = new JButton("Use Door");
 		useDoor.addActionListener(this);
-		useDoor.setBounds(970, 210, untiButtonWidth, utilButtonHeight);
+		useDoor.setBounds(970, 180, untiButtonWidth, utilButtonHeight);
 		add(useDoor);
 
 	}
@@ -219,7 +220,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == use) {
 			System.out.println("use");
 			// use method
-
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().useItem(currentPlayer);
 		}
 		if (src == push) {
 			System.out.println("push ");
@@ -276,7 +278,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (src == drop) {
 			System.out.println("drop");
 			// drop method
-			
+			Player currentPlayer = theGame.getPlayer(playerID);
+			currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 		}
 		if (src == pickup) {
 			System.out.println("pick up the thing");

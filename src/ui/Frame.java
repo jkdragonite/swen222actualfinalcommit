@@ -43,9 +43,7 @@ public class Frame extends JFrame implements  ActionListener {
     	super(title);
     	theGame = g;
     	playerID = UID;
-    	
-    	//playerID = theGame.getPlayerID
-    	
+    	    	
 		// Menu bar things
 		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
@@ -116,8 +114,8 @@ public class Frame extends JFrame implements  ActionListener {
 				System.exit(0);
 			}
 			if (e.getActionCommand().equals("showHelp")) {
-			//do the pop up thing
-				new HelpFrame();
+			//make a new help frame pop up
+			new HelpFrame();
 				
 			}
 
