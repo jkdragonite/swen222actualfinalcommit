@@ -119,13 +119,6 @@ public class GameRenderer{
 		int topRight = LEFT + 820;
 		int right = LEFT + 1000;
 
-		//render the floor
-		g.setColor(Color.darkGray);
-		g.fillRect(LEFT, BASE, SIZE*10, 3);
-		int floorX[] = {LEFT, topLeft, topRight, right};
-		int floorY[] = {BASE, topWall-140, topWall-140, BASE};
-		g.fillPolygon(floorX, floorY, 4);
-
 		//render the wall
 		g.setColor(Color.GRAY);
 		g.fillRect(topLeft, topWall-60, 640, 150);
@@ -140,6 +133,13 @@ public class GameRenderer{
 		int[] rightY = {BASE, topWall-140, topWall-60, BASE};
 		g.fillPolygon(leftX, leftY, 4);
 		g.fillPolygon(rightX, rightY, 4);
+		
+		//render the floor
+		g.setColor(Color.darkGray);
+		g.fillRect(LEFT, BASE, SIZE*10, 3);
+		int floorX[] = {LEFT, topLeft, topRight, right};
+		int floorY[] = {BASE, topWall+90, topWall+90, BASE};
+		g.fillPolygon(floorX, floorY, 4);
 
 		//render the tiles
 		for (int y = stage.length -1; y >= 0; y--){
