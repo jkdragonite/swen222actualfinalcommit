@@ -400,6 +400,13 @@ public abstract class Room {
 	 */
 	public void goThroughDoor(Player player){
 		player.updateRoom(this.door.getDestinationRoom());
+		Room newRoom = this.door.getDestinationRoom();
+		if (newRoom instanceof PuzzleRoom){
+			this.door.getDestinationRoom().placePlayer(player, ((PuzzleRoom)newRoom).getDoor().getLocation());
+		}
+		else {
+			this.door.getDestinationRoom().placePlayer(player, new Location(5, 5));
+		}
 	}
 	
 	

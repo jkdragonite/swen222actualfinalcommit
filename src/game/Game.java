@@ -120,9 +120,10 @@ public class Game {
 	public void addPlayer(int uid){
 		Player playerToAdd = new Player(uid, this.rooms.get(0));
 		this.players.add(playerToAdd);
-		System.out.println(playerToAdd.getLocation().toString());
-		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()));
+//		System.out.println(playerToAdd.getLocation().toString());
+//		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()));
 		this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).addPlayer(playerToAdd);
+//		System.out.println(this.rooms.get(0).board.getSquare(playerToAdd.getLocation()).getPlayer().getLocation().toString());
 		
 	}
 		
