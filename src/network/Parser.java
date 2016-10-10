@@ -403,25 +403,24 @@ public class Parser {
 					int cY = din.readInt();
 					boolean hasItems = (din.readInt() == 0) ? false : true;
 					Container c = (Container) room.itemsHashMap.get(cuoid);
-					int suoid;
+					int suoid = din.readInt();
 					
 					if(hasItems && c.hasItems()){
 						//check it's the same item?
-						suoid = din.readInt();
 						for(InventoryItem i: c.getItems()){
 							i.getUoid();
 						}
 					}
 					else if(!hasItems && c.hasItems()){
 						//remove item from container, put in inventory arraylist temporarily
-						
+						InventoryItem toRemove = (InventoryItem) room.itemsHashMap.get(suoid);
+						c.removeItem(toRemove);
 					}
 					else if(hasItems && !c.hasItems()){
 						//add the item to the container
-						suoid = din.readInt();
-						room.itemsHashMap.get(suoid);
+						InventoryItem toAdd = (InventoryItem) room.itemsHashMap.get(suoid);
+						c.addItem(toAdd);
 					}
-					
 					break;
 				case 'M':
 					//movableItem object: parse location
