@@ -44,7 +44,7 @@ public class GameRenderer extends Canvas{
 
 		game = new Game();
 		renderRoom = refPlayer.getRoom();
-		viewDir = game.getDirection();
+		viewDir = game.getDirection(uid);
 		Board board = renderRoom.board;
 		stage = board.grid;
 
