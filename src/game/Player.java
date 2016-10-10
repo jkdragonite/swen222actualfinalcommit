@@ -65,7 +65,8 @@ public class Player {
 	}
 	
 	public void addItem(InventoryItem item){
-		this.playerInventory.add(item);	
+		this.playerInventory.add(item);
+		item.setOwner(this);
 	}
 	
 	public ArrayList<InventoryItem> getInventory(){
@@ -74,6 +75,7 @@ public class Player {
 	
 	public void removeItem(InventoryItem item){
 		playerInventory.remove(item);
+		item.removeOwner(this.location);
 	}
 	
 	public Location getLocation(){

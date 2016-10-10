@@ -264,7 +264,8 @@ public class Parser {
 				
 				if (c.hasItems()) {
 					dout.writeInt(1);
-					//write in the unique id of the item stored there
+					//write in the number of items in the inventory followed by each item's uoid
+					dout.writeInt(c.getItems().size());
 					for(InventoryItem i: c.getItems()){
 						dout.writeInt(i.getUoid());
 					}
@@ -407,23 +408,43 @@ public class Parser {
 					int cY = din.readInt();
 					boolean hasItems = (din.readInt() == 0) ? false : true;
 					Container c = (Container) room.itemsHashMap.get(cuoid);
-					int suoid = din.readInt();
 					
-					if(hasItems && c.hasItems()){
-						//check it's the same item?
-						for(InventoryItem i: c.getItems()){
-							i.getUoid();
+					if(hasItems){
+						int numItems = din.readInt();
+						
+						//process new inventory information
+						ArrayList<InventoryItem> newInv = new ArrayList<InventoryItem>();
+						for(int i = 0; i < numItems; i++){
+							newInv.add((InventoryItem) room.itemsHashMap.get(din.readInt()));	
+						}
+						
+						//inventory checks
+						if(!c.hasItems()){
+							for(InventoryItem i : newInv){
+								c.addItem(i);
+							}
+						}
+						else{
+							//check for items adds
+							for(InventoryItem i : newInv){
+								if(!(c.getItems().contains(i))){
+									c.addItem(i);
+								}
+							}
+							//check for item removes
+							for(InventoryItem i : c.getItems()){
+								if(!(newInv.contains(i))){
+									c.removeItem(i);
+								}
+							}
 						}
 					}
-					else if(!hasItems && c.hasItems()){
-						//remove item from container, put in inventory arraylist temporarily
-						InventoryItem toRemove = (InventoryItem) room.itemsHashMap.get(suoid);
-						c.removeItem(toRemove);
-					}
-					else if(hasItems && !c.hasItems()){
-						//add the item to the container
-						InventoryItem toAdd = (InventoryItem) room.itemsHashMap.get(suoid);
-						c.addItem(toAdd);
+					else{
+						if(c.hasItems()){
+							for(InventoryItem i : c.getItems()){
+								c.removeItem(i);
+							}
+						}
 					}
 					break;
 				case 'M':
@@ -441,24 +462,57 @@ public class Parser {
 					break;
 				case 'p':
 					int puid = din.readInt();
+					Player player = game.getPlayer(puid);
 					//read location, check against local copy, change if necessary
 					int pX = din.readInt();
 					int pY = din.readInt();
+					
+					if(player.getLocation().getX() != pX || player.getLocation().getY() != pY){
+						room.placePlayer(player, new Location(pX, pY));
+					}
+					
 					//read in has inventory boolean
 					boolean hasInv = (din.readInt() == 0) ? false : true;
 					if(hasInv){
 						//read in inventory items, check against local copy
 						int numItems = din.readInt();
-						Player player = game.getPlayer(puid);
+						ArrayList<InventoryItem> newItms = new ArrayList<InventoryItem>();
+						
 						for(int i = 0; i < numItems; i++){
-							int iid = din.readInt();
-							//create method in player which checks inventory for an item given a code?
+							newItms.add((InventoryItem) room.itemsHashMap.get(din.readInt()));
 						}
 						
+						if(player.getInventory().isEmpty()){
+							for(InventoryItem i : newItms){
+								player.addItem(i);
+							}
+						}
+						else{
+							//check for items adds
+							for(InventoryItem i : newItms){
+								if(!(player.getInventory().contains(i))){
+									player.addItem(i);
+								}
+							}
+							//check for item removes
+							for(InventoryItem i : player.getInventory()){
+								if(!(newItms.contains(i))){
+									player.removeItem(i);
+								}
+							}
+						}
+					}
+					else{
+						if(!(player.getInventory().isEmpty())){
+							for(InventoryItem i : player.getInventory()){
+								player.removeItem(i);
+							}
+						}
 					}
 					
 					break;
 				case 'Q':
+					
 					break;
 				}
 				nextItem = din.readChar();
