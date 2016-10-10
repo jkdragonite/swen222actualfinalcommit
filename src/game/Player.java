@@ -51,6 +51,11 @@ public class Player {
 		this.view = direction;
 	}
 	
+	public viewDirection getView(){
+		return this.view;
+	}
+	
+	
 	public Room getRoom(){
 		return this.currentRoom;
 	}

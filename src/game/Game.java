@@ -144,8 +144,8 @@ public class Game {
 	 * 
 	 * @return enum viewdirection
 	 */
-	public viewDirection getDirection(){
-		return view;
+	public viewDirection getDirection(int uid){
+		return this.getPlayer(uid).getView();
 	}
 	
 	/**
