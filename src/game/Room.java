@@ -1,6 +1,7 @@
 package game;
 
 import game.Game.itemType;
+import game.Game.viewDirection;
 
 import java.awt.BorderLayout;
 import java.util.ArrayList;
@@ -284,26 +285,72 @@ public abstract class Room {
 	 */
 	public void MovePlayer(Player player, MovementDirection direction){
 		Location currentLocation = player.getLocation();
+		Location newLocation = null;
 		if (direction == MovementDirection.UP){
-			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
+			if (player.getView() == viewDirection.NORTH){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);	
+			}
+			else if (player.getView() == viewDirection.EAST){
+				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
+			}
+			else if (player.getView() == viewDirection.SOUTH){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
+			}
+			else if (player.getView() == viewDirection.WEST){
+				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			}
+			
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
 		}
 		if (direction == MovementDirection.DOWN){
-			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
+			if (player.getView() == viewDirection.NORTH){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);	
+			}
+			else if (player.getView() == viewDirection.EAST){
+				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			}
+			else if (player.getView() == viewDirection.SOUTH){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
+			}
+			else if (player.getView() == viewDirection.WEST){
+				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
+			}
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
 		}
 		if (direction == MovementDirection.LEFT){
-			Location newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			if (player.getView() == viewDirection.NORTH){
+				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());	
+			}
+			else if (player.getView() == viewDirection.EAST){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);
+			}
+			else if (player.getView() == viewDirection.SOUTH){
+				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY()-1);
+			}
+			else if (player.getView() == viewDirection.WEST){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
+			}
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
 		}
 		if (direction == MovementDirection.RIGHT){
-			Location newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());
+			if (player.getView() == viewDirection.NORTH){
+				newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());	
+			}
+			else if (player.getView() == viewDirection.EAST){
+				newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);
+			}
+			else if (player.getView() == viewDirection.SOUTH){
+				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			}
+			else if (player.getView() == viewDirection.WEST){
+				newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());
+			}
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
