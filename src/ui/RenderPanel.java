@@ -31,7 +31,8 @@ public class RenderPanel extends JPanel implements ActionListener {
 		Dimension size = new Dimension(1200, 400);
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
-		gam = new GameRenderer(g,uid);
+		playerID = uid;
+		gam = new GameRenderer(g,playerID);
 
 		setLayout(null);
 

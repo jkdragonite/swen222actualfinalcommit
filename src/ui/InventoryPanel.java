@@ -257,7 +257,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			System.out.println("UP");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+			if (currentPlayer.moves.containsKey(MovementDirection.UP)){
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+			}
 			repaint();
 		}
 		if (src == left) {

@@ -4,6 +4,8 @@ package game;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import jdk.internal.dynalink.beans.StaticClass;
+
 import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class Game {
@@ -75,6 +77,7 @@ public class Game {
 //		rooms.get(0).board.getSquare(immovableItemLocation).setImmovableItem(new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation));
 		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation));
 		addPlayer(200);
+		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
 //		players.add(new Player(200, rooms.get(0)));
 	}
 	
@@ -101,9 +104,7 @@ public class Game {
 //	}
 	
 	public Player getPlayer(int uid){
-//		return this.players.get(uid - 200);
-		System.out.println("KJGjfssfdjkgfsdkjgsdfkjgfsdjgksdkjfjgksdfjgkkgkjg" + uid);
-		return this.players.get(0);
+		return this.players.get(uid - 200);
 	}
 	
 	
