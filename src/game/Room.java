@@ -33,6 +33,16 @@ public abstract class Room {
 		this.board = new Board(size);
 	}
 	
+	public Item getItemOnSquare(Location location){
+		Item returnedItem = board.getSquare(location).getItem();
+		return returnedItem;
+	}
+	
+	public Player getPlayerOnSquare(Location location){
+		Player player = board.getSquare(location).getPlayer();
+		return player;
+	}
+	
 	
 	public void addPlayer(Player player){
 		this.playersInRoom.add(player);
