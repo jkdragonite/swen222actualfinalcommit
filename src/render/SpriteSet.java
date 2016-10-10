@@ -48,7 +48,7 @@ public class SpriteSet {
 
 		BufferedImage tempSprite = null;
 
-		//load the players and the sprites that look the same from every angle.
+		//load the players and the sprites that look the same from every angle
 		tempSprite = spritesheet.getSubimage(200, 0, 100, 200); //black hat
 		spriteList.put("00", tempSprite); 
 		tempSprite = spritesheet.getSubimage(300, 0, 100, 200); //green hat
@@ -88,9 +88,9 @@ public class SpriteSet {
 		spriteList.put("15", tempSprite);
 		tempSprite = spritesheet.getSubimage(800, 0, 100, 150); //chair - left
 		spriteList.put("16", tempSprite);
-		tempSprite = spritesheet.getSubimage(0, 500, 100, 126); //table - left
+		tempSprite = spritesheet.getSubimage(0, 500, 100, 124); //table - left
 		spriteList.put("17", tempSprite);
-		tempSprite = spritesheet.getSubimage(900, 400, 100, 100); //bed - back
+		tempSprite = spritesheet.getSubimage(210, 500, 108, 116); //bed - back
 		spriteList.put("18", tempSprite);
 		tempSprite = spritesheet.getSubimage(75, 275, 75, 75); //computer - side
 		spriteList.put("19", tempSprite);
@@ -124,7 +124,7 @@ public class SpriteSet {
 		spriteList.put("35", tempSprite);
 		tempSprite = spritesheet.getSubimage(800, 150, 100, 150); //chair - right
 		spriteList.put("36", tempSprite);
-		tempSprite = spritesheet.getSubimage(0, 500, 100, 126); //table - right
+		tempSprite = spritesheet.getSubimage(0, 500, 100, 124); //table - right
 		spriteList.put("37", tempSprite);
 		tempSprite = spritesheet.getSubimage(210, 500, 108, 116); //bed - back
 		spriteList.put("38", tempSprite);

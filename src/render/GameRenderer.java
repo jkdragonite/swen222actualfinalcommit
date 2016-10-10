@@ -1,5 +1,6 @@
 package render;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -23,12 +24,11 @@ import game.*;
  * @author Brooke 300321819
  *
  */
-public class GameRenderer{
+@SuppressWarnings("serial")
+public class GameRenderer extends Canvas{
 
 	//public enum Direction {NORTH, SOUTH, EAST, WEST, TOP}
 	Game.viewDirection viewDir = Game.viewDirection.SOUTH;
-	JFrame frame;
-	Graphics gra;
 	Square[][] stage;
 	SpriteSet spriteSet = new SpriteSet();
 	List<Image> sprites = (List<Image>) spriteSet.getSprites();
@@ -145,12 +145,18 @@ public class GameRenderer{
 		//render the tiles
 		for (int y = stage.length -1; y >= 0; y--){
 			for (int x = 0; x < stage.length; x++){
+				//if the square is a door
+				if (stage[x][y] instanceof Door){
+					Image doorImg = spriteSet.getSprite("0d");
+					drawScaledImage(doorImg, g, x, y);
+				}
+				//if the square has a player
 				if(stage[x][y].getPlayer() != null){
 					Image pImg = getPlayerImage(stage[x][y]);
 					drawScaledImage(pImg, g, x, y);
 				}
+				//now draw any items on the square
 				Image img = getImage(stage[x][y]);
-
 				if (img != null){
 					drawScaledImage(img, g, x, y);
 				}
@@ -196,6 +202,7 @@ public class GameRenderer{
 	 * @return the required image
 	 */
 	public Image getImage(Square square){
+		
 		
 		int dir = 0;
 		//get an item on a square by creating the code to retrieve from
