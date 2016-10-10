@@ -59,7 +59,7 @@ public class SpriteSet {
 		spriteList.put("03", tempSprite);
 		tempSprite = spritesheet.getSubimage(0, 0, 100, 100);  //box
 		spriteList.put("0a", tempSprite);
-		tempSprite = spritesheet.getSubimage(900, 0, 100, 200); //door
+		tempSprite = spritesheet.getSubimage(600, 316, 100, 200); //door
 		spriteList.put("0d", tempSprite);
 		
 
@@ -72,37 +72,37 @@ public class SpriteSet {
 		spriteList.put("06", tempSprite);
 		tempSprite = spritesheet.getSubimage(0, 400, 300, 100); //table - front
 		spriteList.put("07", tempSprite);
-		tempSprite = spritesheet.getSubimage(700, 300, 200, 100); //bed - left
+		tempSprite = spritesheet.getSubimage(210, 500, 108, 116); //bed - left
 		spriteList.put("08", tempSprite);
 		tempSprite = spritesheet.getSubimage(0, 200, 75, 75); //computer - front
 		spriteList.put("09", tempSprite);
-		tempSprite = spritesheet.getSubimage(0, 500, 50, 50); //gift thing - north
+		tempSprite = spritesheet.getSubimage(600, 522, 50, 51); //gift thing - north
 		spriteList.put("0b", tempSprite);
-		tempSprite = spritesheet.getSubimage(100, 500, 70, 50); //books - front
+		tempSprite = spritesheet.getSubimage(0, 100, 65, 50); //books - front
 		spriteList.put("0c", tempSprite);
 
 		//load in east facing sprites.
-		tempSprite = spritesheet.getSubimage(600, 0, 100, 300); //bookshelf - side
+		tempSprite = spritesheet.getSubimage(600, 0, 100, 316); //bookshelf - side
 		spriteList.put("14", tempSprite);
-		tempSprite = spritesheet.getSubimage(900, 500, 100, 100); //desk - side
+		tempSprite = spritesheet.getSubimage(100, 500, 108, 116); //desk - side
 		spriteList.put("15", tempSprite);
 		tempSprite = spritesheet.getSubimage(800, 0, 100, 150); //chair - left
 		spriteList.put("16", tempSprite);
-		tempSprite = spritesheet.getSubimage(300, 400, 100, 100); //table - left
+		tempSprite = spritesheet.getSubimage(0, 500, 100, 126); //table - left
 		spriteList.put("17", tempSprite);
 		tempSprite = spritesheet.getSubimage(900, 400, 100, 100); //bed - back
 		spriteList.put("18", tempSprite);
 		tempSprite = spritesheet.getSubimage(75, 275, 75, 75); //computer - side
 		spriteList.put("19", tempSprite);
-		tempSprite = spritesheet.getSubimage(50, 500, 50, 50); //gift thing - north
+		tempSprite = spritesheet.getSubimage(650, 522, 50, 51);  //gift thing - north
 		spriteList.put("1b", tempSprite);
-		tempSprite = spritesheet.getSubimage(175, 500, 70, 50); //books side A
+		tempSprite = spritesheet.getSubimage(65, 100, 65, 50); //books side A
 		spriteList.put("1c", tempSprite);
 		
 		//load in south facing sprites.
 		tempSprite = spritesheet.getSubimage(400, 300, 200, 300); //bookshelf - back
 		spriteList.put("24", tempSprite);
-		tempSprite = spritesheet.getSubimage(700, 500, 200, 100);//desk - back
+		tempSprite = spritesheet.getSubimage(700, 500, 200, 100); //desk - back
 		spriteList.put("25", tempSprite);
 		tempSprite = spritesheet.getSubimage(700, 150, 100, 150); //chair - back
 		spriteList.put("26", tempSprite);
@@ -112,27 +112,27 @@ public class SpriteSet {
 		spriteList.put("28", tempSprite);
 		tempSprite = spritesheet.getSubimage(0, 275, 75, 75); //computer - back
 		spriteList.put("29", tempSprite);
-		tempSprite = spritesheet.getSubimage(0, 550, 50, 50); //gift thing - north
+		tempSprite = spritesheet.getSubimage(600, 572, 50, 51);  //gift thing - north
 		spriteList.put("2b", tempSprite);
-		tempSprite = spritesheet.getSubimage(100, 550, 70, 50); //books - back
+		tempSprite = spritesheet.getSubimage(0, 150, 65, 50); //books - back
 		spriteList.put("2c", tempSprite);
 
 		//load in west facing sprites.
-		tempSprite = spritesheet.getSubimage(600, 300, 100, 300); //bookshelf - side
+		tempSprite = spritesheet.getSubimage(600, 0, 100, 316); //bookshelf - side
 		spriteList.put("34", tempSprite);
-		tempSprite = spritesheet.getSubimage(900, 500, 100, 100); //desk - side
+		tempSprite = spritesheet.getSubimage(100, 500, 108, 116); //desk - side
 		spriteList.put("35", tempSprite);
 		tempSprite = spritesheet.getSubimage(800, 150, 100, 150); //chair - right
 		spriteList.put("36", tempSprite);
-		tempSprite = spritesheet.getSubimage(300, 400, 100, 100); //table - right
+		tempSprite = spritesheet.getSubimage(0, 500, 100, 126); //table - right
 		spriteList.put("37", tempSprite);
-		tempSprite = spritesheet.getSubimage(900, 300, 100, 100); //bed - back
+		tempSprite = spritesheet.getSubimage(210, 500, 108, 116); //bed - back
 		spriteList.put("38", tempSprite);
 		tempSprite = spritesheet.getSubimage(75, 200, 75, 75); //computer - front
 		spriteList.put("39", tempSprite);
-		tempSprite = spritesheet.getSubimage(50, 550, 50, 50); //gift thing - north
+		tempSprite = spritesheet.getSubimage(650, 572, 50, 51); ; //gift thing - north
 		spriteList.put("3b", tempSprite);
-		tempSprite = spritesheet.getSubimage(175, 550, 70, 50); //books - side B
+		tempSprite = spritesheet.getSubimage(65, 170, 65, 50); //books - side B
 		spriteList.put("3c", tempSprite);
 
 	}
