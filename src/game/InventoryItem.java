@@ -28,6 +28,11 @@ public class InventoryItem extends Item{
 		this.location = null;
 	}
 	
+	public void removeOwner(Location location){
+		this.owner = null;
+		this.location = location;
+	}
+	
 	public String getItemName(){
 		return itemName;
 	}

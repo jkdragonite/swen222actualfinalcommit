@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Door extends Square{
 	
 	private Room destinationRoom;
-	private Location location;
 	private Boolean unlocked;
 	private char character = 'D';
 	
@@ -49,16 +48,8 @@ public class Door extends Square{
 		return this.unlocked;
 	}
 	
-	public void setLocation(Location location){
-		this.location = location;
-	}
-	
 	public void setUnlocked(Boolean unlocked){
 		this.unlocked = unlocked;
-	}
-	
-	public Location getLocation(){
-		return this.location;
 	}
 	
 	public Room getDestinationRoom() {

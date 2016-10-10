@@ -172,7 +172,7 @@ public class Parser {
 			}
 			
 			//write door information
-			Door door = r.getDoor();
+			Door door = r.door;
 			dout.writeChar(door.getCharacter());
 			//write 01 for lock state?
 			dout.writeInt(door.getLocation().getX());

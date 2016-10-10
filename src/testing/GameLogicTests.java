@@ -296,22 +296,28 @@ public class GameLogicTests {
 	public void doorTransition(){
 		
 		Game testGame = new Game();
-		testGame.rooms.add(new PuzzleRoom(10));
+		testGame.rooms.add(new PuzzleRoom(9));
 		testGame.players.add(new Player(201, testGame.rooms.get(0)));
 		assertTrue(testGame.players.get(0).getLocation().getX() == 0);
 		assertTrue(testGame.players.get(0).getLocation().getY() == 0);
 		testGame.rooms.get(0).updatePlayerMoves(testGame.players.get(0));
-		testGame.rooms.get(0).addDoor(new Door(new Location(0, 1)));
-		testGame.rooms.get(0).getDoor().setUnlocked(true);
+		Door doorAdd = new Door(new Location(4, 4));
+//		System.out.println(doorAdd.getCharacter());
+		testGame.rooms.get(0).addDoor(doorAdd);
+//		System.out.println(testGame.rooms.get(0).door);
+//		System.out.println(testGame.rooms.get(0).door);
+		testGame.rooms.get(0).unlockDoor();
+		testGame.rooms.get(0).door.setUnlocked(true);
+//		System.out.println("CHaracyer" + testGame.rooms.get(0).door.getCharacter());
 		testGame.setDestinationRooms();
 		Room currentRoom = testGame.getPlayer(201).getRoom();
+		testGame.rooms.get(1).addDoor(new Door(new Location(0, 1)));
+//		System.out.println(testGame.getPlayer(201).getRoom());
 		testGame.rooms.get(0).goThroughDoor(testGame.getPlayer(201));;
 		Room newRoom = testGame.getPlayer(201).getRoom();
-		assertNotEquals(currentRoom, newRoom);
-		
+//		System.out.println(testGame.getPlayer(201).getRoom());
+		assertNotEquals(currentRoom, newRoom);	
 	}
-	
-	
 	
 	
 	

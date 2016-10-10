@@ -9,6 +9,7 @@ public class Game {
 //	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public HashMap<Integer, itemType> itemCodes = new HashMap<>();
+	
 
 	
 	public ArrayList<Player> players = new ArrayList<Player>();
@@ -93,16 +94,27 @@ public class Game {
 	
 	
 	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
+		this.rooms.get(roomNumber).inventoryItems.add(item);
 		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
 	}
 	
 	public void addMovableItemToGame(MovableItem item, int roomNumber){
+		this.rooms.get(roomNumber).movableItems.add(item);
 		this.rooms.get(roomNumber).setMovableItem(item, item.getLocation());
 	}
 	
 	public void addImmovableItemToGame(ImmovableItem item, int roomNumber){
+		if (item instanceof Container){
+			this.rooms.get(roomNumber).containers.add((Container) item);
+		}
+		else{
+			this.rooms.get(roomNumber).immovableItems.add(item);
+		}
+		
 		this.rooms.get(roomNumber).setImmovableItem(item, item.getLocation());
 	}
+	
+	
 	
 	public void addPlayer(int uid){
 		this.players.add(new Player(uid, this.rooms.get(0)));
@@ -151,7 +163,7 @@ public class Game {
 	public ArrayList<Door> getDoors(){
 		ArrayList<Door> doors = new ArrayList<Door>();
 		for (Room room : this.rooms){
-			doors.add(room.getDoor());
+			doors.add(room.door);
 		}
 		return doors;
 	}
@@ -172,7 +184,9 @@ public class Game {
 		int count = 1;
 		for (Room room : this.rooms){
 			if (room instanceof PuzzleRoom){
-				room.getDoor().setDestination(this.rooms.get(count));	
+				if (count < this.rooms.size()){
+					room.door.setDestination(this.rooms.get(count));
+				}					
 			}
 			count++;
 		}

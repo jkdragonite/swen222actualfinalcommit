@@ -8,8 +8,13 @@ import java.util.HashMap;
 
 public abstract class Room {
 	// arraylist of players
-	private Door door;
+	public Door door;
 	protected ArrayList<Location> playerSpawnPoints; 
+	
+	public ArrayList<InventoryItem> inventoryItems = new ArrayList<InventoryItem>();
+	public ArrayList<MovableItem> movableItems = new ArrayList<MovableItem>();
+	public ArrayList<ImmovableItem> immovableItems = new ArrayList<ImmovableItem>();
+	public ArrayList<Container> containers = new ArrayList<Container>();
 	public Board board;
 	/**
 	 * 
@@ -47,10 +52,20 @@ public abstract class Room {
 	 */
 	public void addDoor(Door door){
 		this.door = door;
+//		System.out.println(this.door);
+//		System.out.println(getDoor());
+//		System.out.println(this.door);
+//		System.out.println(door.getCharacter());
+//		System.out.println(door.getLocation());
 		Location doorLocation = door.getLocation();
+//		System.out.println(door.getLocation().toString());
 		this.board.grid[doorLocation.getY()][doorLocation.getX()] = door;
 	}
 
+	
+//	public Door getDoor(){
+//		return this.door;
+//	}
 
 	
 	/**
@@ -218,6 +233,7 @@ public abstract class Room {
 	 */
 	public void dropItem(Player player){
 		board.getSquare(player.getLocation()).setItem(player.getItem(0));
+		player.getItem(0).removeOwner(player.getLocation());
 		player.removeItem(player.getItem(0));
 	}
 	
@@ -395,14 +411,17 @@ public abstract class Room {
 	 * @param square
 	 */
 	public void pickupItem(Player player, Square square){
+		square.getInventory().setOwner(player);
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
 		player.resetMoves();
 		updatePlayerMoves(player);
 	}
 	
-	public Door getDoor(){
-		return this.door;
+
+	
+	public void unlockDoor(){
+		this.door.setUnlocked(true);
 	}
 	
 	public void addPSP(Location loc){
