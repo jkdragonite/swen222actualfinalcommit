@@ -176,10 +176,6 @@ public class GameRenderer extends Canvas{
 		}
 	}
 	
-	public void rerender(){
-		render(gra);
-	}
-	
 	private void drawScaledImage(Image img, Graphics g, int x, int y){
 		//generate scaled values for the new dimensions
 		int scaleX = (int)(img.getWidth(null)*(1-((stage.length - y)*SCALE_FAC)));
