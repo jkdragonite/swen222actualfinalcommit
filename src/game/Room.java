@@ -231,10 +231,10 @@ public abstract class Room {
 	 * 
 	 * @param player
 	 */
-	public void dropItem(Player player){
-		board.getSquare(player.getLocation()).setItem(player.getItem(0));
-		player.getItem(0).removeOwner(player.getLocation());
-		player.removeItem(player.getItem(0));
+	public void dropItem(Player player,int removed){
+		board.getSquare(player.getLocation()).setItem(player.getItem(removed));
+		player.getItem(removed).removeOwner(player.getLocation());
+		player.removeItem(player.getItem(removed));
 	}
 	
 	
