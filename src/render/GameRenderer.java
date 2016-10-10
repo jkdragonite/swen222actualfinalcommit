@@ -33,6 +33,7 @@ public class GameRenderer extends Canvas{
 	Room renderRoom;
 	List<Image> sprites = (List<Image>) spriteSet.getSprites();
 	Game game;
+	Graphics gra;
 	int x, y;
 	boolean sqPlayer = false;
 
@@ -112,7 +113,9 @@ public class GameRenderer extends Canvas{
 	 * This handles the actual process of rendering the scene.
 	 * @param g
 	 */
-	public void render(Graphics g){		
+	public void render(Graphics g){	
+		
+		this.gra = g;
 
 		int topLeft = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
 		int topWall = (int)(BASE - 150 - (stage.length*VERT_DISP));
@@ -171,6 +174,10 @@ public class GameRenderer extends Canvas{
 				}
 			}
 		}
+	}
+	
+	private void rerender(){
+		render(gra);
 	}
 	
 	private void drawScaledImage(Image img, Graphics g, int x, int y){
