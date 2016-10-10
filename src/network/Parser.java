@@ -38,13 +38,13 @@ import game.Room;
 public class Parser {
 	public Game game;
 	
-	//list of constant ints representing how many bytes each game element
-	//is typically comprised of when they are sent from the master
-	//this excludes the char that preceeds them
-	private final int DOOR_BYTES = 6;
-	private final int STORAGE_BYTES = 3;
-	public final int MOVABLE_BYTES = 4;
+	//static ints for generating unique object ids
+	private static int CONTAINER_UOID = 300;
+	private static int MOVABLE_UOID = 400;
+	private static int INVENTORY_UOID = 500;
+	private static int IMMOVABLE_UOID = 900;
 	
+
 	public Parser(Game game){
 		this.game = game;
 	}
@@ -173,6 +173,7 @@ public class Parser {
 		DataOutputStream dout = new DataOutputStream(bout);
 		
 		dout.writeByte(game.getState());
+		
 		int numRooms = 1;
 		for(Room r : game.rooms){
 			//write room id (i.e.R 1/R 3 or F)
@@ -216,7 +217,7 @@ public class Parser {
 		DataOutputStream dout = new DataOutputStream(bout);
 		
 		dout.writeByte(game.getState());
-		int numRooms = 1;
+		int numRooms = 0;
 		for(Room r : game.rooms){
 			if(r instanceof PuzzleRoom){
 				dout.writeChar('R');
@@ -233,6 +234,9 @@ public class Parser {
 			movablesToOutput(dout, r);
 			playersToOutput(dout, game, r);
 			inventoryToOutput(dout, r);
+			
+			//indicate the room is done
+			dout.writeChar('Z');
 		}
 		
 		return bout.toByteArray();
@@ -240,73 +244,87 @@ public class Parser {
 	
 	private static void doorToOutput(DataOutputStream dout, Room r) throws IOException{
 		Door door = r.door;
-		dout.writeChar(door.getCharacter());
-		if (door.isUnlocked()) {dout.writeInt(0);}
-		else {dout.writeInt(1);}
+		if(r.door == null){
+			dout.writeChar('X');
+		}
+		else{
+			dout.writeChar(door.getCharacter());
+			if (door.getKeyHole().isEmpty()) {dout.writeInt(0);}
+			else {dout.writeInt(1);}
+		}
 	}
 	
 	private static void containersToOutput(DataOutputStream dout, Room r) throws IOException{
-		for(Container c : r.containers){
-			c.toOutputStream(dout);
-			
-			if (c.hasItem()) {dout.writeInt(1);}
-			else {dout.writeInt(0);}
+		if(r.containers.isEmpty()){
+			dout.writeChar('X');
 		}
+		else{
+			for(Container c : r.containers){
+				c.toOutputStream(dout);
+				
+				if (c.hasItem()) {dout.writeInt(1);}
+				else {dout.writeInt(0);}
+			}
+		}
+			
 	}
 	
 	private static void immovablesToOutput(DataOutputStream dout, Room r, Game game) throws IOException{
-		for(ImmovableItem im : r.immovableItems){
-			im.toOutputStream(dout);
-			itemType type = im.getType();
-			if(type == Game.itemType.BED){
-				dout.writeInt(614);
-				Location loc = im.getLocationsCovered().get(0);
-				dout.writeInt(loc.getX());
-				dout.writeInt(loc.getY());
-			}
-			else if(type == Game.itemType.BOOKSHELF){
-				dout.writeInt(611);
-				Location loc = im.getLocationsCovered().get(0);
-				dout.writeInt(loc.getX());
-				dout.writeInt(loc.getY());
-			}
-			else if(type == Game.itemType.DESK){
-				dout.writeInt(618);
-				Location loc = im.getLocationsCovered().get(0);
-				dout.writeInt(loc.getX());
-				dout.writeInt(loc.getY());
-			}
-			else if(type == Game.itemType.TABLE){
-				dout.writeInt(620);
-				Location loc = im.getLocationsCovered().get(0);
-				dout.writeInt(loc.getX());
-				dout.writeInt(loc.getY());
-				
-				loc = im.getLocationsCovered().get(1);
-				dout.writeInt(loc.getX());
-				dout.writeInt(loc.getY());
+		if(r.immovableItems.isEmpty()){
+			dout.writeChar('X');
+		}
+		else{
+			for(ImmovableItem im : r.immovableItems){
+				im.toOutputStream(dout);
+				itemType type = im.getType();
+				if(type == Game.itemType.BED || type == Game.itemType.BOOKSHELF || type == Game.itemType.DESK){
+					Location loc = im.getLocationsCovered().get(0);
+					dout.writeInt(loc.getX());
+					dout.writeInt(loc.getY());
+				}
+				else if(type == Game.itemType.TABLE){
+					Location loc = im.getLocationsCovered().get(0);
+					dout.writeInt(loc.getX());
+					dout.writeInt(loc.getY());
+					
+					loc = im.getLocationsCovered().get(1);
+					dout.writeInt(loc.getX());
+					dout.writeInt(loc.getY());
+				}
 			}
 		}
+		
 	}
 	
  	private static void movablesToOutput(DataOutputStream dout, Room r) throws IOException{
-		for(MovableItem mi : r.movableItems){
-			mi.toOutputStream(dout);
+		if(r.movableItems.isEmpty()){
+			dout.writeChar('X');
+		}
+		else{
+			for(MovableItem mi : r.movableItems){
+				mi.toOutputStream(dout);
+			}
 		}
 	}
 	
 	private static void playersToOutput(DataOutputStream dout, Game game, Room r) throws IOException{
-		for(Player p : game.players){
-			if(p.getRoom().equals(r)){
-				dout.writeChar(p.getCharacter());
-				dout.writeInt(p.getLocation().getX());
-				dout.writeInt(p.getLocation().getY());
-				ArrayList<InventoryItem> inventory = p.getInventory();
-				if(inventory.isEmpty()){
-					dout.writeInt(0);
-				}
-				else{
-					dout.writeInt(1);
+		if(r.playersInRoom.isEmpty()){
+			dout.writeChar('X');
+		}
+		else{
+			for(Player p : game.players){
+				if(p.getRoom().equals(r)){
+					dout.writeChar('p');
+					dout.writeChar(p.getCharacter());
+					dout.writeInt(p.getLocation().getX());
+					dout.writeInt(p.getLocation().getY());
+					ArrayList<InventoryItem> inventory = p.getInventory();
+					if(inventory.isEmpty()){
+						dout.writeInt(0);
+					}
+					else{
+						dout.writeInt(1);
+					}
 				}
 			}
 		}
@@ -323,13 +341,81 @@ public class Parser {
 		}
 	}
 	
-	public synchronized void fromByteArray(byte[] bytes) throws IOException{
+	/**
+	 * Reads in the game information and updates the game and relevant objects based on the 
+	 * stream information. 
+	 * 
+	 * If there is no item of a certain type (i.e. no InventoryItems
+	 * 
+	 * @param bytes
+	 * @param game
+	 * @throws IOException
+	 */
+	public synchronized void updateFromByteArray(byte[] bytes, Game game) throws IOException{
 		ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
 		DataInputStream din = new DataInputStream(bin);
 		
-		//state = din.readByte();
+		//fields for storing game objects while checking consistency
+		Room room;
+		Door door;
+		ArrayList<Container> containers = new ArrayList<Container>();
+		ArrayList<MovableItem> movable = new ArrayList<MovableItem>();
+		ArrayList<Player> players = new ArrayList<Player>();
+		ArrayList<InventoryItem> moved = new ArrayList<InventoryItem>();
 		
-		//read in the door object information
-		//game.getDoors
+		game.setState(din.readInt());
+
+		boolean reading = true;
+		boolean checkLock= false;
+		boolean checkContainers = true;
+		boolean checkPlayers = false;
+		
+		while(reading){
+			//read in the room type and room number
+			char rtype = din.readChar();
+			int rNum = din.readInt();
+			
+			//get the relevant room object from the game 
+			room = game.rooms.get(rNum);
+			
+			//check for whether there are item types first
+			char nextItem = din.readChar();
+			while(nextItem != 'Z'){
+				switch(nextItem){
+				case 'D':
+				case 'd': 
+					//door is now unlocked: check inventory items later and check consistency
+					door = room.getDoor();
+					if(!door.isUnlocked()){
+						door.setUnlocked(true);
+					}
+					break;
+				case 'C':
+					//container object: parse location
+					int cX = din.readInt();
+					int cY = din.readInt();
+					boolean hasItems = (din.readInt() == 0) ? false : true;
+					//find the container in the room based on that
+					Container cont = (Container) room.getItemOnSquare(new Location(cX,cY));
+					containers.add(cont);
+
+					if(!hasItems && !cont.hasItems()){checkContainers = false;}
+					break;
+				case 'M':
+					//movableItem object: parse location
+					int mX = din.readInt();
+					int mY = din.readInt();
+					room.movableItems.
+					break;
+				case 'p':
+					break;
+				case 'Q':
+					break;
+				}
+				nextItem = din.readChar();
+			}
+		}
+		
 	}
+
 }

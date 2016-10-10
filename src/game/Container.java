@@ -6,8 +6,8 @@ public class Container extends ImmovableItem{
 	private final char character = 'C';
 	private ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();
 	
-	public Container(game.Game.itemType type, Location loc) {
-		super(type, loc);
+	public Container(game.Game.itemType type, Location loc, int uoid) {
+		super(type, loc, uoid);
 	}
 
 	public char getCharacter(){
@@ -26,7 +26,7 @@ public class Container extends ImmovableItem{
 		return items;
 	}
 
-	public boolean hasItem(){
+	public boolean hasItems(){
 		return !(items.isEmpty());
 	}
 }
