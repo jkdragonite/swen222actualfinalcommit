@@ -22,7 +22,7 @@ public class RenderPanel extends JPanel implements ActionListener {
 	private JButton rotateR; // rotate right
 
 	private Game theGame;
-	private GameRenderer gam;
+	public GameRenderer gam;
 	private int playerID;
 
 	public RenderPanel(Game g, int uid) {

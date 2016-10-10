@@ -15,8 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import com.sun.javafx.scene.traversal.Direction;
-
 import game.Game;
 import game.InventoryItem;
 import game.Location;
@@ -43,7 +41,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	// the players ID
 	private final int playerID;
 
-	// the player
+	// the render panel ref
+	private RenderPanel render;
+	
+	
+	
 	// private final Player thePlayer;
 
 	// buttons
@@ -61,7 +63,6 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JButton down;
 	private JButton left;
 	private JButton right;
-	
 
 	// text area
 	private JTextArea itemInfo;
@@ -73,12 +74,12 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	/**
 	 * Constructor for InventoryPanel
 	 */
-	public InventoryPanel(Game g, int userId) {
+	public InventoryPanel(Game g, int userId,RenderPanel rend) {
 
 		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0, 0), "A book for nerds");// testing
-
 		theGame = g;
 		playerID = userId;
+		render = rend;
 		// thePlayer = theGame.getPlayer(playerID);
 
 		int utilButtonHeight = 30;
@@ -160,22 +161,22 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		useDoor.addActionListener(this);
 		useDoor.setBounds(980, 180, untiButtonWidth, utilButtonHeight);
 		add(useDoor);
-		
+
 		up = new JButton("Move up");
 		up.addActionListener(this);
 		up.setBounds(770, 10, 200, 70);
 		add(up);
-		
+
 		left = new JButton("Move left");
 		left.addActionListener(this);
 		left.setBounds(770, 80, 100, 80);
 		add(left);
-		
+
 		right = new JButton("Move right");
 		right.addActionListener(this);
 		right.setBounds(870, 80, 100, 80);
 		add(right);
-		
+
 		down = new JButton("Move down");
 		down.addActionListener(this);
 		down.setBounds(770, 160, 200, 70);
@@ -245,43 +246,62 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 
 		}
-		
-		
+
 		if (src == use) {
 			System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			currentPlayer.getRoom().useItem(currentPlayer);
 		}
+
 		if (src == up) {
 			System.out.println("UP");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.moves.containsKey(MovementDirection.UP)){
+			if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
 				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move up failed");
 			}
-			repaint();
+			
+
 		}
 		if (src == left) {
 			System.out.println("LEFT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+			if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move left failed");
+			}
 			repaint();
 		}
 		if (src == right) {
 			System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+			if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move right failed");
+			}
 			repaint();
 		}
 		if (src == down) {
 			System.out.println("DOWN");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
-			repaint();
+			if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move down  failed");
+			}
+
 		}
 		if (src == push) {
 			System.out.println("push ");
