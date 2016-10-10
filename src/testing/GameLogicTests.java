@@ -270,8 +270,9 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX);
 		Location boxLocation = new Location(2, 0);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
 		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
@@ -288,8 +289,9 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX);
 		Location boxLocation = new Location(2, 0);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
 		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
@@ -307,8 +309,9 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX);
 		Location boxLocation = new Location(2, 0);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
 		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
@@ -329,8 +332,9 @@ public class GameLogicTests {
 		Game testGame = new Game();
 		testGame.rooms.add(new PuzzleRoom(10));
 		testGame.addPlayer(201);
-		MovableItem box1 = new MovableItem(Game.itemType.BOX);
 		Location boxLocation = new Location(2, 0);
+		MovableItem box1 = new MovableItem(Game.itemType.BOX, boxLocation);
+		
 //		Container container = new Container(Game.itemType.BOX, containerLocation);
 //		container.addItem(keyInventoryItem);
 		testGame.rooms.get(0).board.getSquare(boxLocation).setMovableItem(box1);
