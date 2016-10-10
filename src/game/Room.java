@@ -10,6 +10,11 @@ public abstract class Room {
 	// arraylist of players
 	public Door door;
 	protected ArrayList<Location> playerSpawnPoints; 
+	
+	public ArrayList<InventoryItem> inventoryItems = new ArrayList<InventoryItem>();
+	public ArrayList<MovableItem> movableItems = new ArrayList<MovableItem>();
+	public ArrayList<ImmovableItem> immovableItems = new ArrayList<ImmovableItem>();
+	public ArrayList<Container> containers = new ArrayList<Container>();
 	public Board board;
 	/**
 	 * 
@@ -228,6 +233,7 @@ public abstract class Room {
 	 */
 	public void dropItem(Player player){
 		board.getSquare(player.getLocation()).setItem(player.getItem(0));
+		player.getItem(0).removeOwner(player.getLocation());
 		player.removeItem(player.getItem(0));
 	}
 	
@@ -405,6 +411,7 @@ public abstract class Room {
 	 * @param square
 	 */
 	public void pickupItem(Player player, Square square){
+		square.getInventory().setOwner(player);
 		player.addItem(square.getInventory());
 		square.removeInventoryItem();
 		player.resetMoves();
