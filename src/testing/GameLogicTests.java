@@ -212,7 +212,6 @@ public class GameLogicTests {
 		testGame.addInventoryItemToGame(keyInventoryItem, 0);
 
 		assertEquals(keyInventoryItem.getOwner(), null);
-		Location currentItemLocation = keyInventoryItem.getLocation(); 
 		testGame.rooms.get(0).pickupItem(player201, testGame.rooms.get(0).board.getSquare(keyInventoryItem.getLocation()));
 		assertEquals(keyInventoryItem.getLocation(), null);
 		testGame.rooms.get(0).dropItem(player201, 0);
