@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +23,7 @@ import game.Location;
 import game.Player;
 import game.Room.MovementDirection;
 
-public class InventoryPanel extends JPanel implements ActionListener {
+public class InventoryPanel extends JPanel implements ActionListener ,KeyListener{
 
 	// images for the differnt items
 	private static Image questIcon;
@@ -68,7 +70,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JTextArea itemInfo;
 	private String itemText = "Item info";
 	private JTextArea handyInfo;
-
+ 
+	//int selceted starts at slot 1 
 	private int selected = 1;
 
 	/**
@@ -80,11 +83,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		theGame = g;
 		playerID = userId;
 		render = rend;
-		// thePlayer = theGame.getPlayer(playerID);
-
+		
 		int utilButtonHeight = 30;
 		int untiButtonWidth = 220;
-
+		
 		try {
 			questIcon = ImageIO.read(new File("../existential-dread/images/QuestItemIcon.png"));
 			boxIcon = ImageIO.read(new File("../existential-dread/images/BoxIcon.png"));
@@ -100,19 +102,18 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		setPreferredSize(size);
 		setBorder(BorderFactory.createLineBorder(Color.red));
 
+		//Text areas
 		itemInfo = new JTextArea();
 		itemInfo.setText(itemText);
 		itemInfo.setBounds(980, 10, 240, 20);
 		handyInfo = new JTextArea();
 		handyInfo.setText("Handy dandy Information");
 		handyInfo.setBounds(980, 210, 240, 20);
-
-		this.add(itemInfo);
+        this.add(itemInfo);
 		this.add(handyInfo);
 
-		// setting the dimension used for the buttons
-
-		item1 = new JButton("Item 1");
+		// setting the dimension used for the buttons and adding them to the inventoerty panel
+        item1 = new JButton("Item 1");
 		item1.addActionListener(this);
 		item1.setBounds(10, 200, 180, 25);
 		add(item1);
@@ -186,6 +187,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Constructor for InventoryPanel
+	 * 
+	 * Creates all the move buttons, Utility buttons and the item buttons. 
+	 * has places for the inventory item icons to be drawn,  will default
+	 * to a black square if there is no item in the inventory slot.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -201,10 +206,12 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			selected = 1;
 			if (slot1 != null) {
 				itemInfo.setText(slot1.getType().toString());
+			}else if(slot1==null){
+				itemInfo.setText("Empty inventory slot");
 			}
 			repaint();
 		}
-		if (src == item2) {
+		else if (src == item2) {
 			System.out.println("Item 2 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
@@ -214,10 +221,12 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			selected = 2;
 			if (slot2 != null) {
 				itemInfo.setText(slot2.getType().toString());
+			}else if(slot2==null){
+				itemInfo.setText("Empty inventory slot");
 			}
 			repaint();
 		}
-		if (src == item3) {
+		else if (src == item3) {
 			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4, 0), "The KeyBalde", 556); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
@@ -227,12 +236,14 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			if (slot3 != null) {
 				itemInfo.setText(slot3.getType().toString());
+			}else if(slot3==null){
+				itemInfo.setText("Empty inventory slot");
 			}
 			selected = 3;
 			repaint();
 
 		}
-		if (src == item4) {
+		else if (src == item4) {
 			System.out.println("Item 4 selected");
 			// diable button && enable others
 			item1.setEnabled(true);
@@ -242,19 +253,21 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			selected = 4;
 			if (slot4 != null) {
 				itemInfo.setText(slot4.getType().toString() + "-" + slot4.getItemName());
+			}else if(slot4==null){
+				itemInfo.setText("Empty item slot");
 			}
 			repaint();
 
 		}
 
-		if (src == use) {
+		else if (src == use) {
 			System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			currentPlayer.getRoom().useItem(currentPlayer);
 		}
 
-		if (src == up) {
+		else if (src == up) {
 			System.out.println("UP");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -267,7 +280,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			
 
 		}
-		if (src == left) {
+		else if (src == left) {
 			System.out.println("LEFT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -279,7 +292,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 			repaint();
 		}
-		if (src == right) {
+		else if (src == right) {
 			System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -291,7 +304,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 			repaint();
 		}
-		if (src == down) {
+		else if (src == down) {
 			System.out.println("DOWN");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -303,7 +316,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 
 		}
-		if (src == push) {
+		else if (src == push) {
 			System.out.println("push ");
 			// push method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -329,7 +342,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 
 		}
-		if (src == pull) {
+		else if (src == pull) {
 			System.out.println("pull ");
 			Player currentPlayer = theGame.getPlayer(playerID);
 			// pull method
@@ -355,7 +368,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 
 		}
-		if (src == drop) {
+		else if (src == drop) {
 			System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
@@ -363,12 +376,13 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.getRoom().inventoryItems.get(selected - 1) != null) {
 					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 					handyInfo.setText("Item dropped");
+					updateItemSlots();
 				}
 			} else {
 				handyInfo.setText("Drop failed");
 			}
 		}
-		if (src == pickup) {
+		else if (src == pickup) {
 			System.out.println("pick up the thing");
 			// pickup method
 			// takes a keyset in player move and checks for each direction in
@@ -376,6 +390,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			// preference, executes action using the direction found if
 			// applicable,
 			// no action occurs if the keyset is 0
+			// will try pickup all items possible
 
 			Player currentPlayer = theGame.getPlayer(playerID);
 
@@ -402,18 +417,22 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				}
 			}
 		}
-		if (src == useDoor) {
-			System.out.println("Use the door,or atleast try");
-			// drop method
+		else if (src == useDoor) {
+			System.out.println("Use the door");
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.canGoThroughDoor) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
+				handyInfo.setText("Door sucess");
 			} else {
 				handyInfo.setText("Door failed");
 			}
 		}
 	}
 
+	/**
+	 *Updates the item slots in the inventory panel by getting the current player and checking each of 
+	 *their inventory and updating it to the item slots.
+	 */
 	public void updateItemSlots() {
 		Player currentPlayer = theGame.getPlayer(playerID);
 		if (currentPlayer.getInventory().get(0) != null) {
@@ -428,6 +447,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		if (currentPlayer.getInventory().get(3) != null) {
 			slot1 = currentPlayer.getInventory().get(3);
 		}
+		repaint();
 	}
 
 	/**
@@ -493,4 +513,44 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			gr.drawImage(bookIcon, 580, imageY, null, null);
 		}
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+System.out.println("A key was pressed");
+		Player currentPlayer = theGame.getPlayer(playerID);
+		
+		if (e.getKeyCode() == KeyEvent.VK_W) {
+			System.out.println("UP");
+			// use method
+			if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move up failed");
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_A) {
+			System.out.println("LEFT");
+			// use method
+
+			if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+				render.repaint();
+			} else {
+				handyInfo.setText("Move left failed");
+			}
+			render.repaint();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
 }
+
