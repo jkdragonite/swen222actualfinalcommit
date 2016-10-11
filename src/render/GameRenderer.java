@@ -139,7 +139,7 @@ public class GameRenderer extends Canvas{
 		g.fillPolygon(floorX, floorY, 4);
 		
 		//render the door
-		if (viewDir == Game.viewDirection.NORTH){
+		if (viewDir == Game.viewDirection.NORTH && !(renderRoom instanceof FinalRoom)){
 		Image doorImg = spriteSet.getSprite("0d");
 		int scaleX = (int)(doorImg.getWidth(null)*(1-((stage.length)*SCALE_FAC)));
 		int scaleY = (int)(doorImg.getHeight(null)*(1-((stage.length)*SCALE_FAC)));
