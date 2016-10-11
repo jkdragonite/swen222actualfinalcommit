@@ -540,11 +540,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				// {
 				// if (currentPlayer.getRoom().inventoryItems.size() >=
 				// selected) {
-				if (currentPlayer.getRoom().inventoryItems.size() >= selected - 1) {
-					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
+//				if (currentPlayer.getRoom().inventoryItems.size() >= selected - 1) {
+					currentPlayer.getRoom().dropItem(currentPlayer, selected-3 - 1);
 					handyInfo.setText("Item dropped");
 					updateItemSlots();
-				}
+//				}
 				// }
 			} else {
 				handyInfo.setText("Drop failed");
