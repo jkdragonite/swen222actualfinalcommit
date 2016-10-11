@@ -304,8 +304,9 @@ public class GameLogicTests {
 		testGame.rooms.get(0).MovePlayer(testGame.getPlayer(201), MovementDirection.RIGHT);
 		System.out.println(testGame.rooms.get(0).board.getSquare(currentLocation).getMovableItem());
 		System.out.println("Item search " + testGame.getPlayer(201).pullMoves);
+		System.out.println(testGame.getPlayer(201).pullMoves.size());
 		assertEquals(1, testGame.getPlayer(201).pullMoves.size());
-		assertEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.RIGHT));		
+		assertEquals(true,testGame.getPlayer(201).pullMoves.keySet().contains(MovementDirection.LEFT));		
 	}
 	
 	
