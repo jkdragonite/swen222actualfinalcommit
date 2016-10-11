@@ -543,7 +543,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 					FinalRoom == false) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
 				System.out.println("sd;jfksadhgkkh \n"+currentPlayer.getRoom().board.toString());
-				render.gam.updateRoom();
+				render.gam.updateRoom(currentPlayer.getRoom());;
 				currentPlayer.getRoom().board.toString();
 				render.repaint();
 				handyInfo.setText("Door sucess");

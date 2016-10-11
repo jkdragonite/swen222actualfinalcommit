@@ -188,7 +188,7 @@ public class Game {
 //	 * 
 //	 * @return enum renderRoom
 //	 */
-//	public renderRoom getRoom(){
+//	public Room getRoom(Player player){
 //		return currentRoom;
 //	}
 	

@@ -61,6 +61,7 @@ public abstract class Room {
 	 * @param location
 	 */
 	public void placePlayer(Player player, Location location){
+		player.updateLocation(location);
 		this.board.grid[location.getY()][location.getX()].addPlayer(player);
 	}
 	

@@ -270,9 +270,10 @@ public class GameRenderer extends Canvas{
 	 * Small helper method to get from room to room.
 	 * @param newRoom
 	 */
-	public void updateRoom(){
-		Room newRoom = refPlayer.getRoom();
-		this.renderRoom = newRoom;
+	public void updateRoom(Room room){
+//		refPlayer = player;
+//		Room newRoom = player.getRoom();
+		this.renderRoom = room;
 		stage = renderRoom.board.grid;
 		render(gra);
 	}
