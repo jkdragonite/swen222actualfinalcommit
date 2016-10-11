@@ -188,7 +188,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 * Constructor for InventoryPanel
 	 * 
 	 * Creates all the move buttons, Utility buttons and the item buttons. has
-	 * places for the inventory item icons to be drawn, will default to a black
+	 * places for the inventory item icons to be drawn, will default to a black+
 	 * square if there is no item in the inventory slot.
 	 */
 	@Override
@@ -204,7 +204,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 1;
 			if (slot1 != null) {
-				itemInfo.setText(slot1.getType().toString()+"-"+slot1.getItemName());
+				itemInfo.setText(slot1.getType().toString() + "-" + slot1.getItemName());
 			} else if (slot1 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
@@ -218,7 +218,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 2;
 			if (slot2 != null) {
-				itemInfo.setText(slot2.getType().toString()+"-"+slot2.getItemName());
+				itemInfo.setText(slot2.getType().toString() + "-" + slot2.getItemName());
 			} else if (slot2 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
@@ -231,7 +231,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(false);
 			item4.setEnabled(true);
 			if (slot3 != null) {
-				itemInfo.setText(slot3.getType().toString()+"-"+slot3.getItemName());
+				itemInfo.setText(slot3.getType().toString() + "-" + slot3.getItemName());
 			} else if (slot3 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
@@ -262,12 +262,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			if (currentPlayer.useMoves.keySet().size() > 0) {
 				currentPlayer.getRoom().useItem(currentPlayer);
 				System.out.println("\n door unlock status" + currentPlayer.getRoom().getDoor().isUnlocked());
-//				System.out.println(currentPlayer.getRoom().getDoor().getSolution().size());
-				if (currentPlayer.getInventory().size() == currentPlayer.getRoom().getDoor().getSolution().size()){
-					currentPlayer.getRoom().getDoor().setUnlocked(true);
-				}
 			}
 
+			else {
+				handyInfo.setText("Use Fail");
+			}
 		}
 
 		else if (src == up) {
@@ -278,14 +277,17 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
+					handyInfo.setText("Moved forward");
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move forward failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.SOUTH) {
 				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
+					handyInfo.setText("Moved forward");
+
 				} else {
 					handyInfo.setText("Move up failed");
 				}
@@ -294,16 +296,20 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
 					render.repaint();
+					handyInfo.setText("Moved forward");
+
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move forward failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
 				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
+					handyInfo.setText("Moved forward");
+
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move forward failed");
 				}
 			}
 		} else if (src == left) {
@@ -314,6 +320,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
 					render.repaint();
+					handyInfo.setText("Moved left");
+
 				} else {
 					handyInfo.setText("Move left failed");
 				}
@@ -323,6 +331,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
+					handyInfo.setText("Moved left");
+
 				} else {
 					handyInfo.setText("Move left failed");
 				}
@@ -332,6 +342,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
+					handyInfo.setText("Moved left");
+
 				} else {
 					handyInfo.setText("Move left failed");
 				}
@@ -341,6 +353,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
+					handyInfo.setText("Moved left");
+
 				} else {
 					handyInfo.setText("Move left failed");
 				}
@@ -355,6 +369,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
+					handyInfo.setText("Moved right");
+
 				} else {
 					handyInfo.setText("Move right failed");
 				}
@@ -364,6 +380,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
 					render.repaint();
+					handyInfo.setText("Moved right");
+
 				} else {
 					handyInfo.setText("Move right failed");
 				}
@@ -373,6 +391,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
+					handyInfo.setText("Moved right");
+
 				} else {
 					handyInfo.setText("Move right failed");
 				}
@@ -382,6 +402,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
+					handyInfo.setText("Moved right");
+
 				} else {
 					handyInfo.setText("Move right failed");
 				}
@@ -395,33 +417,39 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
+					handyInfo.setText("Moved back");
+
 				} else {
-					handyInfo.setText("Move down failed");
+					handyInfo.setText("Move back failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.SOUTH) {
 				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
+					handyInfo.setText("Moved back");
+
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move back failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.EAST) {
 				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
+					handyInfo.setText("Moved back");
+
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move back failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
 				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
-					handyInfo.setText("Moved Right");
+					handyInfo.setText("Moved back");
 					render.repaint();
 				} else {
-					handyInfo.setText("Move up failed");
+					handyInfo.setText("Move back failed");
 				}
 			}
 
@@ -438,19 +466,24 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.pushMoves.keySet().contains(MovementDirection.UP)) {
 					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.UP,
 							currentPlayer.pushMoves.get(MovementDirection.UP));
+					handyInfo.setText("Pushed");
 				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.DOWN,
 							currentPlayer.pushMoves.get(MovementDirection.DOWN));
+					handyInfo.setText("Pushed");
 				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.LEFT,
 							currentPlayer.pushMoves.get(MovementDirection.LEFT));
+					handyInfo.setText("Pushed");
 				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.RIGHT,
 							currentPlayer.pushMoves.get(MovementDirection.RIGHT));
-				} else {
-					handyInfo.setText("Pushed nothing");
+					handyInfo.setText("Pushed");
 				}
 				render.repaint();
+			} else {
+				handyInfo.setText("Pushed nothing");
+
 			}
 
 		} else if (src == pull) {
@@ -466,22 +499,29 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				if (currentPlayer.pullMoves.keySet().contains(MovementDirection.UP)) {
 					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.UP,
 							currentPlayer.pullMoves.get(MovementDirection.UP));
+					handyInfo.setText("Pulled");
+
 				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.DOWN)) {
 					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.DOWN,
 							currentPlayer.pullMoves.get(MovementDirection.DOWN));
+					handyInfo.setText("Pulled");
+
 				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.LEFT)) {
 					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.LEFT,
 							currentPlayer.pullMoves.get(MovementDirection.LEFT));
+					handyInfo.setText("Pulled");
+
 				} else if (currentPlayer.pullMoves.keySet().contains(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().pullItem(currentPlayer, MovementDirection.RIGHT,
 							currentPlayer.pullMoves.get(MovementDirection.RIGHT));
-				} else {
-					handyInfo.setText("Pulled nothing");
+					handyInfo.setText("Pulled");
 				}
+
 				// System.out.println("Pull repaint test");
 				render.repaint();
+			} else {
+				handyInfo.setText("Pulled nothing");
 			}
-
 		} else if (src == drop) {
 			System.out.println("drop");
 			// drop method
@@ -491,13 +531,15 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				// {
 				// if (currentPlayer.getRoom().inventoryItems.size() >=
 				// selected) {
-				currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
-				handyInfo.setText("Item dropped");
-				updateItemSlots();
+				if (currentPlayer.getRoom().inventoryItems.size() >= selected - 1) {
+					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
+					handyInfo.setText("Item dropped");
+					updateItemSlots();
+				}
 				// }
 			} else {
 				handyInfo.setText("Drop failed");
-				updateItemSlots();
+
 			}
 		} else if (src == pickup) {
 			System.out.println("pick up the thing");
@@ -554,7 +596,6 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				render.gam.updateRoom(currentPlayer.getRoom());
 				;
 				currentPlayer.getRoom().board.toString();
-				updateItemSlots();
 				render.repaint();
 				handyInfo.setText("Door sucess");
 			} else {
