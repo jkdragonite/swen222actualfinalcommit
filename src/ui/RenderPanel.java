@@ -15,6 +15,15 @@ import game.Game;
 import game.Game.viewDirection;
 import render.GameRenderer;
 
+/**
+ * 
+ * The RenderPanel class is the rendering panel that acts as the go-between 
+ * with the Frame/client and the rendering package. This creates and manipulates 
+ * a GameRenderer 'gam', that is defined within the bounds of RenderPanel.
+ * 
+ * @author Josh 300278912
+ *
+ */
 public class RenderPanel extends JPanel implements ActionListener {
 
 	// buttons
@@ -25,6 +34,15 @@ public class RenderPanel extends JPanel implements ActionListener {
 	public GameRenderer gam;
 	private int playerID;
 
+	/**
+	 * This takes a game object from the frame and the unique id of the 
+	 * hosting player in order to render from their perspective and the 
+	 * current rotation of their view. It also hosts the buttons that 
+	 * allow the player to rotate the board for alternate perspectives.
+	 * 
+	 * @param g
+	 * @param uid
+	 */
 	public RenderPanel(Game g, int uid) {
 
 		theGame = g;
@@ -47,11 +65,15 @@ public class RenderPanel extends JPanel implements ActionListener {
 		add(rotateR);
 	}
 
+	/**
+	 * This handles the button input to rotate the level whenever the 
+	 * player presses a button - one clockwise turn or three (which is
+	 * one anticlockwise).
+	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
 		Object src = evt.getSource();
 		if (src == rotateL) {
-			System.out.println("Rotate left");
 			if (theGame.getDirection(playerID) == Game.viewDirection.NORTH){
 				theGame.shiftView(viewDirection.WEST, playerID);
 			}
@@ -71,7 +93,6 @@ public class RenderPanel extends JPanel implements ActionListener {
 
 		}
 		if (src == rotateR) {
-			System.out.println("Rotate right");
 			if (theGame.getDirection(playerID) == Game.viewDirection.NORTH){
 				theGame.shiftView(viewDirection.EAST, playerID);
 			}
@@ -91,6 +112,10 @@ public class RenderPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * This simply called render from the rendering class in order 
+	 * to keep updating the panel.
+	 */
 	@Override
 	public void paintComponent(Graphics gr) {
 		gr.clearRect(0, 0, 1400, 600);
