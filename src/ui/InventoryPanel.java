@@ -78,7 +78,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private String itemText = "Item info";
 	private JTextArea handyInfo;
 
-	// int selceted starts at slot 1
+	// int selceted starts at slot 4
 	private int selected = 4;
 
 	/**
