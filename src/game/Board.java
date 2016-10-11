@@ -55,6 +55,12 @@ public class Board {
 				if (grid[i][j].getPlayer() != null){
 					string += "P";
 				}
+				else if (grid[i][j].getMovableItem() != null){
+					string += "B";
+				}
+				else if (grid[i][j].getMovableItem() != null){
+					string += "H";
+				}
 				else{
 					string += "X";
 				}
