@@ -33,6 +33,8 @@ public class Main {
 	private static int INVENTORY_UOID = 500;
 	private static int IMMOVABLE_UOID = 900;
 	
+	private static final int NUM_LEVELS = 1;
+	
 	private static final String DEFAULT_HOST = "localhost";
 	private static final int DEFAULT_PORT = 32768;
 	
@@ -50,12 +52,16 @@ public class Main {
 		int broadcastClock = DEFAULT_BROADCAST_CLK_PERIOD;
 		int port = DEFAULT_PORT;
 		
+		int level = 1;
+		Game game= null;
+		
 		for (int i = 0; i != args.length; ++i) {
 			if (args[i].startsWith("-")) {
 				String arg = args[i];
 				if(arg.equals("-server")) {
 					server = true;
 					nclients = Integer.parseInt(args[++i]);
+					level = Integer.parseInt(args[++i]);
 				} else if(arg.equals("-connect")) {
 					url = args[++i];
 				}else if(arg.equals("-port")) {
@@ -64,11 +70,21 @@ public class Main {
 			}
 		}
 		
+		//error checking
+		if(server && level > NUM_LEVELS){
+			System.out.println("The level number indicated is not valid.");
+			System.exit(1);
+		}
+		else if (url != null && server) {
+			System.out.println("Cannot be a server and connect to another server!");
+			System.exit(1);
+		}
+		
 		if(server){
 			InetAddress address;
 			try {
 				address = InetAddress.getByName(DEFAULT_HOST);
-				runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++);
+				runServer(address, DEFAULT_PORT, nclients, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++, level);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -82,7 +98,7 @@ public class Main {
 				System.exit(1);
 			}
 		}
-		
+		System.exit(0);
 	}
 	
 	/************************************************
@@ -98,7 +114,7 @@ public class Main {
 	 * @param broadcastClock
 	 * @param uid
 	 */
-	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid){		
+	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid, int level){		
 		// Listen for connections
 		System.out.println("SERVER LISTENING ON PORT " + port);
 		System.out.println("SERVER AWAITING " + nclients + " CLIENTS");
@@ -109,7 +125,7 @@ public class Main {
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);
-				connections[i] = new Master(broadcastClock, s, uid);
+				connections[i] = new Master(broadcastClock, s, uid, level);
 				connections[i].start();
 				nclients--;
 			}			
@@ -131,8 +147,8 @@ public class Main {
 	 */
 	private static void runClient(InetAddress addr, int port) throws IOException {		
 		Socket s = new Socket(addr,port);
-		System.out.println("Creating new SERVANT " + addr + ":" + port);			
-		new Servant(s, new Game()).run();		
+		System.out.println("Creating new Existential Dread client " + addr + ":" + port);			
+		new Servant(s).run();		
 	}
 	
 	
@@ -270,8 +286,17 @@ public class Main {
 				return room;
 		}
 
-	private static void runGame(Master...connections) throws IOException{
+	/**
+	 * Sets up and runs a multi- user game of Existential Dread given the
+	 * connections and an integer representing the desired level to 
+	 * start on. 
+	 * @param level
+	 * @param connections
+	 * @throws IOException
+	 */
+	private static void runGame(int level, Master...connections) throws IOException{
 		//first read in the relevant level files
-		Game game = createGameFromFiles(1);
+		Game game = createGameFromFiles(level);
+		
 	}
 }

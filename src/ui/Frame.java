@@ -36,7 +36,7 @@ public class Frame extends JFrame implements  ActionListener {
 	// the game
 	private Game theGame;
    
-	   public Frame(String title, KeyListener kl,Game g,int UID) {
+	   public Frame(String title,Game g,int UID) {
     	super(title);
     	theGame = g;
     	playerID = UID;
@@ -91,7 +91,6 @@ public class Frame extends JFrame implements  ActionListener {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
-		addKeyListener(kl);
 		setResizable(false);
 		setVisible(true);
 	}

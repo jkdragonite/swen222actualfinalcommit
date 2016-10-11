@@ -3,8 +3,20 @@ package network;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import game.Container;
+import game.Door;
+import game.FinalRoom;
 import game.Game;
+import game.ImmovableItem;
+import game.InventoryItem;
+import game.Location;
+import game.MovableItem;
+import game.PuzzleRoom;
+import game.Room;
+import game.Game.itemType;
 import ui.Frame;
 
 /**
@@ -15,17 +27,20 @@ import ui.Frame;
  * @author Marielle
  *
  */
-public final class Servant extends Thread implements KeyListener, MouseListener{
-	Game game = new Game();
+public final class Servant extends Thread{
+	Game game;
+	Parser parser;
 	/** The socket user to communicate with it's assigned Master*/
 	private final Socket socket;
 	private DataOutputStream output;
 	private DataInputStream input;
 	private int uid;
+	private int level;
 	private Frame gui;
 	
-	public Servant(Socket socket, Game game){
+	public Servant(Socket socket){
 		this.socket = socket;
+		this.game = new Game();
 		System.out.println("SERVANT creating input and output streams");
 		try {
 			input = new DataInputStream(this.socket.getInputStream());
@@ -41,7 +56,11 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			uid = input.readInt();					
 			System.out.println("CLIENT UID: " + uid);
 			
-			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, this, game,uid);
+			level = input.readInt();
+			initGame(level);
+			//game.setState(Game.WAITING);
+			
+			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, game, uid);
 			
 			boolean exit=false;
 			System.out.println("SERVANT ready to send/recieve");
@@ -59,57 +78,13 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 	
 	/**
 	 * Passes information to the Master, which handles the game interactions which 
-	 * then occur as a result of this key press
+	 * then occur as a result of user interaction
 	 */
-	@Override
-	public void keyPressed(KeyEvent ke) {
-		try {
-			System.out.println("Key press recognised");
-			int code = ke.getKeyCode();
-			output.writeChar('k');
-			if(code == KeyEvent.VK_LEFT || code == KeyEvent.VK_KP_LEFT) {
-				System.out.println("SERVANT SEND EVENT: left key press");
-				output.writeInt(1);
-			} else if(code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_KP_RIGHT) {
-				System.out.println("SERVANT SEND EVENT: right key press");
-				output.writeInt(2);
-			} else if(code == KeyEvent.VK_UP) {				
-				System.out.println("SERVANT SEND EVENT: up key press");
-				output.writeInt(3);
-			} else if(code == KeyEvent.VK_DOWN) {						
-				System.out.println("SERVANT SEND EVENT: down key press");
-				output.writeInt(4);
-			}
-			output.flush();
-		} catch(IOException ioe) {
-			// something went wrong trying to communicate the key press to the
-			// server. Print an error message to the client.
-			System.out.println(ioe.getMessage());
-		}
+	public void send() {
+		
 	}
 	
-	/**
-	 * This sends the co-ordinates to the server when the mouse is clicked.
-	 * 
-	 * ***Maybe do a check for whether it's in bounds first to prevent sending more than necessary?***
-	 * 
-	 * @param me
-	 */
-	@Override
-	public void mouseClicked(MouseEvent me) {
-		try{
-			System.out.println("SERVANT SEND EVENT: mouse click");
-			output.writeChar('m');
-			output.writeInt(me.getX());
-			output.writeInt(me.getY());
-			output.flush();
-		}
-		catch(IOException ioe){
-			//error trying to communicate the mouse click to the server so we print
-			//an error
-			System.out.println(ioe.getMessage());
-		}
-	}
+
 	
 	public static void main(String[] args){
 		int port = 32768;
@@ -118,7 +93,7 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 			addr = InetAddress.getByName("localhost");
 			Socket s = new Socket(addr,port);
 			System.out.println("Creating new SERVANT " + addr + ":" + port);			
-			new Servant(s, new Game()).run();
+			new Servant(s).run();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -129,24 +104,11 @@ public final class Servant extends Thread implements KeyListener, MouseListener{
 
 	
 	/******************************************************
-	 * 				Unused Required Methods 
+	 * 				Initialization Methods 
 	 *****************************************************/
-	@Override
-	public void keyReleased(KeyEvent arg0){}
-
-	@Override
-	public void keyTyped(KeyEvent arg0){}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0){}
-
-	@Override
-	public void mouseExited(MouseEvent arg0){}
-
-	@Override
-	public void mousePressed(MouseEvent arg0){}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0){}
+	private void initGame(int level){
+		parser = new Parser(game);
+		game = parser.createGameFromFiles(level);
+	}
 
 }

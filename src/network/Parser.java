@@ -44,6 +44,11 @@ public class Parser {
 	private static int INVENTORY_UOID = 500;
 	private static int IMMOVABLE_UOID = 900;
 	
+	/**Default starting level information files*/
+	private static final File L1R1 = new File("L1R1.txt");
+	private static final File L1FR = new File("L1FR.txt");
+	
+	
 
 	public Parser(Game game){
 		this.game = game;
@@ -558,7 +563,25 @@ public class Parser {
 		
 	}
 
-
+	public static Game createGameFromFiles(int level){
+		Game game = new Game();
+		switch(level){
+		case 1 : 
+			try{
+				game.rooms.add(roomFromFile(game, L1R1));
+				game.rooms.add(roomFromFile(game, L1FR));
+				
+				game.setDestinationRooms();
+			}
+			catch(IOException ioe){
+				System.out.println("Error parsing game file" + ioe.getMessage());
+				System.exit(1);
+			}
+			break;
+		}
+		return game;
+	}
+	
 	/**
 	 * Reads in the game information sent on initialisation?
 	 * @param bytes
@@ -757,6 +780,7 @@ public class Parser {
 				}
 				nextItem = din.readChar();
 			}
+			if(rtype == 'F'){reading = false;}
 		}
 	}
 }

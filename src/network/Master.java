@@ -25,13 +25,14 @@ import game.Game;
 public final class Master extends Thread{
 	//field for game world/level
 	private Game game;
+	private int level;
 	private int broadcastClock;
 	/** The socket user to communicate with it's assigned Servant*/
 	private final Socket socket;
 	/** The unique user identifier for this particular server-client pair */
 	private final int uid;
 	
-	public Master(int broadcastClock, Socket socket, int uid){
+	public Master(int broadcastClock, Socket socket, int uid, int level){
 		this.broadcastClock = broadcastClock;
 		this.socket = socket;
 		this.uid = uid;
@@ -47,6 +48,7 @@ public final class Master extends Thread{
 			//initialize a game window for the client connected
 			System.out.println("MASTER writing uid to servant");
 			output.writeInt(uid);
+			output.writeInt(level);
 			output.flush();
 			
 			//start the listening and processing, 
