@@ -9,6 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+
+/**
+ *HelpFrame is a frame that displays a message that is somewhat helpful but not 
+ *too helpful as the idea is to not actually help that much
+ * 
+ * @author Josh 300278912
+ *
+ */
 public class HelpFrame extends JFrame {
 
 	static String content = // The string they will pop up for the help window
