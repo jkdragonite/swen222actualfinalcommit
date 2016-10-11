@@ -411,7 +411,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			if (currentPlayer.getView() == viewDirection.WEST) {
 				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
-					handyInfo.setText("Moved Right" );
+					handyInfo.setText("Moved Right");
 					render.repaint();
 				} else {
 					handyInfo.setText("Move up failed");
@@ -440,7 +440,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				} else if (currentPlayer.pushMoves.keySet().contains(MovementDirection.RIGHT)) {
 					currentPlayer.getRoom().pushItem(currentPlayer, MovementDirection.RIGHT,
 							currentPlayer.pushMoves.get(MovementDirection.RIGHT));
-				}else {
+				} else {
 					handyInfo.setText("Pushed nothing");
 				}
 			}
@@ -477,13 +477,14 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
-				if (currentPlayer.getRoom().inventoryItems.get(selected - 1) != null) {
+				if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
 					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 					handyInfo.setText("Item dropped");
 					updateItemSlots();
 				}
 			} else {
 				handyInfo.setText("Drop failed");
+				updateItemSlots();
 			}
 		} else if (src == pickup) {
 			System.out.println("pick up the thing");
@@ -518,9 +519,9 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 							currentPlayer.itemPickups.get(MovementDirection.RIGHT));
 					amountOfItems++;
 				}
-				if (currentPlayer.itemPickups.keySet().contains(currentPlayer.getLocation())) {
+				if (currentPlayer.itemPickups.keySet().contains(null)) {
 					currentPlayer.getRoom().pickupItem(currentPlayer,
-							currentPlayer.itemPickups.get(currentPlayer.getLocation()));
+							currentPlayer.itemPickups.get(null));
 					amountOfItems++;
 				}
 				updateItemSlots();
@@ -545,19 +546,24 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 	 */
 	public void updateItemSlots() {
 		Player currentPlayer = theGame.getPlayer(playerID);
-		if (currentPlayer.getInventory().get(0) != null) {
+		if (currentPlayer.getInventory().size() == 1) {
 			slot1 = currentPlayer.getInventory().get(0);
-		}
-		if (currentPlayer.getInventory().get(1) != null) {
-			slot1 = currentPlayer.getInventory().get(1);
-		}
-		if (currentPlayer.getInventory().get(2) != null) {
-			slot1 = currentPlayer.getInventory().get(2);
-		}
-		if (currentPlayer.getInventory().get(3) != null) {
-			slot1 = currentPlayer.getInventory().get(3);
-		}
+		} else
+			slot1 = null;
+		if (currentPlayer.getInventory().size() == 2) {
+			slot2 = currentPlayer.getInventory().get(1);
+		} else
+			slot2 = null;
+		if (currentPlayer.getInventory().size() == 3) {
+			slot3 = currentPlayer.getInventory().get(2);
+		} else
+			slot3 = null;
+		if (currentPlayer.getInventory().size() == 4) {
+			slot4 = currentPlayer.getInventory().get(3);
+		} else
+			slot4 = null;
 		repaint();
+		render.repaint();
 	}
 
 	/**
