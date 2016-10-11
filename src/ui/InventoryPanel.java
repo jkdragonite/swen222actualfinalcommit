@@ -79,7 +79,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	private JTextArea handyInfo;
 
 	// int selceted starts at slot 1
-	private int selected = 1;
+	private int selected = 4;
 
 	/**
 	 * Constructor for InventoryPanel
@@ -125,7 +125,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		// inventoerty panel
 		item1 = new JButton("Item 1");
 		item1.addActionListener(this);
-		item1.setBounds(10, 200, 180, 25);
+		item1.setBounds(10, 200, 180, 30);
 		add(item1);
 
 		item2 = new JButton("Item 2");
