@@ -48,8 +48,8 @@ public class Parser {
 	private static int IMMOVABLE_UOID = 900;
 	
 	/**Default starting level information files*/
-	private static final String L1R1 = "C:/Users/Marielle/git/existential-dread/src/network/L1R1.txt";
-	private static final String L1FR = "C:/Users/Marielle/git/existential-dread/src/network/L1FR.txt";
+	private static final String L1R1 = "levels/L1R1.txt";
+	private static final String L1FR = "levels/L1FR.txt";
 	
 	public Parser(Game game){
 		this.game = game;
