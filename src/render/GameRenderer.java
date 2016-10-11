@@ -40,7 +40,7 @@ public class GameRenderer extends Canvas{
 	public static final int floor = 450;
 
 	public GameRenderer(Game parent, int uid){
-		
+
 		game = parent;
 		Player refPlayer = game.getPlayer(uid);
 		renderRoom = refPlayer.getRoom();
@@ -56,13 +56,7 @@ public class GameRenderer extends Canvas{
 			System.out.println("null titles");
 		}
 	}
-	
-	/**
-	 * 
-	 */
-	private void updateGrid(){
-		stage = renderRoom.board.grid;
-	}
+
 
 	/**
 	 * 
@@ -77,7 +71,7 @@ public class GameRenderer extends Canvas{
 				ret[c][M-1-r] = mat[r][c];
 			}
 		}
-		
+
 		this.x = N;
 		this.y = M;
 		this.stage = ret;
@@ -114,7 +108,7 @@ public class GameRenderer extends Canvas{
 	 * @param g
 	 */
 	public void render(Graphics g){	
-		
+
 		this.gra = g;
 
 		int topLeft = (int)(LEFT + ((stage.length-1)*HORZ_DISP));
@@ -136,19 +130,19 @@ public class GameRenderer extends Canvas{
 		int[] rightY = {BASE, topWall-140, topWall-60, BASE};
 		g.fillPolygon(leftX, leftY, 4);
 		g.fillPolygon(rightX, rightY, 4);
-		
+
 		//render the floor
 		//int offset = LEFT * (stage.length*HORZ_DISP);
 		g.setColor(Color.darkGray);
 		int floorX[] = {LEFT, topLeft, topRight, right};
 		int floorY[] = {BASE, BASE-100, BASE-100, BASE};
 		g.fillPolygon(floorX, floorY, 4);
-		
+
 
 		//render the tiles
 		for (int y = 0; y < stage.length; y++){
 			for (int x = 0; x < stage.length; x++){
-				
+
 				//if the square is a door
 				if (stage[y][x] instanceof Door){
 					Image doorImg = spriteSet.getSprite("0d");
@@ -156,10 +150,18 @@ public class GameRenderer extends Canvas{
 				}
 				//if the square has a player
 				if(stage[y][x].getPlayer() != null){
-					System.out.println("player.");
-					System.out.println("stage: " + y + ", " + x);
-					Image pImg = getPlayerImage(stage[y][x]);
-					drawScaledImage(pImg, g, y, x);
+					//dont draw a player in front of the obscuring object
+//					if((y > 1) && (stage[x][y].getRenderFlag() == false &&
+//							stage[x][y-1].getRenderFlag() == true || 
+//							stage[x][y-2].getRenderFlag() == true)){
+//						continue;
+//					}
+//					else{
+						System.out.println("player.");
+						System.out.println("stage: " + y + ", " + x);
+						Image pImg = getPlayerImage(stage[y][x]);
+						drawScaledImage(pImg, g, y, x);
+					//}
 				}
 				//now draw any items on the square
 				Image img = getImage(stage[y][x]);
@@ -169,27 +171,36 @@ public class GameRenderer extends Canvas{
 			}
 		}
 	}
-	
+
+	/**
+	 * Generates the scaled down dimensions for images further back from 
+	 * the 'camera', and then draws the scaled image over its tile.
+	 * 
+	 * @param img
+	 * @param g
+	 * @param x
+	 * @param y
+	 */
 	private void drawScaledImage(Image img, Graphics g, int x, int y){
 		//generate scaled values for the new dimensions
 		int scaleX = (int)(img.getWidth(null)*(1-((stage.length - y)*SCALE_FAC)));
 		int scaleY = (int)(img.getHeight(null)*(1-((stage.length - y)*SCALE_FAC)));
-		
+
 		//use the new measurements to create a new, scaled image that is 
 		//seperate to the base image.
 		Image newImg = getScaledImage(img, scaleX, scaleY);
-		
+
 		int lineX = (int)(SIZE*(1-((stage.length - y)*SCALE_FAC)));
-		
+
 		//get the scaled top left/right to make sure we are drawing in the 
 		//right scale and place
 		int imgX = (LEFT+(stage.length - y)*(HORZ_DISP) + x*lineX);
 		int imgY = (BASE - (stage.length - y)*VERT_DISP);
-		
+
 		//finally, draw the rendered object
 		this.renderObject(newImg, imgX, imgY, g);
 	}
-	
+
 	/**
 	 * Render object windows - in this case all objects are boxes.
 	 * @param x
@@ -199,9 +210,9 @@ public class GameRenderer extends Canvas{
 	public void renderObject(Image img, int x, int y, Graphics g){
 		g.drawImage(img, x, y-(img.getHeight(null)), null);
 	}
-	
+
 	//-------------------------------------------------------------------------------//
-	
+
 
 	/**
 	 * 
