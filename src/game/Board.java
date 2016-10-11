@@ -34,19 +34,33 @@ public class Board {
 	}
 	
 	
-	
+	/**
+	 * Sets a door square in the given location.
+	 * 
+	 * @param door
+	 * @param location
+	 */
 	public void setDoor(Door door, Location location){
 		this.grid[location.getY()][location.getX()] = door;
 	}
 	
 	
-	
+	/**
+	 * Returns the desired square from the boards grid.
+	 * 
+	 * @param location
+	 * @return square
+	 */
 	public Square getSquare(Location location){
 		Square square = null;
 		square = this.grid[location.getY()][location.getX()];
 		return square;
 	}
 	
+	/**
+	 * Creates a string representation of the board for testing
+	 * purposes.
+	 */
 	public String toString(){
 		String string = new String();
 		for (int i = 0; i < 10; i++){
@@ -72,7 +86,14 @@ public class Board {
 		return string;
 	}
 	
-	
+	/**
+	 * Get the neighbour squares for a given square, storing them in a hashmap
+	 * that links the neighbour to the direction desired to get there from the 
+	 * input square.
+	 * 
+	 * @param location
+	 * @return HashMap of neighbours.
+	 */
 	public HashMap<MovementDirection, Square> getNeighbours(Location location){
 		HashMap<MovementDirection, Square> neighBours = new HashMap<MovementDirection, Square>();
 		int xValue = location.getX();
@@ -107,7 +128,4 @@ public class Board {
 		}
 		return neighBours;
 	}
-
-	
-	
 }

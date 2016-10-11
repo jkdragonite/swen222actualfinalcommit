@@ -20,7 +20,7 @@ public class SpriteSet {
 	/**
 	 * This method reads the packaged file and loads it up as the main 
 	 * 
-	 * @Author Brooke
+	 * @Author Brooke 300321819
 	 */
 	private void loadImage() {
 		try{
