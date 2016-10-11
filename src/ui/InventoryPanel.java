@@ -6,8 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -79,7 +78,6 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	 */
 	public InventoryPanel(Game g, int userId, RenderPanel rend) {
 
-		slot4 = new InventoryItem(Game.itemType.BOOK, new Location(0, 0), "A book for nerds", 66);// testing
 		theGame = g;
 		playerID = userId;
 		render = rend;
@@ -206,7 +204,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 1;
 			if (slot1 != null) {
-				itemInfo.setText(slot1.getType().toString());
+				itemInfo.setText(slot1.getType().toString()+"-"+slot1.getItemName());
 			} else if (slot1 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
@@ -220,13 +218,12 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item4.setEnabled(true);
 			selected = 2;
 			if (slot2 != null) {
-				itemInfo.setText(slot2.getType().toString());
+				itemInfo.setText(slot2.getType().toString()+"-"+slot2.getItemName());
 			} else if (slot2 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
 			repaint();
 		} else if (src == item3) {
-			slot3 = new InventoryItem(Game.itemType.KEY, new Location(4, 0), "The KeyBalde", 556); // testing
 			System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
@@ -234,7 +231,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			item3.setEnabled(false);
 			item4.setEnabled(true);
 			if (slot3 != null) {
-				itemInfo.setText(slot3.getType().toString());
+				itemInfo.setText(slot3.getType().toString()+"-"+slot3.getItemName());
 			} else if (slot3 == null) {
 				itemInfo.setText("Empty inventory slot");
 			}
@@ -346,6 +343,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				repaint();
 			}
 		} else if (src == right) {
+			System.out.println(theGame.rooms);
 			System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);

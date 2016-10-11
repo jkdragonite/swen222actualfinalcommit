@@ -84,15 +84,17 @@ public class Game {
 		MovableItem testBox = new MovableItem(itemType.BOX, movableItemLocation,87); 
 //		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
 		addMovableItemToGame(testBox, 0);
-		rooms.add(new FinalRoom(10));
+//		rooms.add(new FinalRoom(10));
 		Location doorLocation = new Location(9, 0);
 		Door testDoor = new Door(doorLocation);
+//		testDoor.setDestination(0);
+		testDoor.setUnlocked(false);
 		testDoor.addToSolution(keyItem);
-//		testDoor.setUnlocked(true);
+
 		rooms.get(0).addDoor(testDoor);
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
-		setDestinationRooms();
+//		setDestinationRooms();
 //		players.add(new Player(200, rooms.get(0)));
 	}
 	
@@ -120,6 +122,12 @@ public class Game {
 	
 	public Player getPlayer(int uid){
 		return this.players.get(uid - 200);
+	}
+	
+	
+	public void addRoom(Room room){
+		this.rooms.add(room);
+//		setDestinationRooms();
 	}
 	
 	
