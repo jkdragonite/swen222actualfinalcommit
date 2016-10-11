@@ -13,8 +13,8 @@ public class HelpFrame extends JFrame {
 
 	static String content = // The string they will pop up for the help window
 			"This is the help manu\n" + "\n"
-					+ "There will be many helpful things in here that will help you escape the dread\n"
-					+ "..........Maybe\n" + "\n" + "\n" + "but i doubt it\n" + "\n" + "\n" + "\n" + "good luck\n" + "\n"
+					+ "You must try to escape the existential dread\n"
+					+ "..........Maybe\n" + "\n" + "\n" + "but i doubt it\n" + "\n" + "try collect the correct items and unlock doors\n" + "\n" + "good luck\n" + "\n"
 					+ "\n" + "you will need it\n" + "\n" + "scrub\n" + "\n";
 
 	/**
