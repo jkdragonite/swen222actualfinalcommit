@@ -37,6 +37,7 @@ public class GameRenderer extends Canvas{
 	int x, y;
 	boolean sqPlayer = false;
 	public static final int floor = 450;
+	Player refPlayer;
 
 	public GameRenderer(Game parent, int uid){
 
@@ -269,10 +270,15 @@ public class GameRenderer extends Canvas{
 	 * Small helper method to get from room to room.
 	 * @param newRoom
 	 */
-	public void updateRoom(Room newRoom){
+	public void updateRoom(){
+		Room newRoom = refPlayer.getRoom();
 		this.renderRoom = newRoom;
 		stage = renderRoom.board.grid;
 		render(gra);
+	}
+	
+	public Room getRoom(){
+		return renderRoom;
 	}
 
 	/**
