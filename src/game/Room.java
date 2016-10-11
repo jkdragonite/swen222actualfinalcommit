@@ -192,8 +192,10 @@ public abstract class Room {
 		boolean push = false;
 		
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
-		if (boxNeighbours.get(direction).isEmpty() == true) {
-			push = true;
+		if (boxNeighbours.containsKey(direction)){
+			if(boxNeighbours.get(direction).isEmpty() == true) {
+				push = true;
+			}
 		}
 		return push;
 	}
