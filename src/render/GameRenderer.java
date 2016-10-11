@@ -36,7 +36,6 @@ public class GameRenderer extends Canvas{
 	Graphics gra;
 	int x, y;
 	boolean sqPlayer = false;
-
 	public static final int floor = 450;
 
 	public GameRenderer(Game parent, int uid){
@@ -272,6 +271,7 @@ public class GameRenderer extends Canvas{
 	 */
 	public void updateRoom(Room newRoom){
 		this.renderRoom = newRoom;
+		stage = renderRoom.board.grid;
 		render(gra);
 	}
 
