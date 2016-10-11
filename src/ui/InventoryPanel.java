@@ -102,7 +102,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			bookIcon = ImageIO.read(new File("../existential-dread/images/BookIcon.png"));
 			keyIcon = ImageIO.read(new File("../existential-dread/images/KeyIcon.png"));
 		} catch (IOException e) {
-			System.out.println("file error loading images from inventoy panel" + e.getMessage());
+		//	System.out.println("file error loading images from inventoy panel" + e.getMessage());
 		}
 
 		setLayout(null);
@@ -205,7 +205,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 		Object src = evt.getSource();
 		if (src == item1) {
-			System.out.println("Item 1 selected");
+		//	System.out.println("Item 1 selected");
 			// Disable button && enable others
 			item1.setEnabled(false);
 			item2.setEnabled(true);
@@ -219,7 +219,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 			repaint();
 		} else if (src == item2) {
-			System.out.println("Item 2 selected");
+			//System.out.println("Item 2 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(false);
@@ -233,7 +233,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 			repaint();
 		} else if (src == item3) {
-			System.out.println("Item 3 selected");
+			//System.out.println("Item 3 selected");
 			// Disable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(true);
@@ -248,7 +248,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			repaint();
 
 		} else if (src == item4) {
-			System.out.println("Item 4 selected");
+			//System.out.println("Item 4 selected");
 			// diable button && enable others
 			item1.setEnabled(true);
 			item2.setEnabled(true);
@@ -265,12 +265,12 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 
 		else if (src == use) {
-			System.out.println("use");
+			//System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.useMoves.keySet().size() > 0) {
 				currentPlayer.getRoom().useItem(currentPlayer);
-				System.out.println("\n door unlock status" + currentPlayer.getRoom().getDoor().isUnlocked());
+			//	System.out.println("\n door unlock status" + currentPlayer.getRoom().getDoor().isUnlocked());
 			}
 
 			else {
@@ -279,7 +279,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 		}
 
 		else if (src == up) {
-			System.out.println("UP");
+			//System.out.println("UP");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.getView() == viewDirection.NORTH) {
@@ -322,7 +322,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				}
 			}
 		} else if (src == left) {
-			System.out.println("LEFT");
+			//System.out.println("LEFT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.getView() == viewDirection.NORTH) {
@@ -370,8 +370,8 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				repaint();
 			}
 		} else if (src == right) {
-			System.out.println(theGame.rooms);
-			System.out.println("RIGHT");
+			//System.out.println(theGame.rooms);
+			//System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.getView() == viewDirection.NORTH) {
@@ -419,7 +419,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				repaint();
 			}
 		} else if (src == down) {
-			System.out.println("DOWN");
+			//System.out.println("DOWN");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.getView() == viewDirection.NORTH) {
@@ -463,7 +463,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 
 		} else if (src == push) {
-			System.out.println("push ");
+			//System.out.println("push ");
 			// push method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			// takes a keyset in player move and checks for each direction in
@@ -496,7 +496,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			}
 
 		} else if (src == pull) {
-			System.out.println("pull ");
+			//System.out.println("pull ");
 			Player currentPlayer = theGame.getPlayer(playerID);
 			// pull method
 			// takes a keyset in player move and checks for each direction in
@@ -532,7 +532,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				handyInfo.setText("Pulled nothing");
 			}
 		} else if (src == drop) {
-			System.out.println("drop");
+			//System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.canDropItem) {
@@ -551,7 +551,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 			}
 		} else if (src == pickup) {
-			System.out.println("pick up the thing");
+			//System.out.println("pick up the thing");
 			// pickup method
 			// takes a keyset in player move and checks for each direction in
 			// order of
@@ -597,11 +597,11 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				handyInfo.setText("No items picked up");
 			}
 		} else if (src == useDoor) {
-			System.out.println("Use the door");
+			//System.out.println("Use the door");
 			Player currentPlayer = theGame.getPlayer(playerID);
 			if (currentPlayer.canGoThroughDoor && currentPlayer.getRoom() instanceof FinalRoom == false) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
-				System.out.println("sd;jfksadhgkkh \n" + currentPlayer.getRoom().board.toString());
+			//	System.out.println("sd;jfksadhgkkh \n" + currentPlayer.getRoom().board.toString());
 				render.gam.updateRoom(currentPlayer.getRoom());
 				;
 				currentPlayer.getRoom().board.toString();
