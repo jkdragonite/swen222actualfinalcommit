@@ -480,12 +480,13 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.canDropItem && currentPlayer.getRoom().inventoryItems.size() >= selected) {
-				if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
+			if (currentPlayer.canDropItem ){
+//					&& currentPlayer.getRoom().inventoryItems.size() >= selected) {
+//				if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
 					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 					handyInfo.setText("Item dropped");
 					updateItemSlots();
-				}
+//				}
 			} else {
 				handyInfo.setText("Drop failed");
 				updateItemSlots();
@@ -543,6 +544,8 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 					FinalRoom == false) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
 				System.out.println("sd;jfksadhgkkh \n"+currentPlayer.getRoom().board.toString());
+				render.gam.updateRoom(currentPlayer.getRoom());;
+				currentPlayer.getRoom().board.toString();
 				render.repaint();
 				handyInfo.setText("Door sucess");
 			} else {

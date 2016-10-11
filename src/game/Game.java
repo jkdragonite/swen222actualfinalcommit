@@ -83,7 +83,7 @@ public class Game {
 //		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
 		addMovableItemToGame(testBox, 0);
 		rooms.add(new FinalRoom(10));
-		Location doorLocation = new Location(0, 9);
+		Location doorLocation = new Location(9, 0);
 		Door testDoor = new Door(doorLocation);
 		testDoor.setUnlocked(true);
 		rooms.get(0).addDoor(testDoor);
@@ -188,7 +188,7 @@ public class Game {
 //	 * 
 //	 * @return enum renderRoom
 //	 */
-//	public renderRoom getRoom(){
+//	public Room getRoom(Player player){
 //		return currentRoom;
 //	}
 	
@@ -227,6 +227,8 @@ public class Game {
 			}
 			count++;
 		}
+		System.out.println("ROoms \n" + rooms);
+		System.out.println("ROoms size \n" + rooms.size());
 	}
 	
 }

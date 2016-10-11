@@ -37,6 +37,7 @@ public class GameRenderer extends Canvas{
 	int x, y;
 	boolean sqPlayer = false;
 	public static final int floor = 450;
+	Player refPlayer;
 
 	public GameRenderer(Game parent, int uid){
 
@@ -138,7 +139,7 @@ public class GameRenderer extends Canvas{
 		g.fillPolygon(floorX, floorY, 4);
 		
 		//render the door
-		if (viewDir == Game.viewDirection.NORTH){
+		if (viewDir == Game.viewDirection.NORTH && !(renderRoom instanceof FinalRoom)){
 		Image doorImg = spriteSet.getSprite("0d");
 		int scaleX = (int)(doorImg.getWidth(null)*(1-((stage.length)*SCALE_FAC)));
 		int scaleY = (int)(doorImg.getHeight(null)*(1-((stage.length)*SCALE_FAC)));
@@ -269,10 +270,16 @@ public class GameRenderer extends Canvas{
 	 * Small helper method to get from room to room.
 	 * @param newRoom
 	 */
-	public void updateRoom(Room newRoom){
-		this.renderRoom = newRoom;
+	public void updateRoom(Room room){
+//		refPlayer = player;
+//		Room newRoom = player.getRoom();
+		this.renderRoom = room;
 		stage = renderRoom.board.grid;
 		render(gra);
+	}
+	
+	public Room getRoom(){
+		return renderRoom;
 	}
 
 	/**

@@ -58,8 +58,11 @@ public class Board {
 				else if (grid[i][j].getMovableItem() != null){
 					string += "B";
 				}
-				else if (grid[i][j].getMovableItem() != null){
+				else if (grid[i][j].getImmovableItem() != null){
 					string += "H";
+				}
+				else if (grid[i][j] instanceof Door){
+					string += "D";
 				}
 				else{
 					string += "X";
