@@ -290,16 +290,16 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.EAST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move up failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move up failed");
@@ -328,8 +328,8 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				repaint();
 			}
 			if (currentPlayer.getView() == viewDirection.EAST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move left failed");
@@ -337,8 +337,8 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				repaint();
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move left failed");
@@ -368,8 +368,8 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				repaint();
 			}
 			if (currentPlayer.getView() == viewDirection.EAST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
+				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move right failed");
@@ -377,8 +377,8 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				repaint();
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
+				if (currentPlayer.moves.containsKey(MovementDirection.DOWN)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.DOWN);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move right failed");
@@ -406,16 +406,16 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.EAST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
+				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
 					render.repaint();
 				} else {
 					handyInfo.setText("Move up failed");
 				}
 			}
 			if (currentPlayer.getView() == viewDirection.WEST) {
-				if (currentPlayer.moves.containsKey(MovementDirection.RIGHT)) {
-					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.RIGHT);
+				if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
+					currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
 					handyInfo.setText("Moved Right");
 					render.repaint();
 				} else {
