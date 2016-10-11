@@ -24,7 +24,7 @@ import ui.Frame;
  * Master, updates the local game copy. The Servant notifies
  * it's master of player events.
  * 
- * @author Marielle
+ * @author Marielle 300333473
  *
  */
 public final class Servant extends Thread{
@@ -41,7 +41,6 @@ public final class Servant extends Thread{
 	public Servant(Socket socket){
 		this.socket = socket;
 		this.game = new Game();
-		System.out.println("SERVANT creating input and output streams");
 		try {
 			input = new DataInputStream(this.socket.getInputStream());
 			output = new DataOutputStream(this.socket.getOutputStream());

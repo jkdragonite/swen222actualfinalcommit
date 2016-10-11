@@ -2,6 +2,14 @@ package game;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an item which can store other items inside of it.
+ * Contains additional methods to the Item superclass
+ * to facilitate the item add/removal.
+ * 
+ * @author Marielle, Jordan 300394044
+ *
+ */
 public class Container extends ImmovableItem{
 	private final char character = 'C';
 	private ArrayList<InventoryItem> items = new ArrayList<InventoryItem>();

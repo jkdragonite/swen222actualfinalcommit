@@ -23,6 +23,16 @@ import game.PuzzleRoom;
 import game.Room;
 import game.Game.itemType;
 
+/**
+ * The Main class which is supposed to run from the command line with
+ * specific arguments to run either a client or server. 
+ * 
+ * Run server: -server numClients level
+ * Run client: -connect url
+ * 
+ * @author Marielle 300333473
+ *
+ */
 public class Main {
 	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;
 	

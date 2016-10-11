@@ -34,7 +34,7 @@ import game.Room;
  * Basically invented to  make sure I didn't mess up the game class/
  * fill it with unnecessary clutter. 
  * 
- * @author Marielle
+ * @author Marielle 300333473
  *
  */
 public class Parser {

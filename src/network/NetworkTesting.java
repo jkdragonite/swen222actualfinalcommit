@@ -13,7 +13,7 @@ import game.Game;
  * in the event running a Main class with command line arguments
  * doesn't eventuate. 
  * 
- * @author Marielle
+ * @author Marielle 300333473
  *
  */
 public class NetworkTesting {

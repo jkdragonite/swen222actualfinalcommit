@@ -7,6 +7,11 @@ import java.util.Map;
 
 import game.Game.itemType;
 
+/**
+ * Represents any game world object that gets rendered in the view. 
+ * @author Jordan 300394044, Marielle
+ *
+ */
 public abstract class Item {
 	protected char character;
 	protected Location location;
@@ -61,6 +66,9 @@ public abstract class Item {
 		return types.get(type);
 	}
 	
+	/**
+	 * Initializes the codes used for 
+	 */
 	private void initializeItemCodes(){
 		types = new HashMap<Game.itemType, Integer>();
 		this.types.put(itemType.BOX, 610);

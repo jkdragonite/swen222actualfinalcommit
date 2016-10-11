@@ -19,7 +19,7 @@ import game.Game;
  * 
  * This is heavily influenced by DJPs Pacman game, so thanks!
  * 
- * @author Marielle
+ * @author Marielle 300333473
  *
  */
 public final class Master extends Thread{

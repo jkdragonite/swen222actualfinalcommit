@@ -1,7 +1,14 @@
 package game;
 
 import java.util.ArrayList;
-
+/**
+ * Represents an Immovable item, which may cover more than
+ * one space on a board and stores the additional information
+ * pertaining to that. 
+ * 
+ * @author Jordan 300394044
+ *
+ */
 public class ImmovableItem extends Item {
 	// array of locations
 	private ArrayList<Location> locationsCovered = new ArrayList<Location>();

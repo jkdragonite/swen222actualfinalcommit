@@ -2,6 +2,13 @@ package game;
 
 import game.Game.itemType;
 
+/**
+ *Represents an item which is able to be picked up/dropped,
+ *and has additional methods to facilitate this. 
+ * 
+ * @author Jordan 300394044
+ *
+ */
 public class InventoryItem extends Item{
 	private Player owner = null;
 	private String itemName;
@@ -35,6 +42,11 @@ public class InventoryItem extends Item{
 		return this.owner;
 	}
 	
+	/**
+	 * Adds an item to the players inventory and updates the 
+	 * items owner flag
+	 * @param player
+	 */
 	public void pickupItem(Player player){
 		setOwner(player);
 		player.addItem(this);
