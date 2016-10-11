@@ -12,10 +12,10 @@ import javax.swing.JTextArea;
 import game.Game;
 
 /**
- * The server allows 3 clients to connect and exchange information.
- * It sends regular PING messages to clients (which will later simulate
- * the updating of game state). 
- * It is initialized via the console.
+ * The Master class is responsible for processing updates from it's 
+ * connected Servant via the socket. It also (ideally) sends updates of
+ * it's local game copy (which will be updated in turn by it's 
+ * brothers in a game situation) to it's connected Servant. 
  * 
  * This is heavily influenced by DJPs Pacman game, so thanks!
  * 
@@ -112,6 +112,7 @@ public final class Master extends Thread{
 			//transfer their items to someone else 
 			//display message that they need to wait until the level is 
 			//cleared before they can rejoin
+			System.exit(1);
 		}
 	}
 	

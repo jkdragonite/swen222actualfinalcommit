@@ -8,6 +8,14 @@ import java.net.UnknownHostException;
 
 import game.Game;
 
+/**
+ * The now pseudo-main class for running a server instance, 
+ * in the event running a Main class with command line arguments
+ * doesn't eventuate. 
+ * 
+ * @author Marielle
+ *
+ */
 public class NetworkTesting {
 	
 	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;

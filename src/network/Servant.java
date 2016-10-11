@@ -67,7 +67,9 @@ public final class Servant extends Thread{
 			System.out.println("SERVANT ready to send/recieve");
 			int i = 0;
 			while(!exit) {
-				//read the board array		
+				//read the board array
+				//input.readFully(new byte[1000]);
+				//parser.updateFromByteArray(bytes, game);
 			}
 			//release socket!
 			socket.close(); 
@@ -79,11 +81,11 @@ public final class Servant extends Thread{
 	
 	/**
 	 * Passes information to the Master, which handles the game interactions which 
-	 * then occur as a result of user interaction
+	 * then occur as a result of user interaction.
+	 * 
+	 * UNIMPLEMENTED currently, so does nothing. Would ideally get passed events fromt the GUI.
 	 */
-	public void send() {
-		
-	}
+	public void send() {}
 	
 
 	
