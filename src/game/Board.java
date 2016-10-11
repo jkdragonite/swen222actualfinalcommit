@@ -7,6 +7,11 @@ import java.util.HashMap;
 
 import jdk.internal.org.objectweb.asm.util.CheckAnnotationAdapter;
 
+/**
+ * @author Jordan Ching 300394044
+ * Holds squares, used by room class
+ *
+ */
 public class Board {
 	
 	public int gridSize;
