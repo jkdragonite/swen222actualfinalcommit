@@ -82,8 +82,14 @@ public class Game {
 		MovableItem testBox = new MovableItem(itemType.BOX, movableItemLocation,87); 
 //		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
 		addMovableItemToGame(testBox, 0);
+		rooms.add(new FinalRoom(10));
+		Location doorLocation = new Location(0, 9);
+		Door testDoor = new Door(doorLocation);
+		testDoor.setUnlocked(true);
+		rooms.get(0).addDoor(testDoor);
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
+		setDestinationRooms();
 //		players.add(new Player(200, rooms.get(0)));
 	}
 	
@@ -214,8 +220,8 @@ public class Game {
 	public void setDestinationRooms(){
 		int count = 1;
 		for (Room room : this.rooms){
-			if (room instanceof PuzzleRoom){
-				if (count < this.rooms.size()){
+			if (count < this.rooms.size()){
+				if (room instanceof PuzzleRoom){
 					room.door.setDestination(this.rooms.get(count));
 				}					
 			}
