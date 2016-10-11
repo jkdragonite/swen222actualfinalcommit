@@ -137,31 +137,26 @@ public class GameRenderer extends Canvas{
 		int floorX[] = {LEFT, topLeft, topRight, right};
 		int floorY[] = {BASE, BASE-100, BASE-100, BASE};
 		g.fillPolygon(floorX, floorY, 4);
-
-
+		
+		//render the door
+		if (viewDir == Game.viewDirection.NORTH){
+		Image doorImg = spriteSet.getSprite("0d");
+		int scaleX = (int)(doorImg.getWidth(null)*(1-((stage.length)*SCALE_FAC)));
+		int scaleY = (int)(doorImg.getHeight(null)*(1-((stage.length)*SCALE_FAC)));
+		Image newImg = getScaledImage(doorImg, scaleX, scaleY);
+		g.drawImage(newImg, topRight-(newImg.getWidth(null)), (BASE-100)-(newImg.getHeight(null)), null);
+		}
+		
 		//render the tiles
 		for (int y = 0; y < stage.length; y++){
 			for (int x = 0; x < stage.length; x++){
 
-				//if the square is a door
-				if (stage[y][x] instanceof Door){
-					Image doorImg = spriteSet.getSprite("0d");
-					drawScaledImage(doorImg, g, y, x);
-				}
 				//if the square has a player
 				if(stage[y][x].getPlayer() != null){
-					//dont draw a player in front of the obscuring object
-//					if((y > 1) && (stage[x][y].getRenderFlag() == false &&
-//							stage[x][y-1].getRenderFlag() == true || 
-//							stage[x][y-2].getRenderFlag() == true)){
-//						continue;
-//					}
-//					else{
-						System.out.println("player.");
-						System.out.println("stage: " + y + ", " + x);
-						Image pImg = getPlayerImage(stage[y][x]);
-						drawScaledImage(pImg, g, x, y);
-					//}
+					//System.out.println("player.");
+					//System.out.println("stage: " + y + ", " + x);
+					Image pImg = getPlayerImage(stage[y][x]);
+					drawScaledImage(pImg, g, x, y);
 				}
 				//now draw any items on the square
 				Image img = getImage(stage[y][x]);
@@ -182,6 +177,7 @@ public class GameRenderer extends Canvas{
 	 * @param y
 	 */
 	private void drawScaledImage(Image img, Graphics g, int x, int y){
+		
 		//generate scaled values for the new dimensions
 		int scaleX = (int)(img.getWidth(null)*(1-((stage.length - y)*SCALE_FAC)));
 		int scaleY = (int)(img.getHeight(null)*(1-((stage.length - y)*SCALE_FAC)));
@@ -269,7 +265,15 @@ public class GameRenderer extends Canvas{
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Small helper method to get from room to room.
+	 * @param newRoom
+	 */
+	public void updateRoom(Room newRoom){
+		this.renderRoom = newRoom;
+		render(gra);
+	}
 
 	/**
 	 * 
