@@ -201,6 +201,24 @@ public abstract class Room {
 	}
 	
 	
+	public MovementDirection getOppositeDirection(MovementDirection currentDirection){
+		MovementDirection view = null;
+		if (currentDirection == MovementDirection.UP){
+			view = MovementDirection.DOWN;
+		}
+		else if (currentDirection == MovementDirection.DOWN){
+			view = MovementDirection.UP;
+		}
+		else if (currentDirection == MovementDirection.LEFT){
+			view = MovementDirection.RIGHT;
+		}
+		else if (currentDirection == MovementDirection.RIGHT){
+			view = MovementDirection.LEFT;
+		}
+		
+		return view;
+	}
+	
 	/**
 	 * 
 	 * Takes a square and a direction, checks the squares in the opposite direction
@@ -215,26 +233,29 @@ public abstract class Room {
 		boolean pull = false;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
 		
-		if (direction == MovementDirection.UP){
-			if (boxNeighbours.get(MovementDirection.DOWN).isEmpty() == true) {
-				pull = true;
+		if (boxNeighbours.containsKey(direction) && boxNeighbours.containsKey(getOppositeDirection(direction))){
+			if (direction == MovementDirection.UP){
+				if (boxNeighbours.get(MovementDirection.DOWN).isEmpty() == true) {
+					pull = true;
+				}
 			}
+
+			if (direction == MovementDirection.DOWN){
+				if (boxNeighbours.get(MovementDirection.UP).isEmpty() == true) {
+					pull = true;
+				}
+			}
+			if (direction == MovementDirection.LEFT){
+				if (boxNeighbours.get(MovementDirection.RIGHT).isEmpty() == true) {
+					pull = true;
+				}
+			}
+			if (direction == MovementDirection.RIGHT){
+				if (boxNeighbours.get(MovementDirection.LEFT).isEmpty() == true) {
+					pull = true;
+				}
+			}	
 		}
-		if (direction == MovementDirection.DOWN){
-			if (boxNeighbours.get(MovementDirection.UP).isEmpty() == true) {
-				pull = true;
-			}
-		}
-		if (direction == MovementDirection.LEFT){
-			if (boxNeighbours.get(MovementDirection.RIGHT).isEmpty() == true) {
-				pull = true;
-			}
-		}
-		if (direction == MovementDirection.RIGHT){
-			if (boxNeighbours.get(MovementDirection.LEFT).isEmpty() == true) {
-				pull = true;
-			}
-		}	
 		return pull;
 	}
 	
