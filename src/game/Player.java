@@ -52,6 +52,7 @@ public class Player {
 	}
 	
 	public viewDirection getView(){
+		System.out.println(view);
 		return this.view;
 	}
 	

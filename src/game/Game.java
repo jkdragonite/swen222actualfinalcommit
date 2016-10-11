@@ -72,7 +72,7 @@ public class Game {
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
 		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
 		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation, 902);
-		bookShelf.addToLocationsCovered(new Location(5, 5));
+		bookShelf.addToLocationsCovered(new Location(5, 4));
 		addImmovableItemToGame(bookShelf, 0);
 //		rooms.get(0).board.getSquare(immovableItemLocation).setImmovableItem(new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation));
 		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
