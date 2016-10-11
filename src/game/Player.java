@@ -76,7 +76,7 @@ public class Player {
 	
 	public void removeItem(InventoryItem item){
 		playerInventory.remove(item);
-		item.removeOwner(this.location);
+		item.removeOwner();
 	}
 	
 	public Location getLocation(){

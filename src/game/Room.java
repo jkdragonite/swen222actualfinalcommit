@@ -171,7 +171,7 @@ public abstract class Room {
 					player.canGoThroughDoor = true;
 				}
 			}
-			if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getItem() == null){
+			if (player.getInventory().size() > 0 && board.getSquare(player.getLocation()).getInventory() == null){
 				player.canDropItem = true;
 			}
 		}	
@@ -219,6 +219,15 @@ public abstract class Room {
 		return view;
 	}
 	
+	public Square getSecondSquare(MovementDirection direction, Square square){
+		Square returnSquare = null;
+		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
+		if (boxNeighbours.containsKey(direction)){
+			returnSquare = boxNeighbours.get(direction);
+		}
+		return returnSquare;
+	}
+	
 	/**
 	 * 
 	 * Takes a square and a direction, checks the squares in the opposite direction
@@ -235,24 +244,28 @@ public abstract class Room {
 		
 		if (boxNeighbours.containsKey(direction) && boxNeighbours.containsKey(getOppositeDirection(direction))){
 			if (direction == MovementDirection.UP){
-				if (boxNeighbours.get(MovementDirection.DOWN).isEmpty() == true) {
-					pull = true;
+				if (getSecondSquare(MovementDirection.DOWN, boxNeighbours.get(MovementDirection.DOWN)) != null
+						&& getSecondSquare(MovementDirection.DOWN, boxNeighbours.get(MovementDirection.DOWN)).isEmpty() == true) {
+						pull = true;
 				}
 			}
 
 			if (direction == MovementDirection.DOWN){
-				if (boxNeighbours.get(MovementDirection.UP).isEmpty() == true) {
-					pull = true;
+				if (getSecondSquare(MovementDirection.UP, boxNeighbours.get(MovementDirection.UP)) != null
+						&& getSecondSquare(MovementDirection.UP, boxNeighbours.get(MovementDirection.UP)).isEmpty() == true) {
+						pull = true;
 				}
 			}
 			if (direction == MovementDirection.LEFT){
-				if (boxNeighbours.get(MovementDirection.RIGHT).isEmpty() == true) {
-					pull = true;
+				if (getSecondSquare(MovementDirection.RIGHT, boxNeighbours.get(MovementDirection.RIGHT)) != null
+						&& getSecondSquare(MovementDirection.RIGHT, boxNeighbours.get(MovementDirection.RIGHT)).isEmpty() == true) {
+						pull = true;
 				}
 			}
 			if (direction == MovementDirection.RIGHT){
-				if (boxNeighbours.get(MovementDirection.LEFT).isEmpty() == true) {
-					pull = true;
+				if (getSecondSquare(MovementDirection.LEFT, boxNeighbours.get(MovementDirection.LEFT)) != null
+						&& getSecondSquare(MovementDirection.LEFT, boxNeighbours.get(MovementDirection.LEFT)).isEmpty() == true) {
+						pull = true;
 				}
 			}	
 		}
@@ -282,11 +295,17 @@ public abstract class Room {
 	 * 
 	 * @param player
 	 */
-	public void dropItem(Player player,int removed){
-		board.getSquare(player.getLocation()).setItem(player.getItem(removed));
-		player.getItem(removed).removeOwner(player.getLocation());
-		player.removeItem(player.getItem(removed));
-		updatePlayerMoves(player);
+	public void dropItem(Player player,int idexToRemove){
+		if (board.getSquare(player.getLocation()).getInventory() == null){
+			InventoryItem itemToRemove = player.getItem(idexToRemove);
+			board.getSquare(player.getLocation()).setInventory(itemToRemove);
+			itemToRemove.removeOwner();
+			itemToRemove.setLocation(player.getLocation());
+			player.removeItem(itemToRemove);
+			System.out.println("dlgkjshdfhgll  "+board.getSquare(player.getLocation()).getInventory());
+			updatePlayerMoves(player);
+		}
+
 	}
 	
 	
@@ -427,6 +446,7 @@ public abstract class Room {
 			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY+1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
+			updatePlayerMoves(player);
 		}
 		
 		if (direction == MovementDirection.DOWN){
@@ -437,6 +457,7 @@ public abstract class Room {
 			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY-1][squareX].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();
+			updatePlayerMoves(player);
 
 		}
 		
@@ -448,6 +469,8 @@ public abstract class Room {
 			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX+1].setMovableItem(square.getMovableItem());;
 			board.getSquare(square.getLocation()).removeMovableItem();		
+			player.resetMoves();
+			updatePlayerMoves(player);
 		}
 		
 		if (direction == MovementDirection.RIGHT){
@@ -457,7 +480,9 @@ public abstract class Room {
 			Location newLocation = new Location(squareX-1, squareY);
 			this.board.grid[squareY][squareX].getMovableItem().setLocation(newLocation);
 			this.board.grid[squareY][squareX-1].setMovableItem(square.getMovableItem());;
-			board.getSquare(square.getLocation()).removeMovableItem();		
+			board.getSquare(square.getLocation()).removeMovableItem();
+			player.resetMoves();
+			updatePlayerMoves(player);
 		}
 	}
 	

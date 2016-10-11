@@ -471,6 +471,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				} else {
 					handyInfo.setText("Pulled nothing");
 				}
+//				System.out.println("Pull repaint test");
 				render.repaint();
 			}
 
@@ -478,7 +479,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
+			if (currentPlayer.canDropItem && currentPlayer.getRoom().inventoryItems.size() >= selected) {
 				if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
 					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
 					handyInfo.setText("Item dropped");
