@@ -153,6 +153,11 @@ public abstract class Room {
 					player.addToItemPickups(direction, neighbouringSquareHashMap.get(direction));
 				}
 			}
+			if (board.getSquare(player.getLocation()).getInventory() != null){
+				if(player.getInventory().size() < 5){
+					player.addToItemPickups(null, board.getSquare(player.getLocation()));
+				}
+			}
 			
 			if (neighbouringSquareHashMap.get(direction).getContainer() != null){
 				player.addToSearchMoves(direction, neighbouringSquareHashMap.get(direction));

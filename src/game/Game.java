@@ -67,7 +67,7 @@ public class Game {
 		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
 		Location itemLocation = new Location(0, 1);
-		Location movableItemLocation = new Location(9, 9);
+		Location movableItemLocation = new Location(8, 8);
 		Location immovableItemLocation = new Location(4, 4);
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
 		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
@@ -75,7 +75,9 @@ public class Game {
 		bookShelf.addToLocationsCovered(new Location(5, 4));
 		addImmovableItemToGame(bookShelf, 0);
 //		rooms.get(0).board.getSquare(immovableItemLocation).setImmovableItem(new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation));
-		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
+		MovableItem testBox = new MovableItem(itemType.BOX, movableItemLocation,87); 
+//		rooms.get(0).board.getSquare(movableItemLocation).setMovableItem(new MovableItem(itemType.BOX, movableItemLocation,87));
+		addMovableItemToGame(testBox, 0);
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
 //		players.add(new Player(200, rooms.get(0)));
