@@ -56,6 +56,9 @@ public class Player {
 		return this.view;
 	}
 	
+	public void wipeInventory(){
+		this.playerInventory = new ArrayList<InventoryItem>();
+	}
 	
 	public Room getRoom(){
 		return this.currentRoom;

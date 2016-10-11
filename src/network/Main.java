@@ -41,7 +41,7 @@ public class Main {
 	
 	/**
 	 * Runs the server and allows the argument specified number of clients to connect
-	 * (between 1 and 4)
+	 * (between 1 and 4). Best practice is just to have one at this stage. 
 	 * @param args
 	 */
 	public static void main(String[] args){

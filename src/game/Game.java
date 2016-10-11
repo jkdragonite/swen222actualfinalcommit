@@ -60,11 +60,29 @@ public class Game {
 	
 	
 	public Game() {
-//		this.view = viewDirection.NORTH;	
-//		this.currentRoom = renderRoom.ROOM1;
 		initializeItemsCodes();
-		
-		//testing only pls remove
+		addDemoRoom();
+		addPlayer(200);
+		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
+//		setDestinationRooms();
+//		players.add(new Player(200, rooms.get(0)));
+	}
+	
+	public void initializeItemsCodes(){
+		this.itemCodes.put(610, itemType.BOX);
+		this.itemCodes.put(611, itemType.BOOKSHELF);
+		this.itemCodes.put(612, itemType.BOOK);
+		this.itemCodes.put(614, itemType.BED);
+		this.itemCodes.put(615, itemType.CHAIR);
+		this.itemCodes.put(616, itemType.COMPUTER);
+		this.itemCodes.put(617, itemType.DARKNESS);
+		this.itemCodes.put(618, itemType.DESK);
+		this.itemCodes.put(619, itemType.KEY);
+		this.itemCodes.put(620, itemType.TABLE);	
+	}
+	
+	
+	public void addDemoRoom(){
 		rooms.add(new PuzzleRoom(10));
 		Location itemLocation = new Location(0, 1);
 		Location itemLocation2 = new Location(3, 3);
@@ -92,24 +110,9 @@ public class Game {
 		testDoor.addToSolution(keyItem);
 
 		rooms.get(0).addDoor(testDoor);
-		addPlayer(200);
-		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
-//		setDestinationRooms();
-//		players.add(new Player(200, rooms.get(0)));
+
 	}
 	
-	public void initializeItemsCodes(){
-		this.itemCodes.put(610, itemType.BOX);
-		this.itemCodes.put(611, itemType.BOOKSHELF);
-		this.itemCodes.put(612, itemType.BOOK);
-		this.itemCodes.put(614, itemType.BED);
-		this.itemCodes.put(615, itemType.CHAIR);
-		this.itemCodes.put(616, itemType.COMPUTER);
-		this.itemCodes.put(617, itemType.DARKNESS);
-		this.itemCodes.put(618, itemType.DESK);
-		this.itemCodes.put(619, itemType.KEY);
-		this.itemCodes.put(620, itemType.TABLE);	
-	}
 	
 	public void shiftView(viewDirection direction, int uid){
 		getPlayer(uid).shiftView(direction);
@@ -238,8 +241,8 @@ public class Game {
 			}
 			count++;
 		}
-		System.out.println("ROoms \n" + rooms);
-		System.out.println("ROoms size \n" + rooms.size());
+//		System.out.println("ROoms \n" + rooms);
+//		System.out.println("ROoms size \n" + rooms.size());
 	}
 	
 }

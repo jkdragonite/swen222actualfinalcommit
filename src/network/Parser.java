@@ -99,6 +99,7 @@ public class Parser {
 				Location loc = new Location(sc.nextInt(), sc.nextInt());
 				int itemID;
 				itemType type;
+//				room.addDoor(new Door(new Location(0, 9)));
 				
 				switch(id){
 					case 'D':
@@ -119,6 +120,8 @@ public class Parser {
 						type = game.itemCodes.get(itemID);
 						String name = sc.nextLine();
 						InventoryItem invItem = new InventoryItem(type, loc, name, INVENTORY_UOID++);
+//						room.inventoryItems.add(invItem);
+//						room.getDoor().addToSolution(invItem);
 						//check whether this inventory item is in the same space as a container
 						for(Container c: containers){
 							if(c.getLocation().equals(loc)){
@@ -569,27 +572,33 @@ public class Parser {
 	}
 
 	public Game createGameFromFiles(int level){
-		System.out.println("CREATE GAME :LJSKLDGKGHSLKDG \n");
+		System.out.println("CREATING GAME \n");
 		Game game = new Game();
 //		switch(level){
 //		case (1) : 
-			System.out.println("CASE 1");
+//			System.out.println("CASE 1");
 			try{
 				Room room1 = roomFromFile(game, L1R1);
+//				for (InventoryItem item : room1.inventoryItems){
+//					room1.getDoor().addToSolution(item);
+//				}
 				Room room2 = roomFromFile(game, L1R2);
+//				for (InventoryItem item : room2.inventoryItems){
+//					room1.getDoor().addToSolution(item);
+//				}
 				Room roomf = roomFromFile(game, L1FR);
 				game.addRoom(room1);
 				game.addRoom(room2);
 				game.addRoom(roomf);
-				System.out.println("JJHSAF" + game.rooms);
+//				System.out.println("Current Rooms" + game.rooms);
 //				game.rooms.add();
 //				game.rooms.add(roomFromFile(game, L1FR));
-				for (Room room : game.rooms){
-					System.out.println("ROOOM");
-					System.out.println(room);
-					System.out.println(room.getDoor());
+//				for (Room room : game.rooms){
+//					System.out.println("ROOOM");
+//					System.out.println(room);
+//					System.out.println(room.getDoor());
 //					System.out.println(room.getDoor().getSolution());
-				}
+//				}
 				game.setDestinationRooms();
 			}
 			catch(IOException ioe){
