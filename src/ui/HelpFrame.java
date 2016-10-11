@@ -26,7 +26,8 @@ public class HelpFrame extends JFrame {
 					+ "\n" + "you will need it\n" + "\n" + "scrub\n" + "\n";
 
 	/**
-	 * Constructor for HelpFrame
+	 * Constructor for HelpFrame 
+	 * it sets the size ,layout and the text layout
 	 */
 	public HelpFrame() {
 

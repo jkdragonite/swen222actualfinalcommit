@@ -24,6 +24,14 @@ import game.Player;
 import game.Game.viewDirection;
 import game.Room.MovementDirection;
 
+
+/**
+ *InventoryPanel handel a large amount of the game logic and have a lot of 
+ *buttons that allow the game to be played
+ * 
+ * @author Josh 300278912
+ *
+ */
 public class InventoryPanel extends JPanel implements ActionListener {
 
 	// images for the different items
@@ -75,6 +83,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 
 	/**
 	 * Constructor for InventoryPanel
+	 * 
+	 * adds all the relevant buttons at specific positions, reads in the image icons so that they can be drawn 
+	 * to show items in the players inventory, sets the two text areas for handyInfo and itemInfo
 	 */
 	public InventoryPanel(Game g, int userId, RenderPanel rend) {
 
@@ -185,11 +196,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * Constructor for InventoryPanel
-	 * 
-	 * Creates all the move buttons, Utility buttons and the item buttons. has
-	 * places for the inventory item icons to be drawn, will default to a black+
-	 * square if there is no item in the inventory slot.
+	 * Large amount of game logic takes place in the actionPerformed, handels the logic for all the buttons 
+	 * for items, the buttons for utility moves such as pull, push, use and others. Also the buttons for
+	 *  movement
 	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -632,7 +641,9 @@ public class InventoryPanel extends JPanel implements ActionListener {
 	}
 
 	/**
-	 * the draw method for drawing the items in the players inventory
+	 * the draw method for drawing the items in the players inventory,
+	 * if the item slot is null then it will draw a black square instead
+	 * will draw a yellow box around the selected item
 	 */
 	@Override
 	public void paintComponent(Graphics gr) {
