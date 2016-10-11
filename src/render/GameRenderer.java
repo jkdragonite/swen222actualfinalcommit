@@ -160,13 +160,13 @@ public class GameRenderer extends Canvas{
 						System.out.println("player.");
 						System.out.println("stage: " + y + ", " + x);
 						Image pImg = getPlayerImage(stage[y][x]);
-						drawScaledImage(pImg, g, y, x);
+						drawScaledImage(pImg, g, x, y);
 					//}
 				}
 				//now draw any items on the square
 				Image img = getImage(stage[y][x]);
 				if (img != null){
-					drawScaledImage(img, g, y, x);
+					drawScaledImage(img, g, x, y);
 				}
 			}
 		}
