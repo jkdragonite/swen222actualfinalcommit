@@ -10,8 +10,7 @@ SSEEEEEEQE
 SSEEEEEEEE
 
 R 10  
-D 9 0 
-C 2 9 610 1
+D 9 0
 Q 0 0 619 SSH Key (Part A)
 Q 2 9 619 SSH Key (Part B)
 Q 4 2 619 SSH Key (Part C)

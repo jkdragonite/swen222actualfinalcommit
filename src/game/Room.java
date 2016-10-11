@@ -286,11 +286,11 @@ public abstract class Room {
 			System.out.println("item test "+item);
 			this.door.testItem(player, item);
 		}
-		for (InventoryItem item : door.getSolution()){
-			if (player.getInventory().contains(item)){
-				player.removeItem(item);
-			}
-		}
+//		for (InventoryItem item : door.getSolution()){
+//			if (player.getInventory().contains(item)){
+//				player.removeItem(item);
+//			}
+//		}
 		player.resetMoves();
 		updatePlayerMoves(player);
 	}
@@ -510,6 +510,7 @@ public abstract class Room {
 			System.out.println("skdhgfjkshadg "+player.getRoom());
 			player.resetMoves();
 			updatePlayerMoves(player);
+			player.wipeInventory();
 		}
 		else {
 			this.door.getDestinationRoom().addPlayer(player);
@@ -519,6 +520,7 @@ public abstract class Room {
 			System.out.println("askhfkjshdg "+player.getRoom());
 			player.resetMoves();
 			updatePlayerMoves(player);
+			player.wipeInventory();
 		}
 	}
 	

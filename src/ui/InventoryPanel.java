@@ -262,6 +262,10 @@ public class InventoryPanel extends JPanel implements ActionListener {
 			if (currentPlayer.useMoves.keySet().size() > 0) {
 				currentPlayer.getRoom().useItem(currentPlayer);
 				System.out.println("\n door unlock status" + currentPlayer.getRoom().getDoor().isUnlocked());
+//				System.out.println(currentPlayer.getRoom().getDoor().getSolution().size());
+				if (currentPlayer.getInventory().size() == currentPlayer.getRoom().getDoor().getSolution().size()){
+					currentPlayer.getRoom().getDoor().setUnlocked(true);
+				}
 			}
 
 		}
@@ -550,6 +554,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				render.gam.updateRoom(currentPlayer.getRoom());
 				;
 				currentPlayer.getRoom().board.toString();
+				updateItemSlots();
 				render.repaint();
 				handyInfo.setText("Door sucess");
 			} else {
