@@ -113,6 +113,10 @@ public final class Master extends Thread{
 		}
 	}
 	
+	public int getUID(){
+		return this.uid;
+	}
+	
 	public static void main(String args[]){
 		JFrame frame = new JFrame("Master/Server");
 		JPanel printScreen = new JPanel();
