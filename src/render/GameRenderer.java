@@ -268,6 +268,8 @@ public class GameRenderer extends Canvas{
 				return spriteSet.getSprite(dir + "b");
 			case TABLE:
 				return spriteSet.getSprite(dir + "7");
+			case DARKNESS:
+				return spriteSet.getSprite("0a");
 			default:
 				return null;
 			}
