@@ -8,7 +8,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import game.Container;
@@ -45,8 +48,8 @@ public class Parser {
 	private static int IMMOVABLE_UOID = 900;
 	
 	/**Default starting level information files*/
-	private static final String L1R1 = "/existential-dread/src/network/L1R1.txt";
-	private static final String L1FR = "/existential-dread/src/network/L1FR.txt";
+	private static final String L1R1 = "C:/Users/Marielle/git/existential-dread/src/network/L1R1.txt";
+	private static final String L1FR = "C:/Users/Marielle/git/existential-dread/src/network/L1FR.txt";
 	
 	public Parser(Game game){
 		this.game = game;
@@ -63,20 +66,22 @@ public class Parser {
  */
 	public static Room roomFromFile(Game game, String file)throws IOException{
 		//create the file readers ready for parsing
-		FileReader fr = new FileReader(file);
-		BufferedReader in = new BufferedReader(fr);
+		//FileReader fr = new FileReader(file);
+		//BufferedReader in = new BufferedReader(fr);
 
 		Room room = new PuzzleRoom(10);
 		ArrayList<Container> containers = new ArrayList<Container>();
 		
-		ArrayList<String> lines = new ArrayList<String>();	//all lines in file
+		List<String> lines = Files.readAllLines(Paths.get(file));	//all lines in file
+		
 		String line; //current line in file
+		Scanner sc = new Scanner(lines.get(0));
 		int lineCount  = 0;
 		
 		//while the file has lines, process them
-		while((line = in.readLine()) != null){
-			lines.add(line);
-			Scanner sc = new Scanner(line);
+		while(lineCount < lines.size()){
+			line = lines.get(lineCount);
+			sc = new Scanner(line);
 			
 			//first line we need to process is line 12, for the room size
 			if(lineCount == 11){
@@ -103,6 +108,7 @@ public class Parser {
 					case 'D':
 						Door door = new Door(loc);
 						room.addDoor(door);
+						System.out.println("Door processed");
 						break;
 					case 'C':
 						itemID = sc.nextInt();
@@ -110,6 +116,7 @@ public class Parser {
 						Container cont = new Container(type, loc, CONTAINER_UOID++);
 						containers.add(cont);
 						room.setImmovableItem(cont, loc);
+						System.out.println("Container processed");
 						break;
 					case 'Q':
 						itemID = sc.nextInt();
@@ -124,17 +131,20 @@ public class Parser {
 						}
 						//add item to room
 						room.setInventoryItem(invItem, loc);
+						System.out.println("Inventory Item processed");
 						break;
 					case 'I':
 						//process type
 						itemID = sc.nextInt();
 						type = game.itemCodes.get(itemID);
 						ImmovableItem immItem = new ImmovableItem(type, loc, IMMOVABLE_UOID++);
-						
-						if(type != Game.itemType.COMPUTER || type != Game.itemType.DARKNESS 
-								|| type != Game.itemType.CHAIR){
+						System.out.println(type);
+						System.out.println(loc.getX() + " " + loc.getY());
+						if(type == Game.itemType.DESK || type == Game.itemType.BOOKSHELF 
+								|| type == Game.itemType.BED || type == Game.itemType.TABLE){
 							//process additional locations it covers, as most immovables cover two locations
 							Location secondary = new Location(sc.nextInt(), sc.nextInt());
+							System.out.println(secondary.getX() + " " + secondary.getY());
 							immItem.addToLocationsCovered(secondary);
 							
 							if(type == Game.itemType.TABLE){
@@ -159,7 +169,7 @@ public class Parser {
 			}
 			lineCount++;
 		}
-		
+		sc.close();
 		return room;
 	}
 	

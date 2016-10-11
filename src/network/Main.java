@@ -125,7 +125,7 @@ public class Main {
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);
-				connections[i] = new Master(broadcastClock, s, uid, game, level);
+				connections[i] = new Master(broadcastClock, s, uid++, game, level);
 				connections[i].start();
 				nclients--;
 			}			
@@ -297,6 +297,21 @@ public class Main {
 	private static void runGame(int level, Master...connections) throws IOException{
 		//first read in the relevant level files
 		Game game = createGameFromFiles(level);
+		for(Master m : connections){
+			game.addPlayer(m.getUID());
+		}
 		
+		while(atLeastOneConnection(connections)){
+			
+		}
+	}
+	
+	private static boolean atLeastOneConnection(Master...connections){
+		for (Master m : connections) {
+			if (m.isAlive()) {
+				return true;
+			}			
+		}
+		return false;
 	}
 }

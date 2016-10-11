@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import game.FinalRoom;
 import game.Game;
 import game.InventoryItem;
 import game.Location;
@@ -538,8 +539,11 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 		} else if (src == useDoor) {
 			System.out.println("Use the door");
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.canGoThroughDoor) {
+			if (currentPlayer.canGoThroughDoor && currentPlayer.getRoom() instanceof 
+					FinalRoom == false) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
+				System.out.println("sd;jfksadhgkkh \n"+currentPlayer.getRoom().board.toString());
+				render.repaint();
 				handyInfo.setText("Door sucess");
 			} else {
 				handyInfo.setText("Door failed");

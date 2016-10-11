@@ -498,11 +498,19 @@ public abstract class Room {
 			this.door.getDestinationRoom().addPlayer(player);
 			this.door.getDestinationRoom().placePlayer(player, new Location(0, 0));
 			removePlayer(player);
+			player.updateRoom(this.door.getDestinationRoom());
+			System.out.println("skdhgfjkshadg "+player.getRoom());
+			player.resetMoves();
+			updatePlayerMoves(player);
 		}
 		else {
 			this.door.getDestinationRoom().addPlayer(player);
 			this.door.getDestinationRoom().placePlayer(player, new Location(5, 5));
 			removePlayer(player);
+			player.updateRoom(this.door.getDestinationRoom());
+			System.out.println("askhfkjshdg "+player.getRoom());
+			player.resetMoves();
+			updatePlayerMoves(player);
 		}
 	}
 	
