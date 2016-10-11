@@ -85,7 +85,7 @@ public class Main {
 				address = InetAddress.getByName(DEFAULT_HOST);
 				Game game = new Game();
 				Parser p = new Parser(game);
-				game = p.createGameFromFiles(1);
+				game = p.createGameFromFiles(level);
 				runServer(address, DEFAULT_PORT, nclients, DEFAULT_BROADCAST_CLK_PERIOD, game, PLAYER_UID++, level);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -126,13 +126,13 @@ public class Main {
 			ServerSocket ss = new ServerSocket(port);			
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
-				//game.addPlayer(uid++);
 				connections[i] = new Master(broadcastClock, s, uid++, game, level);
 				connections[i].start();
 				nclients--;
 			}			
 				if(nclients == 0) {
 					System.out.println("ALL CLIENTS ACCEPTED --- GAME BEGINS");
+					runGame(1, connections);
 					return; // done
 				}
 		} 

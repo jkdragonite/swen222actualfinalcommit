@@ -26,11 +26,13 @@ import game.PuzzleRoom;
 import game.Room;
 
 /**
- * Responsible for testing the methods to be used in game for translating 
+ * Responsible for the methods to be used in game for translating 
  * game state to clients and allowing them to interpret game state onto 
- * their local copy of the board.
+ * their local copy of the board. Also provides functionality to create
+ * a game from files and create rooms with files.
  * 
- * Basically invented to  make sure I didn't fuck up the game class
+ * Basically invented to  make sure I didn't mess up the game class/
+ * fill it with unnecessary clutter. 
  * 
  * @author Marielle
  *
@@ -170,6 +172,7 @@ public class Parser {
 	 * Captures the data ready for sending across the connection for the 
 	 * first time. 
 	 * The main difference between this and stateUpdateToBytes is that
+	 * the immovable items are sent in this as well.
 	 * @param game
 	 * @return
 	 * @throws IOException 

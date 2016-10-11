@@ -132,7 +132,5 @@ public final class Master extends Thread{
 	    frame.add(printScreen);
 	    frame.pack();
 	    frame.setVisible(true);
-	    
-	    //Master m = new Master();
 	}
 }
