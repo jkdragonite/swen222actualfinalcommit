@@ -88,14 +88,14 @@ public class Frame extends JFrame implements  ActionListener {
 		end.addActionListener(menuItemListener);
 		showHelp.addActionListener(menuItemListener);
 
-		menu.add(start);
+		//menu.add(start);
 		menu.add(end);
 		help.add(showHelp);
-		save.add(saveGame);
-		save.add(loadGame);
+		//save.add(saveGame);
+		//save.add(loadGame);
 		menuBar.add(menu);
 		menuBar.add(help);
-		menuBar.add(save);
+		//menuBar.add(save);
 
 		setLayout(new BorderLayout());
 
@@ -119,11 +119,11 @@ public class Frame extends JFrame implements  ActionListener {
 	class MenuItemListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getActionCommand().equals("startGame")) {
-				System.out.println("game started");
+				//System.out.println("game started");
 				// start game method
 			}
 			if (e.getActionCommand().equals("endGame")) {
-				System.out.println("game ended");
+			//	System.out.println("game ended");
 				System.exit(0);
 			}
 			if (e.getActionCommand().equals("showHelp")) {
