@@ -12,7 +12,7 @@ public class Door extends Square{
 	
 	public Door(Location location) {
 		super(location);
-		this.unlocked = false;
+		this.unlocked = true;
 	}
 
 	private ArrayList<InventoryItem> solution = new ArrayList<InventoryItem>();

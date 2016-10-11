@@ -88,8 +88,9 @@ public class Game {
 		Location doorLocation = new Location(9, 0);
 		Door testDoor = new Door(doorLocation);
 //		testDoor.setDestination(0);
+		testDoor.setUnlocked(false);
 		testDoor.addToSolution(keyItem);
-//		testDoor.setUnlocked(true);
+
 		rooms.get(0).addDoor(testDoor);
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));
