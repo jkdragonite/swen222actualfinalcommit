@@ -25,7 +25,7 @@ import game.Player;
 import game.Game.viewDirection;
 import game.Room.MovementDirection;
 
-public class InventoryPanel extends JPanel implements ActionListener, KeyListener {
+public class InventoryPanel extends JPanel implements ActionListener {
 
 	// images for the different items
 	private static Image questIcon;
@@ -262,11 +262,11 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.useMoves.keySet().size() > 0){
-				currentPlayer.getRoom().useItem(currentPlayer);	
-				System.out.println("\n door unlock status"+currentPlayer.getRoom().getDoor().isUnlocked());
+			if (currentPlayer.useMoves.keySet().size() > 0) {
+				currentPlayer.getRoom().useItem(currentPlayer);
+				System.out.println("\n door unlock status" + currentPlayer.getRoom().getDoor().isUnlocked());
 			}
-			
+
 		}
 
 		else if (src == up) {
@@ -476,7 +476,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				} else {
 					handyInfo.setText("Pulled nothing");
 				}
-//				System.out.println("Pull repaint test");
+				// System.out.println("Pull repaint test");
 				render.repaint();
 			}
 
@@ -484,13 +484,15 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			System.out.println("drop");
 			// drop method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.canDropItem ){
-//					&& currentPlayer.getRoom().inventoryItems.size() >= selected) {
-//				if (currentPlayer.getRoom().inventoryItems.size() >= selected) {
-					currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
-					handyInfo.setText("Item dropped");
-					updateItemSlots();
-//				}
+			if (currentPlayer.canDropItem) {
+				// && currentPlayer.getRoom().inventoryItems.size() >= selected)
+				// {
+				// if (currentPlayer.getRoom().inventoryItems.size() >=
+				// selected) {
+				currentPlayer.getRoom().dropItem(currentPlayer, selected - 1);
+				handyInfo.setText("Item dropped");
+				updateItemSlots();
+				// }
 			} else {
 				handyInfo.setText("Drop failed");
 				updateItemSlots();
@@ -544,11 +546,11 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 		} else if (src == useDoor) {
 			System.out.println("Use the door");
 			Player currentPlayer = theGame.getPlayer(playerID);
-			if (currentPlayer.canGoThroughDoor && currentPlayer.getRoom() instanceof 
-					FinalRoom == false) {
+			if (currentPlayer.canGoThroughDoor && currentPlayer.getRoom() instanceof FinalRoom == false) {
 				currentPlayer.getRoom().goThroughDoor(currentPlayer);
-				System.out.println("sd;jfksadhgkkh \n"+currentPlayer.getRoom().board.toString());
-				render.gam.updateRoom(currentPlayer.getRoom());;
+				System.out.println("sd;jfksadhgkkh \n" + currentPlayer.getRoom().board.toString());
+				render.gam.updateRoom(currentPlayer.getRoom());
+				;
 				currentPlayer.getRoom().board.toString();
 				render.repaint();
 				handyInfo.setText("Door sucess");
@@ -649,42 +651,4 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 		}
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println("A key was pressed");
-		Player currentPlayer = theGame.getPlayer(playerID);
-
-		if (e.getKeyCode() == KeyEvent.VK_W) {
-			System.out.println("UP");
-			// use method
-			if (currentPlayer.moves.containsKey(MovementDirection.UP)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.UP);
-				render.repaint();
-			} else {
-				handyInfo.setText("Move up failed");
-			}
-		}
-		if (e.getKeyCode() == KeyEvent.VK_A) {
-			System.out.println("LEFT");
-			// use method
-
-			if (currentPlayer.moves.containsKey(MovementDirection.LEFT)) {
-				currentPlayer.getRoom().MovePlayer(currentPlayer, MovementDirection.LEFT);
-				handyInfo.setText("Moved left");
-				render.repaint();
-			} else {
-				handyInfo.setText("Move left failed");
-			}
-			render.repaint();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
 }
