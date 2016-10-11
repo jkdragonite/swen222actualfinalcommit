@@ -58,7 +58,7 @@ public final class Servant extends Thread{
 			
 			level = input.readInt();
 			game = new Game();
-			//initGame(level);
+			initGame(level);
 			//game.setState(Game.WAITING);
 			
 			gui = new Frame("Existential Dread (client@" + socket.getInetAddress() + ") - Player " + uid, game, uid);

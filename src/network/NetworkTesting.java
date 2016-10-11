@@ -53,8 +53,7 @@ public class NetworkTesting {
 			Parser p = new Parser(game);
 			game = p.createGameFromFiles(1);
 			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++, game,  1);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		} catch (UnknownHostException e) {			e.printStackTrace();
 		}
 	}
 	
