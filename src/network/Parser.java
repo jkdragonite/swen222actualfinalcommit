@@ -1,12 +1,9 @@
 package network;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -65,10 +62,6 @@ public class Parser {
  * @throws IOException
  */
 	public static Room roomFromFile(Game game, String file)throws IOException{
-		//create the file readers ready for parsing
-		//FileReader fr = new FileReader(file);
-		//BufferedReader in = new BufferedReader(fr);
-
 		Room room = new PuzzleRoom(10);
 		ArrayList<Container> containers = new ArrayList<Container>();
 		

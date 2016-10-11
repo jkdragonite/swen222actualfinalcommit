@@ -27,7 +27,7 @@ import game.Room.MovementDirection;
 
 public class InventoryPanel extends JPanel implements ActionListener, KeyListener {
 
-	// images for the differnt items
+	// images for the different items
 	private static Image questIcon;
 	private static Image bookIcon;
 	private static Image boxIcon;
