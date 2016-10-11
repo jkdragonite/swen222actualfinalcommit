@@ -50,7 +50,10 @@ public class NetworkTesting {
 		InetAddress address;
 		try {
 			address = InetAddress.getByName(DEFAULT_HOST);
-			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++, 1);
+			Game game = new Game();
+			//Parser p = new Parser(game);
+			//game = p.createGameFromFiles(1);
+			runServer(address, DEFAULT_PORT, 1, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++, game,  1);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +94,7 @@ public class NetworkTesting {
 	 * @param broadcastClock
 	 * @param uid
 	 */
-	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid, int level){		
+	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid, Game game, int level){		
 		// Listen for connections
 		System.out.println("SERVER LISTENING ON PORT " + port);
 		System.out.println("SERVER AWAITING " + nclients + " CLIENTS");
@@ -104,7 +107,7 @@ public class NetworkTesting {
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);
-				connections[i] = new Master(broadcastClock, s, uid, level);
+				connections[i] = new Master(broadcastClock, s, uid, game, level);
 				connections[i].start();
 				nclients--;
 			}			

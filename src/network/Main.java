@@ -53,7 +53,6 @@ public class Main {
 		int port = DEFAULT_PORT;
 		
 		int level = 1;
-		Game game= null;
 		
 		for (int i = 0; i != args.length; ++i) {
 			if (args[i].startsWith("-")) {
@@ -84,7 +83,8 @@ public class Main {
 			InetAddress address;
 			try {
 				address = InetAddress.getByName(DEFAULT_HOST);
-				runServer(address, DEFAULT_PORT, nclients, DEFAULT_BROADCAST_CLK_PERIOD, PLAYER_UID++, level);
+				Game game = createGameFromFiles(level);
+				runServer(address, DEFAULT_PORT, nclients, DEFAULT_BROADCAST_CLK_PERIOD, game, PLAYER_UID++, level);
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
 			}
@@ -114,7 +114,7 @@ public class Main {
 	 * @param broadcastClock
 	 * @param uid
 	 */
-	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, int uid, int level){		
+	private static void runServer(InetAddress address, int port, int nclients, int broadcastClock, Game game, int uid, int level){		
 		// Listen for connections
 		System.out.println("SERVER LISTENING ON PORT " + port);
 		System.out.println("SERVER AWAITING " + nclients + " CLIENTS");
@@ -125,7 +125,7 @@ public class Main {
 			for(int i=0; i < nclients; i++){
 				Socket s = ss.accept();
 				//game.addPlayer(uid++);
-				connections[i] = new Master(broadcastClock, s, uid, level);
+				connections[i] = new Master(broadcastClock, s, uid, game, level);
 				connections[i].start();
 				nclients--;
 			}			

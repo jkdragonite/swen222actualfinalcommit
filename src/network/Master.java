@@ -32,10 +32,12 @@ public final class Master extends Thread{
 	/** The unique user identifier for this particular server-client pair */
 	private final int uid;
 	
-	public Master(int broadcastClock, Socket socket, int uid, int level){
+	public Master(int broadcastClock, Socket socket, int uid, Game game, int level){
 		this.broadcastClock = broadcastClock;
 		this.socket = socket;
 		this.uid = uid;
+		this.game = game;
+		this.level = level;
 	}
 	
 	public void run(){

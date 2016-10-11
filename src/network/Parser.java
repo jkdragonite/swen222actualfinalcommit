@@ -45,11 +45,9 @@ public class Parser {
 	private static int IMMOVABLE_UOID = 900;
 	
 	/**Default starting level information files*/
-	private static final File L1R1 = new File("L1R1.txt");
-	private static final File L1FR = new File("L1FR.txt");
+	private static final String L1R1 = "/existential-dread/src/network/L1R1.txt";
+	private static final String L1FR = "/existential-dread/src/network/L1FR.txt";
 	
-	
-
 	public Parser(Game game){
 		this.game = game;
 	}
@@ -63,7 +61,7 @@ public class Parser {
  * @return
  * @throws IOException
  */
-	public static Room roomFromFile(Game game, File file)throws IOException{
+	public static Room roomFromFile(Game game, String file)throws IOException{
 		//create the file readers ready for parsing
 		FileReader fr = new FileReader(file);
 		BufferedReader in = new BufferedReader(fr);
