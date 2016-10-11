@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
+/**
+ * @author Jordan Ching 300394044
+ * Square representing a door
+ *
+ */
 public class Door extends Square{
 	
 	private Room destinationRoom;
@@ -19,6 +24,14 @@ public class Door extends Square{
 	
 	private ArrayList<InventoryItem> keyHole = new ArrayList<InventoryItem>();
 	
+	/**
+	 * 
+	 * Checks item against solution, add to keyhole if found, when keyhole is same size as solution
+	 * door == unlocked 
+	 * 
+	 * @param player
+	 * @param item
+	 */
 	public void testItem(Player player, InventoryItem item){
 		if (solution.contains(item)){
 			keyHole.add(item);
@@ -52,6 +65,10 @@ public class Door extends Square{
 	}
 	
 	
+	/**
+	 * sets room this door leads to
+	 * @param room
+	 */
 	public void setDestination(Room room){
 		this.destinationRoom = room;
 	}

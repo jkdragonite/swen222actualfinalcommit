@@ -40,18 +40,34 @@ public abstract class Square {
 		this.inventoryItem = inventory;
 	}
 
+	/**
+	 * returns movable item on square
+	 * @return MovableItem
+	 */
 	public MovableItem getMovableItem() {
 		return movableItem;
 	}
 
+	/**
+	 * Sets this squares movable item
+	 * @param movableItem
+	 */
 	public void setMovableItem(MovableItem movableItem) {
 		this.movableItem = movableItem;
 	}
 	
+	/**
+	 * Resets movable item (removal represented by return to null)
+	 */
 	public void removeMovableItem(){
 		this.movableItem = null;
 	}
 
+	/**
+	 * Retrives immovable item
+	 * 
+	 * @return ImmovableItem
+	 */
 	public ImmovableItem getImmovableItem() {
 		return immovableItem;
 	}
@@ -94,6 +110,12 @@ public abstract class Square {
 		return this.location;
 	}
 	
+	/**
+	 * 
+	 * Tests all item fields, returns whichever field is not null, 
+	 * returns null if empty
+	 * @return Item
+	 */
 	public Item getItem(){
 		if ( this.inventoryItem != null){
 			return inventoryItem;
@@ -114,10 +136,18 @@ public abstract class Square {
 		return this.playerOnSquare;
 	}
 	
+	/**
+	 * Sets render flag for renderer use, e.g some items can occupy multiple squares
+	 * 
+	 * @param valueBoolean
+	 */
 	public void setRenderFlag(Boolean valueBoolean){
 		this.renderFlag = valueBoolean;
 	}
 	
+	/**
+	 * default state is to render
+	 */
 	public void resetRenderFlag(){
 		this.renderFlag = true;
 	}
@@ -126,6 +156,11 @@ public abstract class Square {
 		return this.renderFlag;
 	}
 	
+	/**
+	 * returns true to indicate empty if relevant fields are still null
+	 * 
+	 * @return boolean
+	 */
 	public Boolean isEmpty(){
 		if (this.playerOnSquare == null && this.movableItem == null && this.immovableItem == null 
 				&& this.container == null && renderFlag == true){

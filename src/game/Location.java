@@ -1,5 +1,11 @@
 package game;
 
+/**
+ * @author Jordan Ching - 300394044
+ * 
+ * Location class holds x and y calues
+ *
+ */
 public class Location {
 	private int xcoordinate;
 	private int ycoordinate;
