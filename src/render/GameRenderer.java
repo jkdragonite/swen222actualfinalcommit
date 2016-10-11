@@ -144,33 +144,27 @@ public class GameRenderer extends Canvas{
 		int floorY[] = {BASE, BASE-100, BASE-100, BASE};
 		g.fillPolygon(floorX, floorY, 4);
 		
-//		Image box = spriteSet.getSprite("24");
 
 		//render the tiles
 		for (int y = 0; y < stage.length; y++){
 			for (int x = 0; x < stage.length; x++){
 				
-//				if(x < 9){
-//					drawScaledImage(box, g, x, y);
-//				}
-				
 				//if the square is a door
-				if (stage[x][y] instanceof Door){
-					//System.out.println("doordoordoordoordoor");
+				if (stage[y][x] instanceof Door){
 					Image doorImg = spriteSet.getSprite("0d");
-					drawScaledImage(doorImg, g, x, y);
+					drawScaledImage(doorImg, g, y, x);
 				}
 				//if the square has a player
-				if(stage[x][y].getPlayer() != null){
+				if(stage[y][x].getPlayer() != null){
 					System.out.println("player.");
-					System.out.println("stage: " + x + ", " + y);
-					Image pImg = getPlayerImage(stage[x][y]);
-					drawScaledImage(pImg, g, x, y);
+					System.out.println("stage: " + y + ", " + x);
+					Image pImg = getPlayerImage(stage[y][x]);
+					drawScaledImage(pImg, g, y, x);
 				}
 				//now draw any items on the square
-				Image img = getImage(stage[x][y]);
+				Image img = getImage(stage[y][x]);
 				if (img != null){
-					drawScaledImage(img, g, x, y);
+					drawScaledImage(img, g, y, x);
 				}
 			}
 		}
