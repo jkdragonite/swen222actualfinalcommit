@@ -370,12 +370,6 @@ public class Parser {
 		Room room;
 		Door door;
 		
-		//Lists to store items which have changes flagged
-		ArrayList<Container> containers = new ArrayList<Container>();
-		ArrayList<MovableItem> movable = new ArrayList<MovableItem>();
-		ArrayList<Player> players = new ArrayList<Player>();
-		ArrayList<InventoryItem> inventory = new ArrayList<InventoryItem>();
-		
 		game.setState(din.readInt());
 
 		boolean reading = true;
@@ -406,6 +400,7 @@ public class Parser {
 					//parse location
 					int cX = din.readInt();
 					int cY = din.readInt();
+					din.readInt();			//skip over the itemType id, we don't need it for updates
 					boolean hasItems = (din.readInt() == 0) ? false : true;
 					Container c = (Container) room.itemsHashMap.get(cuoid);
 					
@@ -452,10 +447,12 @@ public class Parser {
 					//get potentially new x/y
 					int mX = din.readInt();
 					int mY = din.readInt();
-					
+					din.readInt();			//skip over the itemType id, we don't need it for updates
 					//find item in room, check location against the new one, move if different
 					MovableItem mi = (MovableItem) room.itemsHashMap.get(muoid);
-					if(mi.getLocation().getX() != mX || mi.getLocation().getY() != mY){
+					Location mLoc = mi.getLocation();
+					
+					if(mLoc.getX() != mX || mLoc.getY() != mY){
 						room.setMovableItem(mi, new Location(mX, mY));
 						//need to remove it from previous position--updateMovableItem?
 					}
@@ -463,11 +460,12 @@ public class Parser {
 				case 'p':
 					int puid = din.readInt();
 					Player player = game.getPlayer(puid);
+					Location pLoc = player.getLocation();
 					//read location, check against local copy, change if necessary
 					int pX = din.readInt();
 					int pY = din.readInt();
 					
-					if(player.getLocation().getX() != pX || player.getLocation().getY() != pY){
+					if(pLoc.getX() != pX || pLoc.getY() != pY){
 						room.placePlayer(player, new Location(pX, pY));
 					}
 					
@@ -512,7 +510,46 @@ public class Parser {
 					
 					break;
 				case 'Q':
+					int iuoid = din.readInt();
+					int iX = din.readInt();
+					int iY = din.readInt();
+					din.readInt();			//skip over the itemType id, we don't need it for updates
 					
+					InventoryItem item = (InventoryItem) room.itemsHashMap.get(iuoid);
+					Location iLoc = item.getLocation();
+					//check for movement
+					if(iLoc.getX() != iX || iLoc.getY() != iY){
+						//check for an item or player on the square
+						Item possibleItem = room.getItemOnSquare(new Location(iX, iY));
+						Player possiblePlayer = room.getPlayerOnSquare(new Location(iX, iY));
+						Location doorLoc = room.getDoor().getLocation();
+						
+						if(possibleItem != null){
+							if(possibleItem instanceof Container){
+								//check contents of container for this item
+								Container cont = (Container) possibleItem;
+								if(!(cont.getItems().contains(item))){
+									cont.addItem(item);
+									item.setLocation(new Location(iX, iY));
+								}
+							}
+							//add method to move item to next available square if there's another object 
+							//type present?
+						}
+						else if(possiblePlayer != null){
+							//check if the player's inventory has the item
+							if(!(possiblePlayer.getInventory().contains(item))){
+								possiblePlayer.addItem(item);
+								item.setLocation(new Location(iX, iY));
+							}
+						}
+						else if(doorLoc.getX() == iX && doorLoc.getY() == iY){
+							//check if the item is in the keyhole
+						}
+					}
+					else{
+						item.setLocation(new Location(iX,iY));
+					}
 					break;
 				}
 				nextItem = din.readChar();
@@ -521,4 +558,205 @@ public class Parser {
 		
 	}
 
+
+	/**
+	 * Reads in the game information sent on initialisation?
+	 * @param bytes
+	 * @param game
+	 * @throws IOException
+	 */
+	public synchronized void initFromByteArray(byte[] bytes, Game game) throws IOException{
+		ByteArrayInputStream bin = new ByteArrayInputStream(bytes);
+		DataInputStream din = new DataInputStream(bin);
+		
+		//fields for storing game objects while checking consistency
+		Room room;
+		Door door;
+		
+		game.setState(din.readInt());
+
+		boolean reading = true;
+		
+		while(reading){
+			//read in the room type and room number
+			char rtype = din.readChar();
+			int rNum = din.readInt();
+			
+			//get the relevant room object from the game 
+			room = game.rooms.get(rNum);
+			
+			//check for whether there are item types first
+			char nextItem = din.readChar();
+			while(nextItem != 'Z'){
+				switch(nextItem){
+				case 'D':
+				case 'd': 
+					//door is now unlocked: check inventory items later and check consistency
+					door = room.getDoor();
+					if(!door.isUnlocked()){
+						door.setUnlocked(true);
+					}
+					break;
+				case 'C':
+					//container object: parse uoid
+					int cuoid = din.readInt();
+					//parse location
+					int cX = din.readInt();
+					int cY = din.readInt();
+					din.readInt();			//skip over the itemType id, we don't need it for updates
+					boolean hasItems = (din.readInt() == 0) ? false : true;
+					Container c = (Container) room.itemsHashMap.get(cuoid);
+					
+					if(hasItems){
+						int numItems = din.readInt();
+						
+						//process new inventory information
+						ArrayList<InventoryItem> newInv = new ArrayList<InventoryItem>();
+						for(int i = 0; i < numItems; i++){
+							newInv.add((InventoryItem) room.itemsHashMap.get(din.readInt()));	
+						}
+						
+						//inventory checks
+						if(!c.hasItems()){
+							for(InventoryItem i : newInv){
+								c.addItem(i);
+							}
+						}
+						else{
+							//check for items adds
+							for(InventoryItem i : newInv){
+								if(!(c.getItems().contains(i))){
+									c.addItem(i);
+								}
+							}
+							//check for item removes
+							for(InventoryItem i : c.getItems()){
+								if(!(newInv.contains(i))){
+									c.removeItem(i);
+								}
+							}
+						}
+					}
+					else{
+						if(c.hasItems()){
+							for(InventoryItem i : c.getItems()){
+								c.removeItem(i);
+							}
+						}
+					}
+					break;
+				case 'M':
+					int muoid = din.readInt();
+					//get potentially new x/y
+					int mX = din.readInt();
+					int mY = din.readInt();
+					din.readInt();			//skip over the itemType id, we don't need it for updates
+					//find item in room, check location against the new one, move if different
+					MovableItem mi = (MovableItem) room.itemsHashMap.get(muoid);
+					Location mLoc = mi.getLocation();
+					
+					if(mLoc.getX() != mX || mLoc.getY() != mY){
+						room.setMovableItem(mi, new Location(mX, mY));
+						//need to remove it from previous position--updateMovableItem?
+					}
+					break;
+				case 'p':
+					int puid = din.readInt();
+					Player player = game.getPlayer(puid);
+					Location pLoc = player.getLocation();
+					//read location, check against local copy, change if necessary
+					int pX = din.readInt();
+					int pY = din.readInt();
+					
+					if(pLoc.getX() != pX || pLoc.getY() != pY){
+						room.placePlayer(player, new Location(pX, pY));
+					}
+					
+					//read in has inventory boolean
+					boolean hasInv = (din.readInt() == 0) ? false : true;
+					if(hasInv){
+						//read in inventory items, check against local copy
+						int numItems = din.readInt();
+						ArrayList<InventoryItem> newItms = new ArrayList<InventoryItem>();
+						
+						for(int i = 0; i < numItems; i++){
+							newItms.add((InventoryItem) room.itemsHashMap.get(din.readInt()));
+						}
+						
+						if(player.getInventory().isEmpty()){
+							for(InventoryItem i : newItms){
+								player.addItem(i);
+							}
+						}
+						else{
+							//check for items adds
+							for(InventoryItem i : newItms){
+								if(!(player.getInventory().contains(i))){
+									player.addItem(i);
+								}
+							}
+							//check for item removes
+							for(InventoryItem i : player.getInventory()){
+								if(!(newItms.contains(i))){
+									player.removeItem(i);
+								}
+							}
+						}
+					}
+					else{
+						if(!(player.getInventory().isEmpty())){
+							for(InventoryItem i : player.getInventory()){
+								player.removeItem(i);
+							}
+						}
+					}
+					
+					break;
+				case 'Q':
+					int iuoid = din.readInt();
+					int iX = din.readInt();
+					int iY = din.readInt();
+					din.readInt();			//skip over the itemType id, we don't need it for updates
+					
+					InventoryItem item = (InventoryItem) room.itemsHashMap.get(iuoid);
+					Location iLoc = item.getLocation();
+					//check for movement
+					if(iLoc.getX() != iX || iLoc.getY() != iY){
+						//check for an item or player on the square
+						Item possibleItem = room.getItemOnSquare(new Location(iX, iY));
+						Player possiblePlayer = room.getPlayerOnSquare(new Location(iX, iY));
+						Location doorLoc = room.getDoor().getLocation();
+						
+						if(possibleItem != null){
+							if(possibleItem instanceof Container){
+								//check contents of container for this item
+								Container cont = (Container) possibleItem;
+								if(!(cont.getItems().contains(item))){
+									cont.addItem(item);
+									item.setLocation(new Location(iX, iY));
+								}
+							}
+							//add method to move item to next available square if there's another object 
+							//type present?
+						}
+						else if(possiblePlayer != null){
+							//check if the player's inventory has the item
+							if(!(possiblePlayer.getInventory().contains(item))){
+								possiblePlayer.addItem(item);
+								item.setLocation(new Location(iX, iY));
+							}
+						}
+						else if(doorLoc.getX() == iX && doorLoc.getY() == iY){
+							//check if the item is in the keyhole
+						}
+					}
+					else{
+						item.setLocation(new Location(iX,iY));
+					}
+					break;
+				}
+				nextItem = din.readChar();
+			}
+		}
+	}
 }
