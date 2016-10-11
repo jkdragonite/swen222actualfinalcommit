@@ -9,7 +9,7 @@ import jdk.internal.dynalink.beans.StaticClass;
 import com.sun.org.apache.bcel.internal.generic.INEG;
 
 public class Game {
-	private viewDirection view;
+//	private viewDirection view;
 //	private renderRoom currentRoom;
 	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public HashMap<Integer, itemType> itemCodes = new HashMap<>();
@@ -60,7 +60,7 @@ public class Game {
 	
 	
 	public Game() {
-		this.view = viewDirection.NORTH;	
+//		this.view = viewDirection.NORTH;	
 //		this.currentRoom = renderRoom.ROOM1;
 		initializeItemsCodes();
 		
@@ -72,7 +72,9 @@ public class Game {
 		Location movableItemLocation = new Location(8, 8);
 		Location immovableItemLocation = new Location(4, 4);
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
-		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
+//		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
+		InventoryItem keyItem = new InventoryItem(itemType.KEY, itemLocation, "Key", 99);
+		addInventoryItemToGame(keyItem, 0);
 		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation2, "KeyKeyKey", 98), 0);
 		addInventoryItemToGame(new InventoryItem(itemType.BOOK, itemLocation3, "Book", 96), 0);
 		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation, 902);
@@ -85,7 +87,8 @@ public class Game {
 		rooms.add(new FinalRoom(10));
 		Location doorLocation = new Location(9, 0);
 		Door testDoor = new Door(doorLocation);
-		testDoor.setUnlocked(true);
+		testDoor.addToSolution(keyItem);
+//		testDoor.setUnlocked(true);
 		rooms.get(0).addDoor(testDoor);
 		addPlayer(200);
 		this.getPlayer(200).getRoom().updatePlayerMoves(this.getPlayer(200));

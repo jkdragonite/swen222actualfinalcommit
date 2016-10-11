@@ -262,7 +262,11 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 			System.out.println("use");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
-			currentPlayer.getRoom().useItem(currentPlayer);
+			if (currentPlayer.useMoves.keySet().size() > 0){
+				currentPlayer.getRoom().useItem(currentPlayer);	
+				System.out.println("\n door unlock status"+currentPlayer.getRoom().getDoor().isUnlocked());
+			}
+			
 		}
 
 		else if (src == up) {

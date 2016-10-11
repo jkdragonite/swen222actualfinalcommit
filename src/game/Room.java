@@ -281,8 +281,15 @@ public abstract class Room {
 	 * @param door door player is standing on/by (door extends square)
 	 */
 	public void useItem(Player player){
+		System.out.println("Player inventory" + player.getInventory());
 		for (InventoryItem item : player.getInventory()){
+			System.out.println("item test "+item);
 			this.door.testItem(player, item);
+		}
+		for (InventoryItem item : door.getSolution()){
+			if (player.getInventory().contains(item)){
+				player.removeItem(item);
+			}
 		}
 		player.resetMoves();
 		updatePlayerMoves(player);

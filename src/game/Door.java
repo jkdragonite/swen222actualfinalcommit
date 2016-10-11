@@ -15,14 +15,13 @@ public class Door extends Square{
 		this.unlocked = false;
 	}
 
-	private ArrayList<Item> solution = new ArrayList<Item>();
+	private ArrayList<InventoryItem> solution = new ArrayList<InventoryItem>();
 	
-	private ArrayList<Item> keyHole = new ArrayList<Item>();
+	private ArrayList<InventoryItem> keyHole = new ArrayList<InventoryItem>();
 	
 	public void testItem(Player player, InventoryItem item){
 		if (solution.contains(item)){
 			keyHole.add(item);
-			player.removeItem(item);
 			if (solution.size() == keyHole.size()){
 				unlocked = true;
 				this.character = 'd';
@@ -52,15 +51,16 @@ public class Door extends Square{
 		this.solution.add(item);
 	}
 	
+	
 	public void setDestination(Room room){
 		this.destinationRoom = room;
 	}
 	
-	public ArrayList<Item> getKeyHole(){
+	public ArrayList<InventoryItem> getKeyHole(){
 		return this.keyHole;
 	}
 	
-	public ArrayList<Item> getSolution(){
+	public ArrayList<InventoryItem> getSolution(){
 		return this.solution;
 	}
 	
