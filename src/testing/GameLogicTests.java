@@ -20,6 +20,13 @@ import org.junit.Test;
 
 import com.sun.corba.se.spi.activation.Server;
 
+/**
+ * @author Jordan Ching - 300394044
+ * 
+ * Simple tests for game logic, mostly used while waiting for other packages to
+ * be integrated
+ *
+ */
 public class GameLogicTests {
 	
 	
