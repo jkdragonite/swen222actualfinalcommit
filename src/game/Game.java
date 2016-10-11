@@ -67,10 +67,14 @@ public class Game {
 		//testing only pls remove
 		rooms.add(new PuzzleRoom(10));
 		Location itemLocation = new Location(0, 1);
+		Location itemLocation2 = new Location(3, 3);
+		Location itemLocation3 = new Location(1, 1);
 		Location movableItemLocation = new Location(8, 8);
 		Location immovableItemLocation = new Location(4, 4);
 //		rooms.get(0).board.getSquare(itemLocation).setInventory(new InventoryItem(itemType.KEY, itemLocation, "Key"));
 		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation, "Key", 99), 0);
+		addInventoryItemToGame(new InventoryItem(itemType.KEY, itemLocation2, "KeyKeyKey", 98), 0);
+		addInventoryItemToGame(new InventoryItem(itemType.BOOK, itemLocation3, "Book", 96), 0);
 		ImmovableItem bookShelf = new ImmovableItem(itemType.BOOKSHELF, immovableItemLocation, 902);
 		bookShelf.addToLocationsCovered(new Location(5, 4));
 		addImmovableItemToGame(bookShelf, 0);

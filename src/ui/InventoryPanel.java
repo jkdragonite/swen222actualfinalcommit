@@ -443,6 +443,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				} else {
 					handyInfo.setText("Pushed nothing");
 				}
+				render.repaint();
 			}
 
 		} else if (src == pull) {
@@ -470,6 +471,7 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 				} else {
 					handyInfo.setText("Pulled nothing");
 				}
+				render.repaint();
 			}
 
 		} else if (src == drop) {
@@ -551,15 +553,15 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 	 */
 	public void updateItemSlots() {
 		Player currentPlayer = theGame.getPlayer(playerID);
-		if (currentPlayer.getInventory().size() == 1) {
+		if (currentPlayer.getInventory().size() >= 1) {
 			slot1 = currentPlayer.getInventory().get(0);
 		} else
 			slot1 = null;
-		if (currentPlayer.getInventory().size() == 2) {
+		if (currentPlayer.getInventory().size() >= 2) {
 			slot2 = currentPlayer.getInventory().get(1);
 		} else
 			slot2 = null;
-		if (currentPlayer.getInventory().size() == 3) {
+		if (currentPlayer.getInventory().size() >= 3) {
 			slot3 = currentPlayer.getInventory().get(2);
 		} else
 			slot3 = null;
