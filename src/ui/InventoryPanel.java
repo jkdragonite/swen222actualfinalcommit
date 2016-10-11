@@ -163,22 +163,22 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 		useDoor.setBounds(980, 180, untiButtonWidth, utilButtonHeight);
 		add(useDoor);
 
-		up = new JButton("Move LEFT");
+		up = new JButton("Move forward");
 		up.addActionListener(this);
 		up.setBounds(770, 10, 200, 70);
 		add(up);
 
-		left = new JButton("Move BACK");
+		left = new JButton("Move left");
 		left.addActionListener(this);
 		left.setBounds(770, 80, 100, 80);
 		add(left);
 
-		right = new JButton("Move FORWARDS");
+		right = new JButton("Move right");
 		right.addActionListener(this);
 		right.setBounds(870, 80, 100, 80);
 		add(right);
 
-		down = new JButton("Move RIGHT");
+		down = new JButton("Move back");
 		down.addActionListener(this);
 		down.setBounds(770, 160, 200, 70);
 		add(down);
