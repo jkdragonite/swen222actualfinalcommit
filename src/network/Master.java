@@ -71,6 +71,7 @@ public final class Master extends Thread{
 							case 1:
 								//queue the player for a left move
 								System.out.println("MASTER RCVD EVENT: Player " + uid + "wants to move left");
+								//game.getPlayer(uid).getRoom().MovePlayer(player, direction);
 								//call the game.
 								break;
 							case 2:
@@ -98,6 +99,7 @@ public final class Master extends Thread{
 						}
 					}
 					//broadcast the updated game state to the client
+					
 					Thread.sleep(5000);
 				}
 				catch(InterruptedException ie){}

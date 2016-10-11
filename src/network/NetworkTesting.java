@@ -11,7 +11,6 @@ import game.Game;
 public class NetworkTesting {
 	
 	private static final int DEFAULT_BROADCAST_CLK_PERIOD = 5000;
-	private static final int SERVER_UID = 100;
 	
 	private static int PLAYER_UID = 200;
 	
@@ -59,27 +58,6 @@ public class NetworkTesting {
 		}
 	}
 	
-	/**
-	 * Creates a 'server' (a master and a servant) to test whether they're working together and sending
-	 * /receiving on a basic level
-	 */
-	/*public static void testBasicNetwork(){
-		try{
-			ServerSocket ss = new ServerSocket(DEFAULT_PORT);
-			InetAddress address = InetAddress.getByName(DEFAULT_HOST);
-			Socket socket = new Socket(address, DEFAULT_PORT);
-			
-			Master m = new Master(DEFAULT_BROADCAST_CLK_PERIOD, socket, PLAYER_UID);
-			m.start();
-			
-			Servant s = new Servant(socket);
-			s.run();
-		}
-		catch(IOException ioe){
-			System.out.println(ioe.getMessage());
-		}
-		
-	}*/
 	
 	/************************************************
 	 * 				HELPER METHODS
