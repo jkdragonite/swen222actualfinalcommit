@@ -520,12 +520,17 @@ public class InventoryPanel extends JPanel implements ActionListener, KeyListene
 					amountOfItems++;
 				}
 				if (currentPlayer.itemPickups.keySet().contains(null)) {
-					currentPlayer.getRoom().pickupItem(currentPlayer,
-							currentPlayer.itemPickups.get(null));
+					currentPlayer.getRoom().pickupItem(currentPlayer, currentPlayer.itemPickups.get(null));
 					amountOfItems++;
 				}
 				updateItemSlots();
-				handyInfo.setText(amountOfItems + " items picked up");
+				if (amountOfItems == 1) {
+					handyInfo.setText("1 item picked up");
+				} else {
+					handyInfo.setText(amountOfItems + " items picked up");
+				}
+			} else {
+				handyInfo.setText("No items picked up");
 			}
 		} else if (src == useDoor) {
 			System.out.println("Use the door");

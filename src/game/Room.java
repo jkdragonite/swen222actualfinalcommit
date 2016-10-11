@@ -263,6 +263,7 @@ public abstract class Room {
 		board.getSquare(player.getLocation()).setItem(player.getItem(removed));
 		player.getItem(removed).removeOwner(player.getLocation());
 		player.removeItem(player.getItem(removed));
+		updatePlayerMoves(player);
 	}
 	
 	
