@@ -567,22 +567,34 @@ public class Parser {
 		
 	}
 
-	public static Game createGameFromFiles(int level){
+	public Game createGameFromFiles(int level){
+		System.out.println("CREATE GAME :LJSKLDGKGHSLKDG \n");
 		Game game = new Game();
-		switch(level){
-		case 1 : 
+//		switch(level){
+//		case (1) : 
+			System.out.println("CASE 1");
 			try{
-				game.rooms.add(roomFromFile(game, L1R1));
-				game.rooms.add(roomFromFile(game, L1FR));
-				
+				Room room1 = roomFromFile(game, L1R1);
+				Room room2 = roomFromFile(game, L1FR);
+				game.addRoom(room1);
+				game.addRoom(room2);
+				System.out.println("JJHSAF" + game.rooms);
+//				game.rooms.add();
+//				game.rooms.add(roomFromFile(game, L1FR));
+				for (Room room : game.rooms){
+					System.out.println("ROOOM");
+					System.out.println(room);
+					System.out.println(room.getDoor());
+//					System.out.println(room.getDoor().getSolution());
+				}
 				game.setDestinationRooms();
 			}
 			catch(IOException ioe){
 				System.out.println("Error parsing game file" + ioe.getMessage());
 				System.exit(1);
 			}
-			break;
-		}
+//			break;
+//		}
 		return game;
 	}
 	

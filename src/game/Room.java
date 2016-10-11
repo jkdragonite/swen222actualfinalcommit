@@ -504,7 +504,7 @@ public abstract class Room {
 		Room newRoom = this.door.getDestinationRoom();
 		if (newRoom instanceof PuzzleRoom){
 			this.door.getDestinationRoom().addPlayer(player);
-			this.door.getDestinationRoom().placePlayer(player, new Location(0, 0));
+			this.door.getDestinationRoom().placePlayer(player, new Location(0, 9));
 			removePlayer(player);
 			player.updateRoom(this.door.getDestinationRoom());
 			System.out.println("skdhgfjkshadg "+player.getRoom());
@@ -513,7 +513,7 @@ public abstract class Room {
 		}
 		else {
 			this.door.getDestinationRoom().addPlayer(player);
-			this.door.getDestinationRoom().placePlayer(player, new Location(5, 5));
+			this.door.getDestinationRoom().placePlayer(player, new Location(0, 9));
 			removePlayer(player);
 			player.updateRoom(this.door.getDestinationRoom());
 			System.out.println("askhfkjshdg "+player.getRoom());

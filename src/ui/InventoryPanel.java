@@ -346,6 +346,7 @@ public class InventoryPanel extends JPanel implements ActionListener {
 				repaint();
 			}
 		} else if (src == right) {
+			System.out.println(theGame.rooms);
 			System.out.println("RIGHT");
 			// use method
 			Player currentPlayer = theGame.getPlayer(playerID);
