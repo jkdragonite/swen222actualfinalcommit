@@ -1,6 +1,7 @@
 
 package game;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +9,10 @@ import jdk.internal.dynalink.beans.StaticClass;
 
 import com.sun.org.apache.bcel.internal.generic.INEG;
 
+/**
+ * @author Jordan Ching - 300394044
+ *
+ */
 public class Game {
 //	private viewDirection view;
 //	private renderRoom currentRoom;
@@ -16,6 +21,11 @@ public class Game {
 	
 
 	
+	/**
+	 * 
+	 * List of players in game
+	 * 
+	 */
 	public ArrayList<Player> players = new ArrayList<Player>();
 		
 	private int state;		//indicates the current state of the game
@@ -68,6 +78,11 @@ public class Game {
 //		players.add(new Player(200, rooms.get(0)));
 	}
 	
+	/**
+	 * 
+	 * Creates hashmap of itemcodes to item types
+	 * 
+	 */
 	public void initializeItemsCodes(){
 		this.itemCodes.put(610, itemType.BOX);
 		this.itemCodes.put(611, itemType.BOOKSHELF);
@@ -82,6 +97,12 @@ public class Game {
 	}
 	
 	
+	/**
+	 * 
+	 * Creates the room we've been using to test the game, this will
+	 * serve as a start point / demo room as is can show off all our game's features
+	 * 
+	 */
 	public void addDemoRoom(){
 		rooms.add(new PuzzleRoom(10));
 		Location itemLocation = new Location(0, 1);
@@ -114,6 +135,13 @@ public class Game {
 	}
 	
 	
+	/**
+	 * 
+	 * Updates the viewdirection of a player instance for use by the ui and renderer
+	 * 
+	 * @param direction direction to change to
+	 * @param uid unique player id to update
+	 */
 	public void shiftView(viewDirection direction, int uid){
 		getPlayer(uid).shiftView(direction);
 //		this.view = direction;
@@ -123,29 +151,60 @@ public class Game {
 //		this.currentRoom = room;
 //	}
 	
+	/**
+	 * Retrieves a player based on the unique id, the networking side was planned to start creating player
+	 * instances starter at ui 200 
+	 * 
+	 * @param uid of player
+	 * @return player object
+	 */
 	public Player getPlayer(int uid){
 		return this.players.get(uid - 200);
 	}
 	
 	
+	/**
+	 * adds a room to the game instance 
+	 * 
+	 * @param room to add
+	 */
 	public void addRoom(Room room){
 		this.rooms.add(room);
 //		setDestinationRooms();
 	}
 	
 	
+	/**
+	 * adds an inventory item to the given room within a game instance
+	 * 
+	 * @param item to add
+	 * @param roomNumber of room to add item to (position in array)
+	 */
 	public void addInventoryItemToGame(InventoryItem item, int roomNumber){
 		this.rooms.get(roomNumber).inventoryItems.add(item);
 		this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 		this.rooms.get(roomNumber).setInventoryItem(item, item.getLocation());
 	}
 	
+	/**
+	 * adds an movable item to the given room within a game instance
+	 * 
+	 * @param item to add
+	 * @param roomNumber of room to add item to (position in array)
+	 */
 	public void addMovableItemToGame(MovableItem item, int roomNumber){
 		this.rooms.get(roomNumber).movableItems.add(item);
 		this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
 		this.rooms.get(roomNumber).setMovableItem(item, item.getLocation());
 	}
 	
+	/**
+	 * adds an immovable item to the given room within a game instance
+	 * changes if item is container
+	 * 
+	 * @param item to add
+	 * @param roomNumber of room to add item to (position in array)
+	 */
 	public void addImmovableItemToGame(ImmovableItem item, int roomNumber){
 		if (item instanceof Container){
 			this.rooms.get(roomNumber).itemsHashMap.put(item.getUoid(), item);
@@ -161,6 +220,11 @@ public class Game {
 	
 	
 	
+	/**
+	 * adds a player to the first room within a game instance
+	 * 
+	 * @param uid player to add to room
+	 */
 	public void addPlayer(int uid){
 		Player playerToAdd = new Player(uid, this.rooms.get(0));
 		this.players.add(playerToAdd);
@@ -231,6 +295,11 @@ public class Game {
 		return rooms;
 	}
 	
+	/**
+	 * Iterates through the list of rooms and sets door destinations as references
+	 * to the next room in the list, stops iterating at final room, doesn't try to get door
+	 * from final room
+	 */
 	public void setDestinationRooms(){
 		int count = 1;
 		for (Room room : this.rooms){

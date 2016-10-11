@@ -1,5 +1,11 @@
 package game;
 
+/**
+ * @author Jordan Ching - 300394044
+ * 
+ * Squares which hold players and items
+ *
+ */
 public abstract class Square {
 	private Player playerOnSquare = null;
 	private InventoryItem inventoryItem = null;
@@ -9,14 +15,27 @@ public abstract class Square {
 	private Boolean renderFlag = true;
 	private Location location;
 	
+	/**
+	 * Creates a square with given location
+	 * @param location
+	 */
 	public Square(Location location) {
 		this.location = location;
 	}
 	
+	/**
+	 * retrieves inventory item on square 
+	 * @return inventoryitem
+	 */
 	public InventoryItem getInventory() {
 		return inventoryItem;
 	}
 
+	
+	/**
+	 * Sets inventory item on square 
+	 * @param inventory
+	 */
 	public void setInventory(InventoryItem inventory) {
 		this.inventoryItem = inventory;
 	}

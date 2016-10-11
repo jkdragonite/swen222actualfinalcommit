@@ -7,6 +7,10 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Jordan Ching - 300394044
+ *
+ */
 public abstract class Room {
 	// arraylist of players
 	public Door door;
@@ -31,25 +35,52 @@ public abstract class Room {
 		UP, DOWN, LEFT, RIGHT
 	}
 	
+	/**
+	 * Number of squares in a given room 
+	 * 
+	 * @param size number of squares
+	 */
 	public Room(int size){
 		this.board = new Board(size);
 	}
 	
+	/**
+	 * Takes a location and retrieves the item on the square at said
+	 * location within the room if applicable (null if empty)
+	 * 
+	 * @param location of square
+	 * @return Item
+	 */
 	public Item getItemOnSquare(Location location){
 		Item returnedItem = board.getSquare(location).getItem();
 		return returnedItem;
 	}
 	
+	/**
+	 * 
+	 * Retrieves player on square at given location if applicable
+	 * 
+	 * @param location of desired square
+	 * @return player at given location
+	 */
 	public Player getPlayerOnSquare(Location location){
 		Player player = board.getSquare(location).getPlayer();
 		return player;
 	}
 	
 	
+	/**
+	 * Adds a player to the room
+	 * @param player to add
+	 */
 	public void addPlayer(Player player){
 		this.playersInRoom.add(player);
 	}
 	
+	/**
+	 * Removes player from room (i.e. when they move to the next room)
+	 * @param player
+	 */
 	public void removePlayer(Player player){
 		this.playersInRoom.remove(player);
 	}
@@ -86,6 +117,10 @@ public abstract class Room {
 	}
 
 	
+	/**
+	 * Retrieves this room's door
+	 * @return
+	 */
 	public Door getDoor(){
 		return this.door;
 	}
@@ -103,10 +138,23 @@ public abstract class Room {
 		this.board.grid[location.getY()][location.getX()].setMovableItem(item);
 	}
 	
+	/**
+	 * Sets inventory item at a given location
+	 * 
+	 * 
+	 * @param item inventory item
+	 * @param location
+	 */
 	public void setInventoryItem(InventoryItem item, Location location){
 		this.board.grid[location.getY()][location.getX()].setInventory(item);
 	}
 	
+	/**
+	 * Sets immovable item at a given location
+	 * 
+	 * @param item immovableitem
+	 * @param location
+	 */
 	public void setImmovableItem(ImmovableItem item, Location location){
 		this.board.grid[location.getY()][location.getX()].setImmovableItem(item);
 		for (Location secondaryLocation : item.getLocationsCovered()){
@@ -202,6 +250,12 @@ public abstract class Room {
 	}
 	
 	
+	/**
+	 * Helper function to return the opposite move direction to cut down on repeated code
+	 * 
+	 * @param currentDirection
+	 * @return MovementDireciont opposite
+	 */
 	public MovementDirection getOppositeDirection(MovementDirection currentDirection){
 		MovementDirection view = null;
 		if (currentDirection == MovementDirection.UP){
@@ -220,6 +274,14 @@ public abstract class Room {
 		return view;
 	}
 	
+	/**
+	 * Pulls the second square for a given direction and square, 
+	 * makes it easier to check squares in pull method
+	 * 
+	 * @param direction to check
+	 * @param square
+	 * @return square
+	 */
 	public Square getSecondSquare(MovementDirection direction, Square square){
 		Square returnSquare = null;
 		HashMap<MovementDirection, Square> boxNeighbours = board.getNeighbours(square.getLocation());
@@ -299,7 +361,7 @@ public abstract class Room {
 	
 	/**
 	 * 
-	 * Drops the first item in the player's inventory
+	 * Drops item in player's inventory at given index
 	 * 
 	 * @param player
 	 */
@@ -310,7 +372,7 @@ public abstract class Room {
 			itemToRemove.removeOwner();
 			itemToRemove.setLocation(player.getLocation());
 			player.removeItem(itemToRemove);
-			System.out.println("dlgkjshdfhgll  "+board.getSquare(player.getLocation()).getInventory());
+//			System.out.println("dlgkjshdfhgll  "+board.getSquare(player.getLocation()).getInventory());
 			updatePlayerMoves(player);
 		}
 
@@ -345,43 +407,43 @@ public abstract class Room {
 		Location currentLocation = player.getLocation();
 		if (direction == MovementDirection.UP){
 			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()-1);	
-			System.out.println(player.getLocation().toString());
-			System.out.println(newLocation.toString());
+//			System.out.println(player.getLocation().toString());
+//			System.out.println(newLocation.toString());
 			player.updateLocation(newLocation);
-			System.out.println(this.board.toString());
+//			System.out.println(this.board.toString());
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
-			System.out.println(this.board.toString());
+//			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.DOWN){
 			Location newLocation = new Location(currentLocation.getX(), currentLocation.getY()+1);	
-			System.out.println(player.getLocation().toString());
-			System.out.println(newLocation.toString());
-			System.out.println(this.board.toString());
+//			System.out.println(player.getLocation().toString());
+//			System.out.println(newLocation.toString());
+//			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
-			System.out.println(this.board.toString());
+//			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.LEFT){
 			Location newLocation = new Location(currentLocation.getX()-1, currentLocation.getY());	
-			System.out.println(player.getLocation().toString());
-			System.out.println(newLocation.toString());
-			System.out.println(this.board.toString());
+//			System.out.println(player.getLocation().toString());
+//			System.out.println(newLocation.toString());
+//			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
-			System.out.println(this.board.toString());
+//			System.out.println(this.board.toString());
 		}
 		if (direction == MovementDirection.RIGHT){
 			Location newLocation = new Location(currentLocation.getX()+1, currentLocation.getY());	
-			System.out.println(player.getLocation().toString());
-			System.out.println(newLocation.toString());
-			System.out.println(this.board.toString());
+//			System.out.println(player.getLocation().toString());
+//			System.out.println(newLocation.toString());
+//			System.out.println(this.board.toString());
 			player.updateLocation(newLocation);
 			board.getSquare(currentLocation).removePlayer();
 			board.getSquare(newLocation).addPlayer(player);
-			System.out.println(this.board.toString());
+//			System.out.println(this.board.toString());
 		}
 		
 		player.resetMoves();
@@ -495,7 +557,7 @@ public abstract class Room {
 	}
 	
 	/**
-	 * Transitions player to new room
+	 * Transitions player to new room, wipes keys from player inventory
 	 * 
 	 * @param player
 	 */
@@ -507,7 +569,7 @@ public abstract class Room {
 			this.door.getDestinationRoom().placePlayer(player, new Location(0, 9));
 			removePlayer(player);
 			player.updateRoom(this.door.getDestinationRoom());
-			System.out.println("skdhgfjkshadg "+player.getRoom());
+//			System.out.println("skdhgfjkshadg "+player.getRoom());
 			player.resetMoves();
 			updatePlayerMoves(player);
 			player.wipeInventory();
@@ -517,7 +579,7 @@ public abstract class Room {
 			this.door.getDestinationRoom().placePlayer(player, new Location(0, 9));
 			removePlayer(player);
 			player.updateRoom(this.door.getDestinationRoom());
-			System.out.println("askhfkjshdg "+player.getRoom());
+//			System.out.println("askhfkjshdg "+player.getRoom());
 			player.resetMoves();
 			updatePlayerMoves(player);
 			player.wipeInventory();
@@ -542,10 +604,18 @@ public abstract class Room {
 	
 
 	
+	/**
+	 * Unlocks door
+	 * 
+	 */
 	public void unlockDoor(){
 		this.door.setUnlocked(true);
 	}
 	
+	/**
+	 * adds player spawn points, unused, would be used if we had multiple players
+	 * @param loc
+	 */
 	public void addPSP(Location loc){
 		playerSpawnPoints.add(loc);
 	}
