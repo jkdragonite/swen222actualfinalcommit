@@ -19,7 +19,10 @@ import game.*;
 
 
 /**
- * 
+ * GameRenderer handles the rendering of the actual game through the 
+ * render() method. It takes local information based on the player 
+ * currently using the game, and then renders based of a series 
+ * of hard coded constants.
  * 
  * @author Brooke 300321819
  *
@@ -27,34 +30,31 @@ import game.*;
 @SuppressWarnings("serial")
 public class GameRenderer extends Canvas{
 
-	Game.viewDirection viewDir;
-	Square[][] stage;
-	SpriteSet spriteSet = new SpriteSet();
-	Room renderRoom;
-	List<Image> sprites = (List<Image>) spriteSet.getSprites();
-	Game game;
-	Graphics gra;
-	int x, y;
-	boolean sqPlayer = false;
-	public static final int floor = 450;
-	Player refPlayer;
+	private Game.viewDirection viewDir;
+	private Square[][] stage;
+	private SpriteSet spriteSet = new SpriteSet();
+	private Room renderRoom;
+	private Game game;
+	private Graphics gra;
+	private boolean sqPlayer = false;
+	private Player refPlayer;
 
+	/**
+	 * The constructor for the class. It takes a parent Game object to 
+	 * back reference to, and a unique id code to identify which player
+	 * is the active player for this instance.
+	 * 
+	 * @param parent
+	 * @param uid
+	 */
 	public GameRenderer(Game parent, int uid){
-
+		//create the field references.
 		game = parent;
 		Player refPlayer = game.getPlayer(uid);
 		renderRoom = refPlayer.getRoom();
 		viewDir = game.getDirection(uid);
 		Board board = renderRoom.board;
 		stage = board.grid;
-
-		if(board.grid[0][0] == null){
-			System.out.println("null squares");
-		}
-
-		if (stage[0][0] == null){
-			System.out.println("null titles");
-		}
 	}
 
 
@@ -62,6 +62,7 @@ public class GameRenderer extends Canvas{
 	 * 
 	 */
 	public void rotateCW() {
+		//simple array transformation.
 		Square[][] mat = stage;
 		final int M = mat.length;
 		final int N = mat[0].length;
@@ -71,11 +72,9 @@ public class GameRenderer extends Canvas{
 				ret[c][M-1-r] = mat[r][c];
 			}
 		}
-
-		this.x = N;
-		this.y = M;
 		this.stage = ret;
 
+		//update the view direction.
 		switch(viewDir){
 		case NORTH:
 			viewDir = Game.viewDirection.EAST;
@@ -95,7 +94,7 @@ public class GameRenderer extends Canvas{
 
 	}
 
-	//coordinates of the floor
+	//fields and constants for the actual rendering of the program.
 	private static final int BASE = 375;
 	private static final int LEFT = 100;
 	private static final int SIZE = 100;
@@ -105,6 +104,13 @@ public class GameRenderer extends Canvas{
 
 	/**
 	 * This handles the actual process of rendering the scene.
+	 * It calls a series of sub methods to make sure that tasks 
+	 * are divided and tested in a logical manner.
+	 * 
+	 * First it renders the polygons for the wall and floor of the 
+	 * room, and then iterates from the back to the front of the room
+	 * scaling and drawing according to distance.
+	 * 
 	 * @param g
 	 */
 	public void render(Graphics g){	
@@ -199,6 +205,7 @@ public class GameRenderer extends Canvas{
 
 	/**
 	 * Render object windows - in this case all objects are boxes.
+	 * 
 	 * @param x
 	 * @param y
 	 * @param g
@@ -211,6 +218,8 @@ public class GameRenderer extends Canvas{
 
 
 	/**
+	 * Accesses the spriteset, generating the directional codes needed 
+	 * to get the correct sprites for the game.
 	 * 
 	 * @author Brooke
 	 * @param square
@@ -278,6 +287,10 @@ public class GameRenderer extends Canvas{
 		render(gra);
 	}
 	
+	/**
+	 * returns the room that the renderer is rendering.
+	 * @return Room
+	 */
 	public Room getRoom(){
 		return renderRoom;
 	}
